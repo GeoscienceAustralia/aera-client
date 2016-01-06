@@ -1,0 +1,22 @@
+{
+  "name": "aera-client",
+  "version": "0.0.1",
+  "description": "Web client for AERA",
+  "main": "app.js",
+  "scripts": {
+    "test": "karma start --single-run --browsers PhantomJS"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoscienceAustralia/aera-client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeoscienceAustralia/aera-client/issues"
+  },
+  "homepage": "https://github.com/GeoscienceAustralia/aera-client#readme",
+  "devDependencies": {
+    "karma": "^0.13.19"
+  }
+}
