@@ -41,6 +41,6 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun : false,
 
-    plugins : [ 'karma-jasmine', 'karma-chrome-launcher', 'karma-junit-reporter' ]
+    plugins : [ 'karma-jasmine', 'karma-chrome-launcher', 'karma-junit-reporter', 'karma-phantomjs-launcher' ]
   });
 };

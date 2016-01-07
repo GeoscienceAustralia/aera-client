@@ -17,6 +17,12 @@
   },
   "homepage": "https://github.com/GeoscienceAustralia/aera-client#readme",
   "devDependencies": {
-    "karma": "^0.13.19"
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-junit-reporter": "^0.3.8",
+    "karma-phantomjs-launcher": "^0.2.3",
+    "phantomjs": "^1.9.19"
   }
 }
