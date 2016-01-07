@@ -9,7 +9,10 @@ module.exports = function(config) {
     frameworks : [ 'jasmine' ],
 
     // list of files / patterns to load in the browser
-    files : [ 'mock_spec.js' ],
+    files : [
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'components/**/*.js' ],
 
     // list of files to exclude
     exclude : [],
