@@ -4,19 +4,21 @@ describe('A Dataset', function () {
 
   var datasetController, datasetService;
 
-  beforeEach(module('aera-dataset'));
-  beforeEach(module(function ($provide) {
+  beforeEach(function () {
     var mockDatasetService = {
       downloadDataset: function () {}
     };
 
-    $provide.factory('DatasetService', function () { return mockDatasetService; });
+    module('aera-dataset');
+    module(function ($provide) {
+      $provide.factory('DatasetService', function () { return mockDatasetService; });
+    });
 
-  }));
-  beforeEach(inject(function ($controller, _DatasetService_) {
-    datasetService = _DatasetService_;
-    datasetController = $controller('DatasetController', {});
-  }));
+    inject(function ($controller, _DatasetService_) {
+      datasetService = _DatasetService_;
+      datasetController = $controller('DatasetController', {});
+    })
+  });
 
   it('displays its title', function () {
     var element = {};
