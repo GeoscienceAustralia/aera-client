@@ -19,10 +19,12 @@
   "devDependencies": {
     "angular-mocks": "^1.4.8",
     "jasmine-core": "^2.4.1",
+    "jquery": "^2.2.0",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.6",
     "karma-junit-reporter": "^0.3.8",
+    "karma-ng-html2js-preprocessor": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.3",
     "phantomjs": "^1.9.19"
   },

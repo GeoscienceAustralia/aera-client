@@ -2,8 +2,8 @@
 
 describe('Dataset Controller', function () {
 
-  var $q, $rootScope, datasetController, datasetService, mockDataset;
-
+  var $compile, $controller, $q, $rootScope,
+      datasetController, datasetQuery, directiveElement, mockDataset, mockDatasetService;
   beforeEach(function () {
 
     /* Some jiggery pokery with setting up the mockDatasetService
@@ -15,40 +15,42 @@ describe('Dataset Controller', function () {
       added after a call to inject().
      */
 
-    var mockDatasetService = {
+    mockDatasetService = {
       downloadDataset: function () {}
     };
 
     mockDataset = {
       title: 'Test Title',
       imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
-      text: '<p>Bender is great</p><p>And some other stuff</p>'
+      text: 'Bender is great'
     };
 
     module('aera-dataset');
+    module('components/dataset/dataset.html');
     module(function ($provide) {
       $provide.factory('DatasetService', function () { return mockDatasetService; });
       $provide.value('datasetId', 666);
     });
 
-    inject(function (_$q_, _$rootScope_) {
+    inject(function (_$compile_, _$controller_, _$q_, _$rootScope_) {
+      $compile = _$compile_;
+      $controller = _$controller_;
       $q = _$q_;
       $rootScope = _$rootScope_;
     });
 
-    var datasetQuery;
     mockDatasetService.get = function () {
       datasetQuery = $q.defer();
       return datasetQuery.promise;
     };
 
-    inject(function ($controller, _DatasetService_) {
-      datasetService = _DatasetService_;
-      datasetController = $controller('DatasetController', {DatasetService: datasetService});
-      datasetQuery.resolve(mockDataset);
-    });
-
+    directiveElement = $compile(angular.element('<aera-dataset></aera-dataset>'))($rootScope);
     $rootScope.$digest();
+    datasetQuery.resolve(mockDataset);
+    $rootScope.$digest();
+
+    datasetController = directiveElement.controller('aeraDataset');
+
   });
 
   it('retrieves the dataset information from the dataset service', function () {
@@ -57,14 +59,20 @@ describe('Dataset Controller', function () {
     expect(datasetController.text).toBe(mockDataset.text);
   });
 
-  it('calls the download data service', function () {
-    spyOn(datasetService, 'downloadDataset');
-    datasetController.download();
-    expect(datasetService.downloadDataset).toHaveBeenCalledWith(mockDataset.id);
+  it('displays the dataset information and download button', function () {
+    expect(directiveElement.find('h2').html()).toBe(mockDataset.title);
+    expect(directiveElement.find('img').attr('src')).toBe(mockDataset.imageUrl);
+    expect(directiveElement.find('div').html()).toContain(mockDataset.text);
+    expect(directiveElement.find('button').html()).toBe('Download dataset as CSV');
+  });
+
+  it('calls the download data service when the button is clicked', function () {
+    spyOn(mockDatasetService, 'downloadDataset');
+    directiveElement.find('button').click();
+    expect(mockDatasetService.downloadDataset).toHaveBeenCalledWith(mockDataset.id);
   });
 
   it('displays an error if the dataset can\'t be retrieved', function () {
-
   });
 
   it('displays an error if the raw data can\'t be downloaded', function () {
