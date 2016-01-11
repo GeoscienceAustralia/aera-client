@@ -2,36 +2,35 @@
 
 describe('A Dataset', function () {
 
-  var datasetController, datasetService;
+  var datasetService, datasetController, mockDataset;
 
   beforeEach(function () {
     var mockDatasetService = {
       downloadDataset: function () {}
     };
 
+    mockDataset = {
+      title: 'Test Title',
+      imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
+      text: '<p>Bender is great</p><p>And some other stuff</p>'
+    };
+
     module('aera-dataset');
     module(function ($provide) {
       $provide.factory('DatasetService', function () { return mockDatasetService; });
+      $provide.value('dataset', mockDataset);
     });
 
     inject(function ($controller, _DatasetService_) {
       datasetService = _DatasetService_;
-      datasetController = $controller('DatasetController', {});
+      datasetController = $controller('DatasetController', {DatasetService: datasetService});
     })
   });
 
-  it('displays its title', function () {
-    var element = {};
-    var expectedHtml = '<h2>Test Title</h2>';
-
-    inject(function ($compile, $rootScope) {
-      element = angular.element('<aera-dataset></aera-dataset>');
-      element = $compile(element)($rootScope);
-
-      $rootScope.$digest();
-    });
-
-    expect(element.html()).toContain(expectedHtml);
+  it('retrieves the dataset information from the dataset service', function () {
+    expect(datasetController.title).toBe(mockDataset.title);
+    expect(datasetController.imageUrl).toBe(mockDataset.imageUrl);
+    expect(datasetController.text).toBe(mockDataset.text);
   });
 
   it('calls the download data service', function () {

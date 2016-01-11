@@ -2,7 +2,10 @@
 
 (function (angular) {
 
-  var datasetControllerFunction = function (DatasetService) {
+  var datasetControllerFunction = function (DatasetService, dataset) {
+
+    angular.extend(this, dataset);
+
     this.download = function () {
       DatasetService.downloadDataset(12345);
     };
@@ -12,9 +15,9 @@
     return {
       restrict: 'E',
       scope: {},
-      template: '<h2>Test Title</h2>',
+      templateUrl: 'components/dataset/dataset.html',
       controller: 'DatasetController as dataset'
-    }
+    };
   };
 
   angular.module('aera-dataset', [])
