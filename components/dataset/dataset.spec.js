@@ -3,7 +3,9 @@
 describe('Dataset Controller', function () {
 
   var $compile, $controller, $q, $rootScope,
-      datasetController, datasetQuery, directiveElement, mockDataset, mockDatasetService;
+      datasetController, datasetQuery, directiveElement, downloadPromise,
+      mockDataset, mockDatasetService, mockNotificationService;
+  var datasetId = 666;
   beforeEach(function () {
 
     /* Some jiggery pokery with setting up the mockDatasetService
@@ -15,8 +17,11 @@ describe('Dataset Controller', function () {
       added after a call to inject().
      */
 
-    mockDatasetService = {
-      downloadDataset: function () {}
+    mockDatasetService = {};
+
+    mockNotificationService = {
+      addError: function () {},
+      addInformation: function () {}
     };
 
     mockDataset = {
@@ -29,7 +34,8 @@ describe('Dataset Controller', function () {
     module('components/dataset/dataset.html');
     module(function ($provide) {
       $provide.factory('DatasetService', function () { return mockDatasetService; });
-      $provide.value('datasetId', 666);
+      $provide.factory('NotificationService', function () { return mockNotificationService; });
+      $provide.value('datasetId', datasetId);
     });
 
     inject(function (_$compile_, _$controller_, _$q_, _$rootScope_) {
@@ -44,22 +50,36 @@ describe('Dataset Controller', function () {
       return datasetQuery.promise;
     };
 
+    mockDatasetService.downloadDataset = function () {
+      downloadPromise = $q.defer();
+      return downloadPromise.promise;
+    };
+
     directiveElement = $compile(angular.element('<aera-dataset></aera-dataset>'))($rootScope);
-    $rootScope.$digest();
-    datasetQuery.resolve(mockDataset);
     $rootScope.$digest();
 
     datasetController = directiveElement.controller('aeraDataset');
 
   });
 
+  var resolvePromise = function (promise, result) {
+    promise.resolve(result);
+    $rootScope.$digest();
+  };
+  var rejectPromise = function (promise, reason) {
+    promise.reject(reason);
+    $rootScope.$digest();
+  };
+
   it('retrieves the dataset information from the dataset service', function () {
+    resolvePromise(datasetQuery, mockDataset);
     expect(datasetController.title).toBe(mockDataset.title);
     expect(datasetController.imageUrl).toBe(mockDataset.imageUrl);
     expect(datasetController.text).toBe(mockDataset.text);
   });
 
   it('displays the dataset information and download button', function () {
+    resolvePromise(datasetQuery, mockDataset);
     expect(directiveElement.find('h2').html()).toBe(mockDataset.title);
     expect(directiveElement.find('img').attr('src')).toBe(mockDataset.imageUrl);
     expect(directiveElement.find('div').html()).toContain(mockDataset.text);
@@ -67,16 +87,33 @@ describe('Dataset Controller', function () {
   });
 
   it('calls the download data service when the button is clicked', function () {
-    spyOn(mockDatasetService, 'downloadDataset');
+    resolvePromise(datasetQuery, mockDataset);
+    spyOn(mockDatasetService, 'downloadDataset').and.callThrough();
     directiveElement.find('button').click();
-    expect(mockDatasetService.downloadDataset).toHaveBeenCalledWith(mockDataset.id);
+    expect(mockDatasetService.downloadDataset).toHaveBeenCalledWith(datasetId);
   });
 
-  it('displays an error if the dataset can\'t be retrieved', function () {
+  it('creates a notification if the dataset can\'t be retrieved', function () {
+    spyOn(mockNotificationService, 'addError');
+    rejectPromise(datasetQuery);
+    expect(mockNotificationService.addError).toHaveBeenCalledWith('The dataset could not be retrieved');
   });
 
-  it('displays an error if the raw data can\'t be downloaded', function () {
+  it('creates a notification that the data is downloading', function () {
+    spyOn(mockNotificationService, 'addInformation');
+    resolvePromise(datasetQuery, mockDataset);
+    datasetController.download();
+    resolvePromise(downloadPromise);
 
+    expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Dataset successfully downloaded')
+  });
+
+  it('creates a notification if the raw data can\'t be downloaded', function () {
+    spyOn(mockNotificationService, 'addError');
+    resolvePromise(datasetQuery, mockDataset);
+    datasetController.download();
+    rejectPromise(downloadPromise);
+    expect(mockNotificationService.addError).toHaveBeenCalledWith('The dataset could not be downloaded');
   });
 
 });

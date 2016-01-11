@@ -2,19 +2,26 @@
 
 (function (angular) {
 
-  var datasetControllerFunction = function (DatasetService, datasetId) {
+  var datasetControllerFunction = function (datasetId, DatasetService, NotificationService) {
     var dataset = this;
 
     var datasetRetrieved = function (result) {
       angular.extend(dataset, result);
     };
     var datasetRetrievalFailed = function () {
-
+      NotificationService.addError('The dataset could not be retrieved');
     };
     DatasetService.get(datasetId).then(datasetRetrieved, datasetRetrievalFailed);
 
+    var datasetDownloaded = function () {
+      NotificationService.addInformation('Dataset successfully downloaded');
+    };
+    var datasetDownloadFailed = function () {
+      NotificationService.addError('The dataset could not be downloaded');
+    };
+
     dataset.download = function () {
-      DatasetService.downloadDataset(datasetId);
+      DatasetService.downloadDataset(datasetId).then(datasetDownloaded, datasetDownloadFailed);
     };
   };
 
@@ -28,7 +35,7 @@
   };
 
   angular.module('aera-dataset', [])
-      .controller('DatasetController', ['DatasetService', datasetControllerFunction])
+      .controller('DatasetController', ['datasetId', 'DatasetService', 'NotificationService', datasetControllerFunction])
       .directive('aeraDataset', datasetDirectiveFunction);
 
 
