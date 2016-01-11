@@ -1,10 +1,20 @@
 'use strict';
 
-describe('A Dataset', function () {
+describe('Dataset Controller', function () {
 
-  var datasetService, datasetController, mockDataset;
+  var $q, $rootScope, datasetController, datasetService, mockDataset;
 
   beforeEach(function () {
+
+    /* Some jiggery pokery with setting up the mockDatasetService
+      $provide can only be called from a module() callback, as it is setting up a provider for
+      the injector (ie, it needs to be done before inject() is called).
+      $q can't be called until after it has been injected.
+      All calls to inject() have to come after all calls to module().
+      As a result, DatasetService needs to be provided in a module() call, but have its get() method
+      added after a call to inject().
+     */
+
     var mockDatasetService = {
       downloadDataset: function () {}
     };
@@ -18,13 +28,27 @@ describe('A Dataset', function () {
     module('aera-dataset');
     module(function ($provide) {
       $provide.factory('DatasetService', function () { return mockDatasetService; });
-      $provide.value('dataset', mockDataset);
+      $provide.value('datasetId', 666);
     });
+
+    inject(function (_$q_, _$rootScope_) {
+      $q = _$q_;
+      $rootScope = _$rootScope_;
+    });
+
+    var datasetQuery;
+    mockDatasetService.get = function () {
+      datasetQuery = $q.defer();
+      return datasetQuery.promise;
+    };
 
     inject(function ($controller, _DatasetService_) {
       datasetService = _DatasetService_;
       datasetController = $controller('DatasetController', {DatasetService: datasetService});
-    })
+      datasetQuery.resolve(mockDataset);
+    });
+
+    $rootScope.$digest();
   });
 
   it('retrieves the dataset information from the dataset service', function () {
@@ -36,6 +60,15 @@ describe('A Dataset', function () {
   it('calls the download data service', function () {
     spyOn(datasetService, 'downloadDataset');
     datasetController.download();
-    expect(datasetService.downloadDataset).toHaveBeenCalledWith(12345);
+    expect(datasetService.downloadDataset).toHaveBeenCalledWith(mockDataset.id);
   });
+
+  it('displays an error if the dataset can\'t be retrieved', function () {
+
+  });
+
+  it('displays an error if the raw data can\'t be downloaded', function () {
+
+  });
+
 });

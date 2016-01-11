@@ -2,12 +2,19 @@
 
 (function (angular) {
 
-  var datasetControllerFunction = function (DatasetService, dataset) {
+  var datasetControllerFunction = function (DatasetService, datasetId) {
+    var dataset = this;
 
-    angular.extend(this, dataset);
+    var datasetRetrieved = function (result) {
+      angular.extend(dataset, result);
+    };
+    var datasetRetrievalFailed = function () {
 
-    this.download = function () {
-      DatasetService.downloadDataset(12345);
+    };
+    DatasetService.get(datasetId).then(datasetRetrieved, datasetRetrievalFailed);
+
+    dataset.download = function () {
+      DatasetService.downloadDataset(datasetId);
     };
   };
 
