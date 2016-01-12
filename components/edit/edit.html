@@ -1,0 +1,21 @@
+<button id="new-dataset" ng-click="edit.clearForm()">New Dataset</button>
+<label for="datasetId">Find dataset by ID</label>
+<input type="number" id="datasetId" ng-model="edit.dataset.id" />
+<button id="find-dataset" ng-click="edit.findDataset()">Find</button>
+
+<label for="chapter"></label>
+<select id="chapter" ng-model="edit.dataset.chapter">
+  <option value="">Please select a chapter</option>
+  <option ng-repeat="chapter in edit.chapters" value="{{chapter.id}}"
+          selected="{{chapter.id === edit.dataset.chapter.id}}">{{chapter.title}}</option>
+</select>
+<label for="title">Title</label>
+<input type="text" id="title" ng-model="edit.dataset.title" />
+<label for="text">Text</label>
+<textarea id="text" ng-model="edit.dataset.text"></textarea>
+<label for="dataFile">Please select a CSV file to upload</label>
+<input type="file" id="dataFile" ng-model="edit.dataset.dataFile" />
+<label for="imageFile">Please select an image file to upload</label>
+<input type="file" id="imageFile" ng-model="edit.dataset.imageFile" />
+<button id="save" ng-click="edit.saveDataset()">Save</button>
+<button id="delete" ng-click="edit.deleteDataset()">Delete</button>
