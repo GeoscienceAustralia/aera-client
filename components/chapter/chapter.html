@@ -1,0 +1,12 @@
+<h1>{{chapter.title}}</h1>
+<ul>
+  <li ng-repeat="dataset in chapter.datasets">
+    <a ng-click="chapter.scrollToDataset(dataset.id)" href="">{{dataset.title}}</a>
+  </li>
+</ul>
+<ul>
+  <li ng-repeat="dataset in chapter.datasets">
+    <aera-dataset id="dataset.id"></aera-dataset>
+
+  </li>
+</ul>

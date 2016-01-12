@@ -54,7 +54,7 @@ describe('Dataset Controller', function () {
       return downloadPromise.promise;
     };
 
-    directiveElement = $compile(angular.element('<aera-dataset></aera-dataset>'))($rootScope);
+    directiveElement = $compile(angular.element('<aera-dataset id="666"></aera-dataset>'))($rootScope);
     $rootScope.$digest();
 
     datasetController = directiveElement.controller('aeraDataset');
