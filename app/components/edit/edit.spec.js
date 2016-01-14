@@ -1,8 +1,8 @@
 describe('Edit Page', function () {
 
   var $q, $rootScope,
-      mockChapters, mockChapterService, mockDatasetService, mockNotificationService, mockDataset,
-      chaptersQuery, datasetQuery, directiveElement, editController;
+      mockChapters, mockChapterService, mockPageService, mockNotificationService, mockPage,
+      chaptersQuery, pageQuery, directiveElement, editController;
 
   beforeEach(function () {
 
@@ -13,7 +13,7 @@ describe('Edit Page', function () {
       { id: 7, title: 'The Force Awakens'}
     ];
 
-    mockDataset = {
+    mockPage = {
       id: 83,
       title: 'Number of Ewoks on Endor',
       text: 'The effect of having the Deathstar destroyed on the native Ewok population of Endor',
@@ -23,14 +23,14 @@ describe('Edit Page', function () {
     };
 
     mockChapterService = {};
-    mockDatasetService = {};
+    mockPageService = {};
     mockNotificationService = { addError: function () {}, addInformation: function () {} };
 
     module('aera-edit');
     module('components/edit/edit.html');
     module(function ($provide) {
       $provide.factory('ChapterService', function () { return mockChapterService; });
-      $provide.factory('DatasetService', function () { return mockDatasetService; });
+      $provide.factory('PageService', function () { return mockPageService; });
       $provide.factory('NotificationService', function () { return mockNotificationService; });
     });
 
@@ -44,12 +44,12 @@ describe('Edit Page', function () {
       return chaptersQuery.promise;
     };
 
-    mockDatasetService.get = function () {
-      datasetQuery = $q.defer();
-      return datasetQuery.promise;
+    mockPageService.get = function () {
+      pageQuery = $q.defer();
+      return pageQuery.promise;
     };
-    mockDatasetService.save = mockDatasetService.get;
-    mockDatasetService.delete = mockDatasetService.get;
+    mockPageService.save = mockPageService.get;
+    mockPageService.delete = mockPageService.get;
 
     inject(function ($compile) {
       directiveElement = $compile('<aera-edit></aera-edit>')($rootScope);
@@ -67,22 +67,22 @@ describe('Edit Page', function () {
     $rootScope.$digest();
   };
 
-  var getDatasetIdInput = function () {
-    return directiveElement.find('input#datasetId');
+  var getPageIdInput = function () {
+    return directiveElement.find('input#pageId');
   };
-  var getNewDatasetButton = function () {
-    return directiveElement.find('button#new-dataset');
+  var getNewPageButton = function () {
+    return directiveElement.find('button#new-page');
   };
-  var getFindDatasetButton = function () {
-    return directiveElement.find('button#find-dataset');
+  var getFindPageButton = function () {
+    return directiveElement.find('button#find-page');
   };
   var getChapterSelector = function () {
     return directiveElement.find('select#chapter');
   };
-  var getSaveDatasetButton = function () {
+  var getSavePageButton = function () {
     return directiveElement.find('button#save');
   };
-  var getDeleteDatasetButton = function () {
+  var getDeletePageButton = function () {
     return directiveElement.find('button#delete');
   };
 
@@ -99,66 +99,66 @@ describe('Edit Page', function () {
     expect(mockNotificationService.addError).toHaveBeenCalledWith('Could not retrieve list of chapters');
   });
 
-  it('allows the user to create a new dataset', function () {
-    expect(getNewDatasetButton().length).toBe(1);
+  it('allows the user to create a new page', function () {
+    expect(getNewPageButton().length).toBe(1);
     spyOn(editController, 'clearForm').and.callThrough();
-    getNewDatasetButton().click();
+    getNewPageButton().click();
     expect(editController.clearForm).toHaveBeenCalled();
-    expect(editController.dataset).toEqual({});
+    expect(editController.page).toEqual({});
   });
 
-  it('allows the user to search for an existing dataset by ID', function () {
-    expect(getDatasetIdInput().length).toBe(1);
-    expect(getFindDatasetButton().length).toBe(1);
+  it('allows the user to search for an existing page by ID', function () {
+    expect(getPageIdInput().length).toBe(1);
+    expect(getFindPageButton().length).toBe(1);
 
-    spyOn(mockDatasetService, 'get').and.callThrough();
-    editController.dataset.id = mockDataset.id;
+    spyOn(mockPageService, 'get').and.callThrough();
+    editController.page.id = mockPage.id;
     $rootScope.$apply();
-    getFindDatasetButton().click();
-    expect(mockDatasetService.get).toHaveBeenCalledWith(mockDataset.id);
-    resolvePromise(datasetQuery, mockDataset);
+    getFindPageButton().click();
+    expect(mockPageService.get).toHaveBeenCalledWith(mockPage.id);
+    resolvePromise(pageQuery, mockPage);
 
-    expect(getDatasetIdInput().val()).toBe(mockDataset.id + '');
-    expect(directiveElement.find('input#title').val()).toBe(mockDataset.title);
-    expect(directiveElement.find('textarea#text').val()).toBe(mockDataset.text);
+    expect(getPageIdInput().val()).toBe(mockPage.id + '');
+    expect(directiveElement.find('input#title').val()).toBe(mockPage.title);
+    expect(directiveElement.find('textarea#text').val()).toBe(mockPage.text);
   });
 
-  it('creates an error message when the user tries to find a dataset that doesn\'t exist', function () {
+  it('creates an error message when the user tries to find a page that doesn\'t exist', function () {
     spyOn(mockNotificationService, 'addError');
-    editController.dataset.id = 44;
-    getFindDatasetButton().click();
-    rejectPromise(datasetQuery);
-    expect(mockNotificationService.addError).toHaveBeenCalledWith('No matching dataset found');
+    editController.page.id = 44;
+    getFindPageButton().click();
+    rejectPromise(pageQuery);
+    expect(mockNotificationService.addError).toHaveBeenCalledWith('No matching page found');
   });
 
-  it('calls the Dataset service when a user saves', function () {
-    spyOn(mockDatasetService, 'save').and.callThrough();
-    editController.dataset = mockDataset;
-    getSaveDatasetButton().click();
-    expect(mockDatasetService.save).toHaveBeenCalledWith(mockDataset);
+  it('calls the Page service when a user saves', function () {
+    spyOn(mockPageService, 'save').and.callThrough();
+    editController.page = mockPage;
+    getSavePageButton().click();
+    expect(mockPageService.save).toHaveBeenCalledWith(mockPage);
   });
 
   it('creates an error when the save fails', function () {
     spyOn(mockNotificationService, 'addError').and.callThrough();
-    getSaveDatasetButton().click();
-    rejectPromise(datasetQuery);
-    expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to save dataset');
+    getSavePageButton().click();
+    rejectPromise(pageQuery);
+    expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to save page');
   });
 
-  it('calls the Dataset service when a user deletes and notifies user of success', function () {
-    spyOn(mockDatasetService, 'delete').and.callThrough();
+  it('calls the Page service when a user deletes and notifies user of success', function () {
+    spyOn(mockPageService, 'delete').and.callThrough();
     spyOn(mockNotificationService, 'addInformation');
-    editController.dataset = mockDataset;
-    getDeleteDatasetButton().click();
-    resolvePromise(datasetQuery);
-    expect(mockDatasetService.delete).toHaveBeenCalledWith(mockDataset.id);
-    expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Dataset deleted');
+    editController.page = mockPage;
+    getDeletePageButton().click();
+    resolvePromise(pageQuery);
+    expect(mockPageService.delete).toHaveBeenCalledWith(mockPage.id);
+    expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Page deleted');
   });
 
   it('creates an error when delete fails', function () {
     spyOn(mockNotificationService, 'addError').and.callThrough();
-    getDeleteDatasetButton().click();
-    rejectPromise(datasetQuery);
-    expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to delete dataset');
+    getDeletePageButton().click();
+    rejectPromise(pageQuery);
+    expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to delete page');
   });
 });

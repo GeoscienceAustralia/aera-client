@@ -14,8 +14,8 @@
     };
     ChapterService.get({chapterId: chapter.id}, chapterRetrieved, chapterRetrievalFailed);
 
-    chapter.scrollToDataset = function (datasetId) {
-      $location.hash(datasetId);
+    chapter.scrollToPage = function (pageId) {
+      $location.hash(pageId);
       $anchorScroll();
     }
   };

@@ -1,6 +1,6 @@
 <h1>AERA</h1>
 <ul>
   <li ng-repeat="chapter in view.chapters">
-    <a ui-sref="chapter/{{chapter.id}}">{{::chapter.title}}</a>
+    <a ng-href="#/chapter/{{chapter.id}}">{{::chapter.title}}</a>
   </li>
 </ul>

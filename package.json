@@ -2,7 +2,7 @@
   "name": "aera-client",
   "version": "0.0.1",
   "description": "Web client for AERA",
-  "main": "app.js",
+  "main": "app/app.js",
   "scripts": {
     "test": "karma start --single-run --browsers PhantomJS"
   },
@@ -33,6 +33,6 @@
     "angular": "^1.4.8",
     "angular-component": "0.0.1",
     "angular-resource": "^1.4.8",
-    "angular-ui-router": "^0.2.15"
+    "angular-route": "^1.4.8"
   }
 }

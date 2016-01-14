@@ -2,9 +2,9 @@
 
 (function (angular) {
 
-  var editControllerFunction = function (ChapterService, DatasetService, NotificationService) {
+  var editControllerFunction = function (ChapterService, PageService, NotificationService) {
     var edit = this;
-    edit.dataset = {};
+    edit.page = {};
 
     var chaptersRetrieved = function (chapters) {
       edit.chapters = chapters;
@@ -15,38 +15,38 @@
     ChapterService.query(chaptersRetrieved, chapterRetrievalFailed);
 
     edit.clearForm = function () {
-      edit.dataset = {};
+      edit.page = {};
     };
 
-    var datasetFound = function (dataset) {
-      edit.dataset = dataset;
+    var pageFound = function (page) {
+      edit.page = page;
     };
-    var datasetNotFound = function () {
-      NotificationService.addError('No matching dataset found');
+    var pageNotFound = function () {
+      NotificationService.addError('No matching page found');
     };
-    edit.findDataset = function () {
-      if (edit.dataset.id)
-        DatasetService.get(edit.dataset.id, datasetFound, datasetNotFound);
-    };
-
-    var datasetSaved = function (id) {
-      edit.dataset.id = id;
-    };
-    var datasetSaveFailed = function () {
-      NotificationService.addError('Unable to save dataset');
-    };
-    edit.saveDataset = function () {
-      DatasetService.save(edit.dataset, datasetSaved, datasetSaveFailed);
+    edit.findPage = function () {
+      if (edit.page.id)
+        PageService.get(edit.page.id, pageFound, pageNotFound);
     };
 
-    var datasetDeleted = function () {
-      NotificationService.addInformation('Dataset deleted');
+    var pageSaved = function (id) {
+      edit.page.id = id;
     };
-    var datasetDeleteFailed = function () {
-      NotificationService.addError('Unable to delete dataset');
+    var pageSaveFailed = function () {
+      NotificationService.addError('Unable to save page');
     };
-    edit.deleteDataset = function () {
-      DatasetService.delete(edit.dataset.id, datasetDeleted, datasetDeleteFailed);
+    edit.savePage = function () {
+      PageService.save(edit.page, pageSaved, pageSaveFailed);
+    };
+
+    var pageDeleted = function () {
+      NotificationService.addInformation('Page deleted');
+    };
+    var pageDeleteFailed = function () {
+      NotificationService.addError('Unable to delete page');
+    };
+    edit.deletePage = function () {
+      PageService.delete(edit.page.id, pageDeleted, pageDeleteFailed);
     };
 
   };
@@ -61,6 +61,6 @@
   };
 
   angular.module('aera-edit', [])
-      .controller('EditController', ['ChapterService', 'DatasetService', 'NotificationService', editControllerFunction])
+      .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', editControllerFunction])
       .directive('aeraEdit', editDirectiveFunction);
 })(angular);
