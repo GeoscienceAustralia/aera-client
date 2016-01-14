@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-  var viewControllerFunction = function (ChapterService, NotificationService, $location) {
+  var viewControllerFunction = function (ChapterService, NotificationService) {
     var view = this;
 
     var chaptersRetrieved = function (result) {
@@ -11,11 +11,8 @@
     var chapterRetrievalFailed = function () {
       NotificationService.addError('Unable to retrieve data');
     };
-    ChapterService.query().then(chaptersRetrieved, chapterRetrievalFailed);
+    ChapterService.query(chaptersRetrieved, chapterRetrievalFailed);
 
-    view.navigateToChapter = function (chapterId) {
-      $location.url('chapter/' + chapterId)
-    }
   };
 
   var viewDirectiveFunction = function () {

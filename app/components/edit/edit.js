@@ -12,7 +12,7 @@
     var chapterRetrievalFailed = function () {
       NotificationService.addError('Could not retrieve list of chapters');
     };
-    ChapterService.query().then(chaptersRetrieved, chapterRetrievalFailed);
+    ChapterService.query(chaptersRetrieved, chapterRetrievalFailed);
 
     edit.clearForm = function () {
       edit.dataset = {};
@@ -26,7 +26,7 @@
     };
     edit.findDataset = function () {
       if (edit.dataset.id)
-        DatasetService.get(edit.dataset.id).then(datasetFound, datasetNotFound);
+        DatasetService.get(edit.dataset.id, datasetFound, datasetNotFound);
     };
 
     var datasetSaved = function (id) {
@@ -36,7 +36,7 @@
       NotificationService.addError('Unable to save dataset');
     };
     edit.saveDataset = function () {
-      DatasetService.save(edit.dataset).then(datasetSaved, datasetSaveFailed);
+      DatasetService.save(edit.dataset, datasetSaved, datasetSaveFailed);
     };
 
     var datasetDeleted = function () {
@@ -46,7 +46,7 @@
       NotificationService.addError('Unable to delete dataset');
     };
     edit.deleteDataset = function () {
-      DatasetService.delete(edit.dataset.id).then(datasetDeleted, datasetDeleteFailed);
+      DatasetService.delete(edit.dataset.id, datasetDeleted, datasetDeleteFailed);
     };
 
   };

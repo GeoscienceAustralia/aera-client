@@ -11,7 +11,7 @@
     var datasetRetrievalFailed = function () {
       NotificationService.addError('The dataset could not be retrieved');
     };
-    DatasetService.get(dataset.id).then(datasetRetrieved, datasetRetrievalFailed);
+    DatasetService.get(dataset.id, datasetRetrieved, datasetRetrievalFailed);
 
     var datasetDownloaded = function () {
       NotificationService.addInformation('Dataset successfully downloaded');
@@ -19,9 +19,8 @@
     var datasetDownloadFailed = function () {
       NotificationService.addError('The dataset could not be downloaded');
     };
-
     dataset.download = function () {
-      DatasetService.downloadDataset(dataset.id).then(datasetDownloaded, datasetDownloadFailed);
+      DatasetService.downloadDataset(dataset.id, datasetDownloaded, datasetDownloadFailed);
     };
   };
 

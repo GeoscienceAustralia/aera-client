@@ -13,8 +13,8 @@ module.exports = function(config) {
       'node_modules/jquery/dist/jquery.js', // include jquery so we can select and click things in tests
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'components/**/*.html',
-      'components/**/*.js' ],
+      'app/components/**/*.html',
+      'app/components/**/*.js' ],
 
     // list of files to exclude
     exclude : [],
@@ -47,7 +47,10 @@ module.exports = function(config) {
     singleRun : false,
 
     preprocessors: {
-      'components/**/*.html': 'ng-html2js'
+      'app/components/**/*.html': 'ng-html2js'
+    },
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'app/'
     },
 
     plugins : [ 'karma-jasmine',
