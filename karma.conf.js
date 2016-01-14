@@ -9,7 +9,12 @@ module.exports = function(config) {
     frameworks : [ 'jasmine' ],
 
     // list of files / patterns to load in the browser
-    files : [ 'mock_spec.js' ],
+    files : [
+      'node_modules/jquery/dist/jquery.js', // include jquery so we can select and click things in tests
+      'node_modules/angular/angular.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'components/**/*.html',
+      'components/**/*.js' ],
 
     // list of files to exclude
     exclude : [],
@@ -41,6 +46,14 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun : false,
 
-    plugins : [ 'karma-jasmine', 'karma-chrome-launcher', 'karma-junit-reporter', 'karma-phantomjs-launcher' ]
+    preprocessors: {
+      'components/**/*.html': 'ng-html2js'
+    },
+
+    plugins : [ 'karma-jasmine',
+      'karma-chrome-launcher',
+      'karma-junit-reporter',
+      'karma-phantomjs-launcher',
+      'karma-ng-html2js-preprocessor']
   });
 };
