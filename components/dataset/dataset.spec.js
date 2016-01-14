@@ -2,7 +2,7 @@
 
 describe('Dataset Controller', function () {
 
-  var $compile, $controller, $q, $rootScope,
+  var $compile, $q, $rootScope,
       datasetController, datasetQuery, directiveElement, downloadPromise,
       mockDataset, mockDatasetService, mockNotificationService;
   var datasetId = 666;
@@ -38,9 +38,8 @@ describe('Dataset Controller', function () {
       $provide.value('datasetId', datasetId);
     });
 
-    inject(function (_$compile_, _$controller_, _$q_, _$rootScope_) {
+    inject(function (_$compile_, _$q_, _$rootScope_) {
       $compile = _$compile_;
-      $controller = _$controller_;
       $q = _$q_;
       $rootScope = _$rootScope_;
     });
@@ -55,7 +54,7 @@ describe('Dataset Controller', function () {
       return downloadPromise.promise;
     };
 
-    directiveElement = $compile(angular.element('<aera-dataset></aera-dataset>'))($rootScope);
+    directiveElement = $compile(angular.element('<aera-dataset id="666"></aera-dataset>'))($rootScope);
     $rootScope.$digest();
 
     datasetController = directiveElement.controller('aeraDataset');

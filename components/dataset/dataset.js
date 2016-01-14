@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-  var datasetControllerFunction = function (datasetId, DatasetService, NotificationService) {
+  var datasetControllerFunction = function (DatasetService, NotificationService) {
     var dataset = this;
 
     var datasetRetrieved = function (result) {
@@ -11,7 +11,7 @@
     var datasetRetrievalFailed = function () {
       NotificationService.addError('The dataset could not be retrieved');
     };
-    DatasetService.get(datasetId).then(datasetRetrieved, datasetRetrievalFailed);
+    DatasetService.get(dataset.id).then(datasetRetrieved, datasetRetrievalFailed);
 
     var datasetDownloaded = function () {
       NotificationService.addInformation('Dataset successfully downloaded');
@@ -21,7 +21,7 @@
     };
 
     dataset.download = function () {
-      DatasetService.downloadDataset(datasetId).then(datasetDownloaded, datasetDownloadFailed);
+      DatasetService.downloadDataset(dataset.id).then(datasetDownloaded, datasetDownloadFailed);
     };
   };
 
@@ -29,13 +29,16 @@
     return {
       restrict: 'E',
       scope: {},
+      bindToController: {
+        id: '='
+      },
       templateUrl: 'components/dataset/dataset.html',
       controller: 'DatasetController as dataset'
     };
   };
 
   angular.module('aera-dataset', [])
-      .controller('DatasetController', ['datasetId', 'DatasetService', 'NotificationService', datasetControllerFunction])
+      .controller('DatasetController', ['DatasetService', 'NotificationService', datasetControllerFunction])
       .directive('aeraDataset', datasetDirectiveFunction);
 
 
