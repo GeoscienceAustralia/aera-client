@@ -1,4 +1,4 @@
-<h2>{{dataset.title}}</h2>
-<img ng-src="{{dataset.imageUrl}}" />
-<div>{{dataset.text}}</div>
+<h2>{{::dataset.title}}</h2>
+<img ng-src="{{::dataset.imageUrl}}" />
+<div>{{::dataset.text}}</div>
 <button ng-click="dataset.download()">Download dataset as CSV</button>
