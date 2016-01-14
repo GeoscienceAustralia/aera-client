@@ -1,4 +1,7 @@
-<h2>{{::page.title}}</h2>
-<img ng-src="{{::page.imageUrl}}" />
+<header>{{::page.title}}</header>
+<figure>
+  <img ng-src="{{::page.imageUrl}}" />
+  <figcaption></figcaption>
+</figure>
 <div>{{::page.text}}</div>
 <button ng-click="page.download()">Download page as CSV</button>

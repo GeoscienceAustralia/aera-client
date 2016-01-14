@@ -1,9 +1,7 @@
-<h1>{{::chapter.title}}</h1>
-<ul>
-  <li ng-repeat="page in chapter.pages">
-    <a ng-click="chapter.scrollToPage(page.id)" href="">{{::page.title}}</a>
-  </li>
-</ul>
+<header>{{::chapter.title}}</header>
+<nav>
+  <a ng-repeat="page in chapter.pages" ng-click="chapter.scrollToPage(page.id)" href="">{{::page.title}}</a>
+</nav>
 <ul>
   <li ng-repeat="page in chapter.pages">
     <aera-page id="page.id"></aera-page>

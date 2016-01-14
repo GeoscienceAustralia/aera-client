@@ -1,6 +1,3 @@
-<h1>AERA</h1>
-<ul>
-  <li ng-repeat="chapter in view.chapters">
-    <a ng-href="#/chapter/{{chapter.id}}">{{::chapter.title}}</a>
-  </li>
-</ul>
+<nav>
+  <a ng-repeat="chapter in view.chapters" ng-href="#/chapter/{{chapter.id}}">{{::chapter.title}}</a>
+</nav>
