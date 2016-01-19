@@ -2,32 +2,32 @@
 
 (function (angular) {
 
-  angular.module('ga-aera', ['ngRoute',
+  angular.module('ga-aera', ['ui.router',
     'aera-view', 'aera-edit', 'aera-chapter', 'aera-page', 'aera-resources', 'aera-notifications'])
-      .config(['$routeProvider', function($routeProvider) {
+      .config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 
 
         var view = {
+          url: '/view',
           template: '<aera-view></aera-view>'
         };
 
         var chapter = {
-          template: '<aera-chapter chapter-id="chapterId"></aera-chapter>',
-          controller: ['$routeParams', '$scope', function ($routeParams, $scope) {
-            $scope.chapterId = $routeParams.id;
-          }]
+          url: '/chapter/:id',
+          template: '<aera-chapter id="{{chapterId}}"></aera-chapter>'
         };
 
         var edit = {
-          name: 'edit',
           url: '/edit',
           template: '<aera-edit></aera-edit>'
         };
 
-        $routeProvider
-            .when('/', view)
-            .when('/chapter/:id', chapter)
-            .when('/edit', edit);
+        $urlRouterProvider.otherwise('/view');
+
+        $stateProvider
+            .state('view', view)
+            .state('view.chapter', chapter)
+            .state('edit', edit);
       }]);
 
 

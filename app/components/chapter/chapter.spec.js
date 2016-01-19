@@ -1,8 +1,8 @@
 describe('A Chapter', function () {
 
   var chapterId = 1;
-  var $location, $q, $rootScope, chapterController, chapterQuery, pageQuery, directiveElement,
-      mockChapter, mockChapterService, mockPage, mockPageService, mockNotificationService;
+  var $location, $q, $rootScope, chapterController, chapterQuery, directiveElement,
+      mockChapter, stubChapterService, stubPageService, mockNotificationService;
 
   beforeEach(function () {
 
@@ -14,27 +14,21 @@ describe('A Chapter', function () {
       }, {}, {}]
     };
 
-
-    mockPage = {
-      id: 4,
-      title: 'The First Page',
-      imageUrl: 'http://cdn.meme.am/instances/24111566.jpg'
-    };
-
-    mockChapterService = {};
-    mockPageService = {};
+    stubChapterService = {};
+    stubPageService = {};
     mockNotificationService = { addError: function () {} };
 
     module('aera-chapter');
     module('aera-page');
+    module('ui.router');
     module('components/chapter/chapter.html');
     module('components/page/page.html');
 
     module(function ($provide) {
       $provide.value('chapterId', chapterId);
-      $provide.factory('ChapterService', function () { return mockChapterService; });
+      $provide.factory('ChapterService', function () { return stubChapterService; });
       $provide.factory('NotificationService', function () { return mockNotificationService; });
-      $provide.factory('PageService', function () { return mockPageService; });
+      $provide.factory('PageService', function () { return stubPageService; });
     });
 
     inject(function (_$location_, _$q_, _$rootScope_) {
@@ -43,19 +37,13 @@ describe('A Chapter', function () {
       $rootScope = _$rootScope_;
     });
 
-    mockChapterService.get = function () {
+    stubChapterService.get = function () {
       chapterQuery = $q.defer();
-      return chapterQuery.promise;
+      return {$promise: chapterQuery.promise};
     };
 
-    // Only set up the promise for the one page we're testing
-    mockPageService.get = function (id) {
-      if (id === mockPage.id) {
-        pageQuery = $q.defer();
-        return pageQuery.promise;
-      } else {
-        return $q.defer().promise;
-      }
+    stubPageService.get = function () {
+      return {$promise: $q.defer().promise};
     };
 
     inject(function ($compile) {
@@ -89,20 +77,15 @@ describe('A Chapter', function () {
 
   it('displays its title, links to page and the list of pages', function () {
     resolvePromise(chapterQuery, mockChapter);
-    resolvePromise(pageQuery, mockPage);
-    expect(directiveElement.find('h1').html()).toContain('Test Chapter Title');
-    expect(directiveElement.find('li a').length).toBe(3);
-    expect(directiveElement.find('li a').html()).toBe('The First Page');
+    expect(directiveElement.find('header').html()).toContain('Test Chapter Title');
+    expect(directiveElement.find('nav a').length).toBe(3);
+    expect(directiveElement.find('nav a').html()).toBe('The First Page');
     expect(directiveElement.find('aera-page').length).toBe(3);
-
-    var firstPage = directiveElement.find('aera-page');
-    expect(firstPage.find('h2').html()).toBe('The First Page');
-    expect(firstPage.find('img').attr('src')).toBe('http://cdn.meme.am/instances/24111566.jpg')
   });
 
   it('navigates between the links and the pages', function () {
     resolvePromise(chapterQuery, mockChapter);
-    directiveElement.find('li a').click();
+    directiveElement.find('nav a').click();
     expect($location.hash()).toBe('4');
   });
 });

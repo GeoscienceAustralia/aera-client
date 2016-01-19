@@ -1,21 +1,36 @@
-<button id="new-page" ng-click="edit.clearForm()">New Page</button>
-<label for="pageId">Find page by ID</label>
-<input type="number" id="pageId" ng-model="edit.page.id" />
-<button id="find-page" ng-click="edit.findPage()">Find</button>
-
-<label for="chapter"></label>
-<select id="chapter" ng-model="edit.page.chapter">
-  <option value="">Please select a chapter</option>
-  <option ng-repeat="chapter in edit.chapters" value="{{chapter.id}}"
-          selected="{{chapter.id === edit.page.chapter.id}}">{{chapter.title}}</option>
-</select>
-<label for="title">Title</label>
-<input type="text" id="title" ng-model="edit.page.title" />
-<label for="text">Text</label>
-<textarea id="text" ng-model="edit.page.text"></textarea>
-<label for="dataFile">Please select a CSV file to upload</label>
-<input type="file" id="dataFile" ng-model="edit.page.dataFile" />
-<label for="imageFile">Please select an image file to upload</label>
-<input type="file" id="imageFile" ng-model="edit.page.imageFile" />
-<button id="save" ng-click="edit.savePage()">Save</button>
-<button id="delete" ng-click="edit.deletePage()">Delete</button>
+<div class="aera-edit">
+  <div class="input-group">
+    <label for="pageId">Find page by ID</label>
+    <input type="number" id="pageId" ng-model="edit.page.id"/>
+    <button id="find-page" ng-click="edit.findPage()">Search</button>
+  </div>
+  <div>
+    <label for="chapter">This page will be in chapter</label>
+    <select id="chapter" ng-model="edit.page.chapter">
+      <option ng-repeat="chapter in edit.chapters" value="{{chapter.id}}"
+              selected="{{chapter.id === edit.page.chapter.id}}">{{chapter.title}}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="title">Title</label>
+    <input type="text" id="title" ng-model="edit.page.title"/>
+  </div>
+  <div>
+    <label for="text">Text</label>
+    <textarea id="text" ng-model="edit.page.text"></textarea>
+  </div>
+  <div>
+    <label for="dataFile">Please select a CSV file to upload</label>
+    <input type="file" id="dataFile" ng-model="edit.page.dataFile"/>
+  </div>
+  <div>
+    <label for="imageFile">Please select an image file to upload</label>
+    <input type="file" id="imageFile" ng-model="edit.page.imageFile"/>
+  </div>
+  <footer>
+    <button id="save" ng-click="edit.savePage()">Save</button>
+    <button id="delete" ng-click="edit.deletePage()">Delete</button>
+    <button id="new-page" ng-click="edit.clearForm()">Clear</button>
+  </footer>
+</div>

@@ -1,3 +1,4 @@
-<nav>
-  <a ng-repeat="chapter in view.chapters" ng-href="#/chapter/{{chapter.id}}">{{::chapter.title}}</a>
+<nav class="chapters">
+  <a ui-sref="view.chapter({id: chapter.id})" ng-repeat="chapter in view.chapters">{{::chapter.title}}</a>
 </nav>
+<div ui-view></div>

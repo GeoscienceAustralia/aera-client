@@ -11,7 +11,11 @@
     var chapterRetrievalFailed = function () {
       NotificationService.addError('Unable to retrieve data');
     };
-    ChapterService.query(chaptersRetrieved, chapterRetrievalFailed);
+    ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
+
+    view.showChapter = function (chapterId) {
+      view.currentChapter = chapterId;
+    }
 
   };
 

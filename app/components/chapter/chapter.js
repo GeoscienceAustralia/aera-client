@@ -2,9 +2,8 @@
 
 (function (angular) {
 
-  var chapterControllerFunction = function (ChapterService, NotificationService, $location, $anchorScroll) {
+  var chapterControllerFunction = function (ChapterService, NotificationService, $location, $anchorScroll, $stateParams) {
     var chapter = this;
-    console.log('chaptering');
 
     var chapterRetrieved = function (result) {
       angular.extend(chapter, result);
@@ -12,7 +11,7 @@
     var chapterRetrievalFailed = function () {
       NotificationService.addError('Unable to retrieve chapter');
     };
-    ChapterService.get({chapterId: chapter.id}, chapterRetrieved, chapterRetrievalFailed);
+    ChapterService.get({chapterId: $stateParams.id}).$promise.then(chapterRetrieved, chapterRetrievalFailed);
 
     chapter.scrollToPage = function (pageId) {
       $location.hash(pageId);
@@ -32,7 +31,7 @@
 
   angular.module('aera-chapter', [])
       .controller('ChapterController',
-          ['ChapterService', 'NotificationService', '$location', '$anchorScroll', chapterControllerFunction])
+          ['ChapterService', 'NotificationService', '$location', '$anchorScroll', '$stateParams', chapterControllerFunction])
       .directive('aeraChapter', chapterDirectiveFunction);
 
 })(angular);

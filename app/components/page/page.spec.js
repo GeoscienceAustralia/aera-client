@@ -4,11 +4,11 @@ describe('Page Controller', function () {
 
   var $compile, $q, $rootScope,
       pageController, pageQuery, directiveElement, downloadPromise,
-      mockPage, mockPageService, mockNotificationService;
+      mockPage, stubPageService, mockNotificationService;
   var pageId = 666;
   beforeEach(function () {
 
-    /* Some jiggery pokery with setting up the mockPageService
+    /* Some jiggery pokery with setting up the stubPageService
       $provide can only be called from a module() callback, as it is setting up a provider for
       the injector (ie, it needs to be done before inject() is called).
       $q can't be called until after it has been injected.
@@ -17,7 +17,7 @@ describe('Page Controller', function () {
       added after a call to inject().
      */
 
-    mockPageService = {};
+    stubPageService = {};
 
     mockNotificationService = {
       addError: function () {},
@@ -33,7 +33,7 @@ describe('Page Controller', function () {
     module('aera-page');
     module('components/page/page.html');
     module(function ($provide) {
-      $provide.factory('PageService', function () { return mockPageService; });
+      $provide.factory('PageService', function () { return stubPageService; });
       $provide.factory('NotificationService', function () { return mockNotificationService; });
       $provide.value('pageId', pageId);
     });
@@ -44,14 +44,14 @@ describe('Page Controller', function () {
       $rootScope = _$rootScope_;
     });
 
-    mockPageService.get = function () {
+    stubPageService.get = function () {
       pageQuery = $q.defer();
-      return pageQuery.promise;
+      return {$promise: pageQuery.promise};
     };
 
-    mockPageService.downloadPage = function () {
+    stubPageService.downloadPage = function () {
       downloadPromise = $q.defer();
-      return downloadPromise.promise;
+      return {$promise: downloadPromise.promise};
     };
 
     directiveElement = $compile(angular.element('<aera-page id="666"></aera-page>'))($rootScope);
@@ -79,7 +79,7 @@ describe('Page Controller', function () {
 
   it('displays the page information and download button', function () {
     resolvePromise(pageQuery, mockPage);
-    expect(directiveElement.find('h2').html()).toBe(mockPage.title);
+    expect(directiveElement.find('header').html()).toBe(mockPage.title);
     expect(directiveElement.find('img').attr('src')).toBe(mockPage.imageUrl);
     expect(directiveElement.find('div').html()).toContain(mockPage.text);
     expect(directiveElement.find('button').html()).toBe('Download page as CSV');
@@ -87,9 +87,9 @@ describe('Page Controller', function () {
 
   it('calls the download data service when the button is clicked', function () {
     resolvePromise(pageQuery, mockPage);
-    spyOn(mockPageService, 'downloadPage').and.callThrough();
+    spyOn(stubPageService, 'downloadPage').and.callThrough();
     directiveElement.find('button').click();
-    expect(mockPageService.downloadPage).toHaveBeenCalledWith(pageId);
+    expect(stubPageService.downloadPage).toHaveBeenCalledWith({pageId: pageId});
   });
 
   it('creates a notification if the page can\'t be retrieved', function () {

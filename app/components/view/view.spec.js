@@ -1,7 +1,7 @@
 describe('Main Page', function () {
 
-  var $location, $q, $rootScope,
-      mockChapters, mockChapterService, mockNotificationService,
+  var $q, $rootScope, $location,
+      mockChapters, stubChapterService, mockNotificationService,
       chapterQuery, directiveElement, viewController;
 
   beforeEach(function () {
@@ -17,7 +17,7 @@ describe('Main Page', function () {
       title: 'Return of the Jedi'
     }];
 
-    mockChapterService = {};
+    stubChapterService = {};
 
     mockNotificationService = {
       addError: function () { }
@@ -27,19 +27,19 @@ describe('Main Page', function () {
     module('components/view/view.html');
 
     module(function ($provide) {
-      $provide.factory('ChapterService', function () { return mockChapterService; });
+      $provide.factory('ChapterService', function () { return stubChapterService; });
       $provide.factory('NotificationService', function () { return mockNotificationService; });
     });
 
-    inject(function (_$location_, _$q_, _$rootScope_) {
-      $location = _$location_;
+    inject(function (_$q_, _$rootScope_, _$location_) {
       $q = _$q_;
       $rootScope = _$rootScope_;
+      $location = _$location_;
     });
 
-    mockChapterService.query = function () {
+    stubChapterService.query = function () {
       chapterQuery = $q.defer();
-      return chapterQuery.promise;
+      return {$promise: chapterQuery.promise};
     };
 
     inject(function ($compile) {
@@ -74,11 +74,5 @@ describe('Main Page', function () {
   it('displays chapter titles', function () {
     resolveChapters();
     expect(directiveElement.find('a').html()).toBe('A New Hope');
-  });
-
-  it('navigates to a chapter when the link is clicked', function () {
-    resolveChapters();
-    directiveElement.find('a').click();
-    expect($location.url()).toBe('/chapter/6');
   });
 });

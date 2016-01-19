@@ -5,14 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AERA</title>
+  <link href="aera.css" rel="stylesheet">
 </head>
 <body ng-app="ga-aera">
 
-<header>AERA</header>
-<main ng-view></main>
+<header class="top-level">AERA</header>
+<main ui-view></main>
 
 <script src="../node_modules/angular/angular.js"></script>
-<script src="../node_modules/angular-route/angular-route.js"></script>
+<script src="../node_modules/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="../node_modules/angular-resource/angular-resource.js"></script>
 <script src="services/resources.js"></script>
 <script src="services/notifications.js"></script>

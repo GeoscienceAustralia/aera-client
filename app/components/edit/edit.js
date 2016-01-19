@@ -12,7 +12,7 @@
     var chapterRetrievalFailed = function () {
       NotificationService.addError('Could not retrieve list of chapters');
     };
-    ChapterService.query(chaptersRetrieved, chapterRetrievalFailed);
+    ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
 
     edit.clearForm = function () {
       edit.page = {};
@@ -26,7 +26,7 @@
     };
     edit.findPage = function () {
       if (edit.page.id)
-        PageService.get(edit.page.id, pageFound, pageNotFound);
+        PageService.get(edit.page.id).$promise.then(pageFound, pageNotFound);
     };
 
     var pageSaved = function (id) {
@@ -36,7 +36,7 @@
       NotificationService.addError('Unable to save page');
     };
     edit.savePage = function () {
-      PageService.save(edit.page, pageSaved, pageSaveFailed);
+      PageService.save(edit.page).$promise.then(pageSaved, pageSaveFailed);
     };
 
     var pageDeleted = function () {
@@ -46,7 +46,7 @@
       NotificationService.addError('Unable to delete page');
     };
     edit.deletePage = function () {
-      PageService.delete(edit.page.id, pageDeleted, pageDeleteFailed);
+      PageService.delete(edit.page.id).$promise.then(pageDeleted, pageDeleteFailed);
     };
 
   };

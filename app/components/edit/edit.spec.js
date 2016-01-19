@@ -1,7 +1,7 @@
 describe('Edit Page', function () {
 
   var $q, $rootScope,
-      mockChapters, mockChapterService, mockPageService, mockNotificationService, mockPage,
+      mockChapters, stubChapterService, stubPageService, mockNotificationService, mockPage,
       chaptersQuery, pageQuery, directiveElement, editController;
 
   beforeEach(function () {
@@ -22,15 +22,15 @@ describe('Edit Page', function () {
       imageFile: 'a/pretty/picture'
     };
 
-    mockChapterService = {};
-    mockPageService = {};
+    stubChapterService = {};
+    stubPageService = {};
     mockNotificationService = { addError: function () {}, addInformation: function () {} };
 
     module('aera-edit');
     module('components/edit/edit.html');
     module(function ($provide) {
-      $provide.factory('ChapterService', function () { return mockChapterService; });
-      $provide.factory('PageService', function () { return mockPageService; });
+      $provide.factory('ChapterService', function () { return stubChapterService; });
+      $provide.factory('PageService', function () { return stubPageService; });
       $provide.factory('NotificationService', function () { return mockNotificationService; });
     });
 
@@ -39,17 +39,17 @@ describe('Edit Page', function () {
       $rootScope = _$rootScope_;
     });
 
-    mockChapterService.query = function () {
+    stubChapterService.query = function () {
       chaptersQuery = $q.defer();
-      return chaptersQuery.promise;
+      return {$promise: chaptersQuery.promise};
     };
 
-    mockPageService.get = function () {
+    stubPageService.get = function () {
       pageQuery = $q.defer();
-      return pageQuery.promise;
+      return {$promise: pageQuery.promise};
     };
-    mockPageService.save = mockPageService.get;
-    mockPageService.delete = mockPageService.get;
+    stubPageService.save = stubPageService.get;
+    stubPageService.delete = stubPageService.get;
 
     inject(function ($compile) {
       directiveElement = $compile('<aera-edit></aera-edit>')($rootScope);
@@ -111,11 +111,11 @@ describe('Edit Page', function () {
     expect(getPageIdInput().length).toBe(1);
     expect(getFindPageButton().length).toBe(1);
 
-    spyOn(mockPageService, 'get').and.callThrough();
+    spyOn(stubPageService, 'get').and.callThrough();
     editController.page.id = mockPage.id;
     $rootScope.$apply();
     getFindPageButton().click();
-    expect(mockPageService.get).toHaveBeenCalledWith(mockPage.id);
+    expect(stubPageService.get).toHaveBeenCalledWith(mockPage.id);
     resolvePromise(pageQuery, mockPage);
 
     expect(getPageIdInput().val()).toBe(mockPage.id + '');
@@ -132,10 +132,10 @@ describe('Edit Page', function () {
   });
 
   it('calls the Page service when a user saves', function () {
-    spyOn(mockPageService, 'save').and.callThrough();
+    spyOn(stubPageService, 'save').and.callThrough();
     editController.page = mockPage;
     getSavePageButton().click();
-    expect(mockPageService.save).toHaveBeenCalledWith(mockPage);
+    expect(stubPageService.save).toHaveBeenCalledWith(mockPage);
   });
 
   it('creates an error when the save fails', function () {
@@ -146,12 +146,12 @@ describe('Edit Page', function () {
   });
 
   it('calls the Page service when a user deletes and notifies user of success', function () {
-    spyOn(mockPageService, 'delete').and.callThrough();
+    spyOn(stubPageService, 'delete').and.callThrough();
     spyOn(mockNotificationService, 'addInformation');
     editController.page = mockPage;
     getDeletePageButton().click();
     resolvePromise(pageQuery);
-    expect(mockPageService.delete).toHaveBeenCalledWith(mockPage.id);
+    expect(stubPageService.delete).toHaveBeenCalledWith(mockPage.id);
     expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Page deleted');
   });
 

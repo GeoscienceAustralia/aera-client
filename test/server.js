@@ -17,17 +17,17 @@ app.get('/', function (req, res) {
   res.status(200).send('Hello World');
 });
 
+app.get('/chapter/:chapterId', function (req, res) {
+  var pages = [{id: 1, title: 'Water farmed on Tatooine'}, {id: 2, title: 'Steel used in Death Star Construction'}];
+  var chapter = {id: 4, title: 'A New Hope', pages: pages};
+  res.status(200).send(chapter);
+});
+
 app.get('/chapter', function (req, res) {
   var chapters = [{id: 1, title: 'The Phantom Menace'}, {id: 2, title: 'Attack of the Clones'},
     {id: 3, title: 'Revenge of the Sith'}, {id: 4, title: 'A New Hope'}, {id: 5, title: 'The Empire Strikes Back'},
     {id: 6, title: 'Return of the Jedi'}, {id: 7, title: 'The Force Awakens'}];
   res.status(200).send(chapters);
-});
-
-app.get('/chapter/:chapterId', function (req, res) {
-  var pages = [{id: 1, title: 'Water farmed on Tatooine'}, {id: 2, title: 'Steel used in Death Star Construction'}];
-  var chapter = {id: 4, title: 'A New Hope', pages: pages};
-  res.status(200).send(chapter);
 });
 
 app.get('/page/:pageId', function (req, res) {

@@ -11,7 +11,7 @@
     var pageRetrievalFailed = function () {
       NotificationService.addError('The page could not be retrieved');
     };
-    PageService.get({pageId: page.id}, pageRetrieved, pageRetrievalFailed);
+    PageService.get({pageId: page.id}).$promise.then(pageRetrieved, pageRetrievalFailed);
 
     var pageDownloaded = function () {
       NotificationService.addInformation('Page successfully downloaded');
@@ -20,7 +20,7 @@
       NotificationService.addError('The page could not be downloaded');
     };
     page.download = function () {
-      PageService.downloadPage({pageId: page.id}, pageDownloaded, pageDownloadFailed);
+      PageService.downloadPage({pageId: page.id}).$promise.then(pageDownloaded, pageDownloadFailed);
     };
   };
 
