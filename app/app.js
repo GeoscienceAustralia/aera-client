@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-  angular.module('ga-aera', ['ui.router',
+  angular.module('ga-aera', ['ui.router', 'ngMaterial',
     'aera-view', 'aera-edit', 'aera-chapter', 'aera-page', 'aera-resources', 'aera-notifications'])
       .config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 
@@ -13,8 +13,8 @@
         };
 
         var chapter = {
-          url: '/chapter/:id',
-          template: '<aera-chapter id="{{chapterId}}"></aera-chapter>'
+          url: 'chapter/:id',
+          template: '<aera-chapter></aera-chapter>'
         };
 
         var edit = {

@@ -73,6 +73,6 @@ describe('Main Page', function () {
 
   it('displays chapter titles', function () {
     resolveChapters();
-    expect(directiveElement.find('a').html()).toBe('A New Hope');
+    expect(directiveElement.find('md-button').html()).toBe('A New Hope');
   });
 });

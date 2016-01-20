@@ -1,4 +1,6 @@
-<nav class="chapters">
-  <a ui-sref="view.chapter({id: chapter.id})" ng-repeat="chapter in view.chapters">{{::chapter.title}}</a>
-</nav>
-<div ui-view></div>
+<div layout="column" layout-gt-sm="row">
+  <md-toolbar layout="column">
+    <md-button ng-repeat="chapter in view.chapters" ui-sref=".chapter({id: chapter.id})">{{chapter.title}}</md-button>
+  </md-toolbar>
+  <div ui-view></div>
+</div>

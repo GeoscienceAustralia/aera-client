@@ -25,6 +25,7 @@ describe('Page Controller', function () {
     };
 
     mockPage = {
+      id: 666,
       title: 'Test Title',
       imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
       text: 'Bender is great'
@@ -49,7 +50,7 @@ describe('Page Controller', function () {
       return {$promise: pageQuery.promise};
     };
 
-    stubPageService.downloadPage = function () {
+    stubPageService.downloadData = function () {
       downloadPromise = $q.defer();
       return {$promise: downloadPromise.promise};
     };
@@ -81,15 +82,15 @@ describe('Page Controller', function () {
     resolvePromise(pageQuery, mockPage);
     expect(directiveElement.find('header').html()).toBe(mockPage.title);
     expect(directiveElement.find('img').attr('src')).toBe(mockPage.imageUrl);
-    expect(directiveElement.find('div').html()).toContain(mockPage.text);
-    expect(directiveElement.find('button').html()).toBe('Download page as CSV');
+    expect(directiveElement.find('div.page-content__text').html()).toContain(mockPage.text);
+    expect(directiveElement.find('md-button').html()).toBe('Download data as CSV');
   });
 
   it('calls the download data service when the button is clicked', function () {
     resolvePromise(pageQuery, mockPage);
-    spyOn(stubPageService, 'downloadPage').and.callThrough();
-    directiveElement.find('button').click();
-    expect(stubPageService.downloadPage).toHaveBeenCalledWith({pageId: pageId});
+    spyOn(stubPageService, 'downloadData').and.callThrough();
+    directiveElement.find('md-button').click();
+    expect(stubPageService.downloadData).toHaveBeenCalledWith({pageId: pageId});
   });
 
   it('creates a notification if the page can\'t be retrieved', function () {

@@ -1,7 +1,19 @@
-<header>{{::page.title}}</header>
-<figure>
-  <img ng-src="{{::page.imageUrl}}" />
-  <figcaption></figcaption>
-</figure>
-<div>{{::page.text}}</div>
-<button ng-click="page.download()">Download page as CSV</button>
+<div class="page-header">
+  <header>{{::page.title}}</header>
+</div>
+<div class="page-content">
+  <figure>
+    <img ng-src="{{::page.imageUrl}}" alt="{{page.title}} graph" />
+    <figcaption></figcaption>
+  </figure>
+  <div>
+    <div class="page-content__text">{{::page.text}}</div>
+    <div class="page-content__reference">{{::page.reference}}</div>
+  </div>
+</div>
+<div class="page-footer">
+  <div class="page-footer__date">{{::page.sourceDate | date}}</div>
+  <md-button ng-click="page.download()" class="page-footer__download">Download data as CSV</md-button>
+</div>
+
+

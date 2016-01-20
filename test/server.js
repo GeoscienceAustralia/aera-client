@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/chapter/:chapterId', function (req, res) {
-  var pages = [{id: 1, title: 'Water farmed on Tatooine'}, {id: 2, title: 'Steel used in Death Star Construction'}];
+  var pages = [{id: 0, title: 'Water farmed on Tatooine'}, {id: 1, title: 'Steel used in Death Star Construction'}];
   var chapter = {id: 4, title: 'A New Hope', pages: pages};
   res.status(200).send(chapter);
 });
@@ -31,14 +31,24 @@ app.get('/chapter', function (req, res) {
 });
 
 app.get('/page/:pageId', function (req, res) {
-  var page = {
+  var page1 = {
     id: 1,
-    title: 'Number of Ewoks Killed',
-    text: 'A large number of the native Ewoks were killed during the battle on Endor',
-    imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
-    datasetUrl: ''
+    title: 'Water farmed on Tatooine',
+    text: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then',
+    imageUrl: 'http://icons.iconseeker.com/png/fullsize/futurama-vol-1/bender-1.png',
+    datasetUrl: '',
+    reference: 'Australian Bureau of Statistics (2015), ABS Cat. No. 6291.0.55.003, Labour Force, Australia, Detailed, Quarterly, Feb 2015, table 4'
   };
-  res.status(200).send(page);
+  var page2 = {
+    id: 1,
+    title: 'Steel used in Death Star Construction',
+    text: "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. \"What's happened to me?\" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops",
+    imageUrl: 'http://www.veryicon.com/icon/png/Movie%20%26%20TV/Futurama%20Vol.%201/Leela.png',
+    datasetUrl: '',
+    reference: 'IP Australia (2014), Overview of the Intellectual Property Government Open Data, IP Australia Economic Research Paper 02.'
+  };
+  var pages = [page1, page2];
+  res.status(200).send(pages[req.params.pageId]);
 });
 
 app.listen(3000, function () {

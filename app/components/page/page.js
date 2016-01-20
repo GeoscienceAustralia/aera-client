@@ -20,7 +20,7 @@
       NotificationService.addError('The page could not be downloaded');
     };
     page.download = function () {
-      PageService.downloadPage({pageId: page.id}).$promise.then(pageDownloaded, pageDownloadFailed);
+      PageService.downloadData({pageId: page.id}).$promise.then(pageDownloaded, pageDownloadFailed);
     };
   };
 
@@ -29,7 +29,7 @@
       restrict: 'E',
       scope: {},
       bindToController: {
-        id: '='
+        id: '=pageId'
       },
       templateUrl: 'components/page/page.html',
       controller: 'PageController as page'
