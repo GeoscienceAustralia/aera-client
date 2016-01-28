@@ -1,4 +1,12 @@
 var gulp = require('gulp');
+var useref = require('gulp-useref');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-cssnano');
+var templateCache = require('gulp-angular-templates');
+var del = require('del');
+
+var outputPath = 'build/webapp/';
 
 gulp.task('bundle', function () {
   return gulp.src('app/index.html')
@@ -12,3 +20,16 @@ gulp.task('copy-images', function () {
   return gulp.src('app/images/**/*')
       .pipe(gulp.dest(outputPath + 'images'));
 });
+
+gulp.task('angular-templates', function () {
+  return gulp.src('components/**/*.html')
+      .pipe(templateCache())
+      .pipe(gulp.dest(outputPath));
+});
+
+gulp.task('clean', function () {
+  return del(['build', 'release']);
+});
+
+gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);
+gulp.task('default', ['build']);

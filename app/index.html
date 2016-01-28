@@ -5,9 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AERA</title>
+  <!-- build:css css/ga.min.css -->
   <link rel="stylesheet" href="ga.css">
+  <!-- endbuild -->
+  <!-- build:css css/app.min.css -->
   <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css">
   <link rel="stylesheet" href="aera.css">
+  <!-- endbuild -->
 </head>
 <body ng-app="ga-aera">
 
@@ -17,6 +21,7 @@
 </header>
 <md-content ui-view></md-content>
 
+<!-- build:js libs.min.js -->
 <script src="../node_modules/angular/angular.js"></script>
 <script src="../node_modules/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="../node_modules/angular-resource/angular-resource.js"></script>
@@ -24,6 +29,8 @@
 <script src="../node_modules/angular-messages/angular-messages.js"></script>
 <script src="../node_modules/angular-aria/angular-aria.js"></script>
 <script src="../node_modules/angular-material/angular-material.js"></script>
+<!-- endbuild -->
+<!-- build:js app.min.js -->
 <script src="services/resources.js"></script>
 <script src="services/notifications.js"></script>
 <script src="components/chapter/chapter.js"></script>
@@ -31,6 +38,7 @@
 <script src="components/edit/edit.js"></script>
 <script src="components/view/view.js"></script>
 <script src="app.js"></script>
+<!-- endbuild -->
 
 <script>
   (function (i, s, o, g, r, a, m) {
