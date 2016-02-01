@@ -6,14 +6,15 @@ before_deploy:
 - chmod +x ./travis/build.sh
 - ./travis/build.sh
 deploy:
-- provider: s3
-  region: ap-southeast-2
-  access_key_id: AKIAJWQDSHMR5J6IN7NA
-  secret_access_key:
-    secure: "PF99AXYUgwm2iW+z+nMJGRTIKxVCJZGp3QgAvptjh1/0eqh0Ak7Y2Jka5Jnat1gi0TeQIkfW6JAnTK2wGq+o5rb9lbK8tJyGSZz7OixTsqoXvsBWY1LDVH0A9wc3AEKMiLhnfnjmQtX+u2MoCsYjh38VFZy+Hm9tAdH/bYGm8CWRhgPTNVee/7F8vv3FEHfyktzguw7WdBmzz35z9RtkrYXncu9GyvYoaweXVG3oCDy6xN724yftccYLuVrcGlNQQ9NLCIU2kSq7DQzPkqpf1qsI2ZDf7/AGJdEGDnb1ftdI+5wdRQavMtaYnpQSS3R/QJSHjgb1XKfN0tqlTGiSmZaMt4mU27pOGsVIqQQHS6/yVEQrKfJ0PaF53HGEUHkiFsPVebdilhDvFAjmUCaUpWir3mMnil5AGZnAU3x41ODupem4iONv8zd5rI1zdDjXt1fd1lbjiMVt5wPhpoNCMkOOI885ENPa8bw0Hvt5k/caDfwZxg/ExmnbkFhy3BcnHGGGUT0c1aPRHPJJNc2gx9u4JZh4WEMcerN7MeH8+s/vlepkRZUcDB7maMm0MI/m1fgD3rR/t1Krx+gJFximcVpAnWPPqbwAgWr+NbwE7Ex5DBULw64N8QaCPrBQRon9QmF7UoTpzJoGVJ/MWniTqQmAFY6kjzrDbq4JOtUG5g="
-  bucket: smallest-bucket-in-history
-  local_dir: release
-  upload_dir: aera-client
-  skip_cleanup: true
-  on:
-    branch: master
+  matrix:
+  - provider: s3
+    region: ap-southeast-2
+    access_key_id: AKIAJWQDSHMR5J6IN7NA
+    secret_access_key:
+      secure: ZA5g3VGNONSm+OdaHT4Y2GMPbn96LGG+pbVFKwbaPJS3LBmzI1sdmBEb8Jv2Yk4/w1vp/iIPVuJFNwTCeFJKu63rvwgIdVppc7+rzdFsGfCgUP8dNGNDvT8w43hH9CJLeoAgbub8gq60Ib5IYhbulWu0cp36geMVTrMJgHWZ612AUtmLTqjTg1LxzVw43sJDct7i9ldBXzYJHc0E/tE9NpUiT8S7yrImYxMg5HxY5FqMffslCakrGE4X1kXcahiFUv9MIolYIpMNbR3qusnTB2q/14z4bx0jbWubKcmqUuQMQ9va2sYr0yArMiW2a8V0ww9T1Lodm9ijc9kXPliMMSTUTY5tBtIRUSmMAWsxfNKHZiS0+91FycLko9yYkUWSNDYzLVMpA5Jn/Nl8HLXG3iK7rcoM41ePanh5CB77NAXbSZnpwZ6SaJPyKE/XuNqcOaHjzp0InYnh6InpFKlMskG1hA3GJF6dQd2MHn9Lk4n4KBfp3j9VfytY03iNZgWuClhpVr2zWW1E/qalJX4qdRD3Mw73ZW/QYluEIaKpkZe48/Rv49TnYbKLyXf/9RV3zYpMt+XqKyvT9bzjLpxeiTpCzlW84ajk+Cbp+3BdJRty4XAxleNFWjsCwl8u/4pCyqqIvJrovykjAhxMZ5uqZPD3x/q4Jn9o2Q860FKnKMw=
+    bucket: smallest-bucket-in-history
+    local_dir: release
+    upload_dir: aera-client
+    skip_cleanup: true
+    on:
+      branch: master
