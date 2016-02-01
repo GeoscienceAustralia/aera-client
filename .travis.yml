@@ -2,7 +2,20 @@ language: node_js
 node_js:
   - "stable"
 
-before_deploy
+before_deploy:
   - echo "building aera"
   - chmod +x ./travis/build.sh
   - ./travis/build.sh
+
+deploy:
+  - provider: s3
+    region: ap-southeast-2
+    access_key_id: AKIAJWQDSHMR5J6IN7NA
+    secret_access_key:
+      secure: lMhKNCC+p62qwPh65tzV6m0B4LTOSUzAFBu/lSSZ0lJ5Q0w5oxDQSbM9MlPvWP6/INjFfeaKKc43Qr5bXWS3F5SWRjges77J7k5TPr+1GSzbiPzJlGP73gqx1Da1eBpeLQXDrfTp/UwdWbcV9tUY9KJLMcMJZyB4EQIrTst0VxT8Z2THdZNMAjuoU4NvsfWHRP1V2h/n9aq7634D1HPgyUIQ9F3C65JDni4E5TksP0DAaOHqjLDKMnmGD6n7WaEOXFCK+H+whzJPPUGnrsT/iRGJM4/2S8xbFYcL3b2iV4QWBKxXw5wtotTCmkh8sygW4MFUYlBPfgeAlOjFQf0dWH0nNrIvpdjC2oF44LFdKuSPM4X66xa1ylDsb7zGv4h5uul7k038UpWGR5exgVNNxMINx2T2/Mt1JZIin/R760SJXZKaDey9wjS5cwJKylWA/3AE/elnOFY4uMkgvLyI7V3XE5Mi9bweqWJCFCmlEFgLD9tyvrHA+5hlbTJi8w1ryMclONo4DdMuVv7ZSuSGpMiuOsYa1mDWn23pV1LlQE/pmQSUgvdsmydKNiqhQVM8Ymy0DDUrNMi2HO1Ttk6xHVWhCwFZozsx0WKubudrnEWtRe0/dTawlPVpAhsI+xZGbvTzElXSA3RlItVK/NNFlfykV2K9mTwPKeRNK2EgXVg=
+    bucket: smallest-bucket-in-history
+    local_dir: release
+    upload_dir: aera-client
+    skip_cleanup: true
+    on:
+      branch: master
