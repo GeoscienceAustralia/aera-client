@@ -55,7 +55,7 @@ describe('Page Controller', function () {
       return {$promise: downloadPromise.promise};
     };
 
-    directiveElement = $compile(angular.element('<aera-page id="666"></aera-page>'))($rootScope);
+    directiveElement = $compile(angular.element('<aera-page page-id="666"></aera-page>'))($rootScope);
     $rootScope.$digest();
 
     pageController = directiveElement.controller('aeraPage');

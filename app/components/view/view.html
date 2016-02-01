@@ -1,6 +1,7 @@
-<div layout="column" layout-gt-sm="row">
-  <md-toolbar layout="column">
-    <md-button ng-repeat="chapter in view.chapters" ui-sref=".chapter({id: chapter.id})">{{chapter.title}}</md-button>
-  </md-toolbar>
-  <div ui-view></div>
+<div layout="row">
+  <md-sidenav class="md-sidenav-left chapter-nav" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-button class="md-bg-primary chapter-nav__link" ng-repeat="chapter in view.chapters"
+               ui-sref=".chapter({id: chapter.id})">{{chapter.title}}</md-button>
+  </md-sidenav>
+  <md-content ui-view></md-content>
 </div>
