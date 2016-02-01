@@ -12,6 +12,7 @@ module.exports = function(config) {
     files : [
       'node_modules/jquery/dist/jquery.js', // include jquery so we can select and click things in tests
       'node_modules/angular/angular.js',
+      'node_modules/angular-material/angular-material-mocks.js',
       'node_modules/angular-ui-router/release/angular-ui-router.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'app/components/**/*.html',
