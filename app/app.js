@@ -9,13 +9,27 @@
 
           var gaPrimaryPalette = $mdThemingProvider.extendPalette('teal',
               {
-                '500': '006983'
+                'a100': 'deebef',
+                'a200': 'b0d0d8',
+                'a400': '80b4c1',
+                'a700': '4c95a8',
+                '400': '267f95',
+                '500': '006983',
+                '600': '005f77',
+                '700': '00556a',
+                '800': '004a5d',
+                '900': '003644'
+              });
+          var gaAccentPalette = $mdThemingProvider.extendPalette('deep-orange',
+              {
+                '500': 'A33F1F'
               });
 
           $mdThemingProvider.definePalette('gaPrimary', gaPrimaryPalette);
+          $mdThemingProvider.definePalette('gaAccent', gaAccentPalette);
           $mdThemingProvider.theme('default')
               .primaryPalette('gaPrimary')
-              .accentPalette('deep-orange');
+              .accentPalette('gaAccent');
 
           var view = {
             url: '/view',
@@ -23,7 +37,7 @@
           };
 
           var chapter = {
-            url: 'chapter/:id',
+            url: '/chapter/:id',
             template: '<aera-chapter></aera-chapter>'
           };
 
@@ -32,7 +46,7 @@
             template: '<aera-edit></aera-edit>'
           };
 
-          $urlRouterProvider.otherwise('/view');
+          $urlRouterProvider.otherwise('/view/chapter/1');
 
           $stateProvider
               .state('view', view)
