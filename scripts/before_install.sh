@@ -4,4 +4,4 @@ mkdir /tmp/aera
 cd /tmp
 unzip aera.zip -d aera
 mkdir /var/www/aera
-cp -r aera/* /var/www/aera
+cp -r aera/* /var/www/html/aera
