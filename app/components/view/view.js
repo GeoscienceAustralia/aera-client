@@ -2,20 +2,27 @@
 
 (function (angular) {
 
-  var viewControllerFunction = function (ChapterService, NotificationService) {
+  var viewControllerFunction = function (ChapterService, NotificationService, $stateParams) {
     var view = this;
+    view.showChapterList = false;
 
     var chaptersRetrieved = function (result) {
       view.chapters = result;
+      view.selectedChapter = view.chapters[$stateParams.id] || view.chapters[0];
     };
     var chapterRetrievalFailed = function () {
       NotificationService.addError('Unable to retrieve data');
     };
     ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
 
-    view.showChapter = function (chapterId) {
-      view.currentChapter = chapterId;
-    }
+    view.toggleChapterList = function () {
+      view.showChapterList = !view.showChapterList;
+    };
+
+    view.updateSelectedChapter = function (id) {
+      view.selectedChapter = view.chapters[id];
+      view.showChapterList = false;
+    };
 
   };
 
@@ -29,6 +36,6 @@
   };
 
   angular.module('aera-view', [])
-      .controller('ViewController', ['ChapterService', 'NotificationService', '$location', viewControllerFunction])
+      .controller('ViewController', ['ChapterService', 'NotificationService', '$stateParams', viewControllerFunction])
       .directive('aeraView', viewDirectiveFunction);
 })(angular);

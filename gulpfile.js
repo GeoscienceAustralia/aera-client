@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-cssnano');
 var templateCache = require('gulp-angular-templates');
 var del = require('del');
+var protractor = require('gulp-angular-protractor');
 
 var outputPath = 'build/webapp/';
 
@@ -29,6 +30,14 @@ gulp.task('angular-templates', function () {
 
 gulp.task('clean', function () {
   return del(['build', 'release']);
+});
+
+gulp.task('testFunctional', function () {
+  return gulp.src(['./app/components/**/*.fn.spec.js'])
+      .pipe(protractor({
+        configFile: 'protractor.conf.js',
+        autoStartStopServer: true
+      }));
 });
 
 gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);

@@ -1,6 +1,6 @@
 describe('Main Page', function () {
 
-  var $q, $rootScope, $location,
+  var $q, $rootScope, $stateParams,
       mockChapters, stubChapterService, mockNotificationService,
       chapterQuery, directiveElement, viewController;
 
@@ -23,6 +23,7 @@ describe('Main Page', function () {
       addError: function () { }
     };
 
+    module('ui.router');
     module('aera-view');
     module('components/view/view.html');
 
@@ -31,10 +32,10 @@ describe('Main Page', function () {
       $provide.factory('NotificationService', function () { return mockNotificationService; });
     });
 
-    inject(function (_$q_, _$rootScope_, _$location_) {
+    inject(function (_$q_, _$rootScope_, _$stateParams_) {
       $q = _$q_;
       $rootScope = _$rootScope_;
-      $location = _$location_;
+      $stateParams = _$stateParams_;
     });
 
     stubChapterService.query = function () {
@@ -73,6 +74,11 @@ describe('Main Page', function () {
 
   it('displays chapter titles', function () {
     resolveChapters();
-    expect(directiveElement.find('md-button').html()).toBe('A New Hope');
+    expect(directiveElement.find('md-sidenav md-button').html()).toContain('A New Hope');
+  });
+
+  it('displays the title of the first chapter in the title bar by default', function () {
+    resolveChapters();
+    expect(viewController.selectedChapter.title).toBe('A New Hope');
   });
 });

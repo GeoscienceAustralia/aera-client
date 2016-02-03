@@ -1,3 +1,7 @@
+.show-element {
+    display: block !important;
+}
+
 .main-header {
     display: flex;
     flex-flow: row nowrap;
@@ -15,16 +19,19 @@
 .chapter-nav {
     background-color: #267f95;
     color: #ffffff;
-    padding-top: 10px;
+    padding-top: 0;
 }
 
 .chapter-nav__link {
     white-space: normal;
     line-height: normal;
+    display: flex;
+    width: 100%;
 }
 
 .chapter-heading>h2 {
-    padding-left: 25px;
+    padding: 8px;
+    margin: 0;
     text-transform: uppercase;
 }
 
