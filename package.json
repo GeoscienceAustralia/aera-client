@@ -4,7 +4,7 @@
   "description": "Web client for AERA",
   "main": "app/app.js",
   "scripts": {
-    "test": "karma start --single-run --browsers PhantomJS"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
