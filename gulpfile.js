@@ -53,7 +53,8 @@ gulp.task('testFunctional', ['_testFunctional'], function () {
 gulp.task('testUnit', function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+    singleRun: true,
+    browsers: ['PhantomJS']
   }, done).start();
 });
 
