@@ -18,7 +18,7 @@ module.exports = function(config) {
       'app/components/**/*.js' ],
 
     // list of files to exclude
-    exclude : [],
+    exclude : ['app/components/**/*.fn.spec.js', 'app/components/**/*.page.js'],
 
     reporters : [ 'progress' ],
 

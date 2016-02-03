@@ -75,9 +75,8 @@ describe('A Chapter', function () {
     expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to retrieve chapter');
   });
 
-  it('displays its title, links to page and the list of pages', function () {
+  it('displays links to its pages and the list of pages', function () {
     resolvePromise(chapterQuery, mockChapter);
-    expect(directiveElement.find('md-toolbar').html()).toContain('Test Chapter Title');
     expect(directiveElement.find('md-list-item md-button').length).toBe(6);
     expect(directiveElement.find('md-list-item md-button').html()).toBe('The First Page');
     expect(directiveElement.find('aera-page').length).toBe(3);

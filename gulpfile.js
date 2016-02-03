@@ -5,6 +5,9 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-cssnano');
 var templateCache = require('gulp-angular-templates');
 var del = require('del');
+var protractor = require('gulp-angular-protractor');
+var server = require('gulp-express');
+var KarmaServer = require('karma').Server;
 
 var outputPath = 'build/webapp/';
 
@@ -29,6 +32,29 @@ gulp.task('angular-templates', function () {
 
 gulp.task('clean', function () {
   return del(['build', 'release']);
+});
+
+gulp.task('_startServer', function () {
+  server.run(['test/server.js']);
+});
+
+gulp.task('_testFunctional', ['_startServer'], function () {
+  return gulp.src(['./app/components/**/*.fn.spec.js'])
+      .pipe(protractor({
+        configFile: 'protractor.conf.js',
+        autoStartStopServer: false
+      }));
+});
+
+gulp.task('testFunctional', ['_testFunctional'], function () {
+  server.stop();
+});
+
+gulp.task('testUnit', function (done) {
+  new KarmaServer({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);

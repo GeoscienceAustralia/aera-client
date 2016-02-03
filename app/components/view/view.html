@@ -1,7 +1,17 @@
-<div layout="row">
-  <md-sidenav class="md-sidenav-left chapter-nav" md-is-locked-open="$mdMedia('gt-sm')">
-    <md-button class="md-bg-primary chapter-nav__link" ng-repeat="chapter in view.chapters"
-               ui-sref=".chapter({id: chapter.id})">{{chapter.title}}</md-button>
-  </md-sidenav>
+<md-toolbar class="chapter-heading" layout="row">
+  <md-button class="md-icon-button chapter-heading__button" aria-label="Chapter List"
+             hide-gt-xs ng-click="view.toggleChapterList()">
+    <md-icon md-svg-icon="images/menu.svg"></md-icon>
+  </md-button>
+  <h2>{{view.selectedChapter.title}}</h2>
+</md-toolbar>
+<div layout-xs="column" layout-gt-xs="row">
+  <md-list class="chapter-nav" hide-xs ng-class="{ 'show-element': view.showChapterList}">
+    <md-list-item ng-repeat="chapter in view.chapters">
+      <md-button class="md-bg-primary chapter-nav__link"
+                 ng-click="view.updateSelectedChapter(chapter.id)"
+                 ui-sref=".chapter({id: chapter.id})">{{chapter.title}}</md-button>
+    </md-list-item>
+  </md-list>
   <md-content ui-view></md-content>
 </div>

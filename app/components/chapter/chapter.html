@@ -1,9 +1,3 @@
-<md-toolbar class="chapter-heading" layout="row">
-  <md-button class="md-icon-button" aria-label="Chapter List">
-    <md-icon md-svg-icon="images/menu.svg"></md-icon>
-  </md-button>
-  <h2>{{chapter.title}}</h2>
-</md-toolbar>
 <md-list class="page-list">
   <md-list-item ng-repeat="page in chapter.pages" class="page-list__link">
     <md-button ng-click="chapter.scrollToPage(page.id)">{{page.title}}</md-button>
