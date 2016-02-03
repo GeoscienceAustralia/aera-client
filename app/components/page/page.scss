@@ -1,0 +1,43 @@
+@import '../../colours';
+
+aera-page {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.page-header {
+  color: $primary-colour;
+  text-transform: uppercase;
+}
+
+.page-content {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+@media(min-width: 600px) {
+  .page-content {
+    flex-flow: row nowrap;
+  }
+}
+
+.page-footer {
+  display: flex;
+  flex-flow: column;
+}
+
+@media(min-width: 600px) {
+  .page-footer {
+    flex-flow: row nowrap;
+  }
+}
+
+.page-footer__download {
+  flex-shrink: 0;
+  background-color: $accent-colour;
+  color: $alt-text-colour;
+}
+
+.page-footer__date {
+  flex-shrink: 1;
+}

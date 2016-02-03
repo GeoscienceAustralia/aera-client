@@ -1,0 +1,10 @@
+@import '../../colours';
+
+.page-list {
+  padding-top: 0;
+}
+
+.page-list__link {
+  background-color: $primary-hue-1;
+  color: $alt-text-colour;
+}

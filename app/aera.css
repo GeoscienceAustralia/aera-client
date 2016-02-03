@@ -1,87 +1,69 @@
 .show-element {
-    display: block !important;
-}
+  display: block !important; }
 
 .main-header {
-    display: flex;
-    flex-flow: row nowrap;
-}
+  display: flex;
+  flex-flow: row nowrap; }
 
 .main-header__logo {
-    width: 140px;
-    height: 97px;
-}
+  width: 140px;
+  height: 97px; }
 
 .main-header__title {
-    flex-grow: 1;
-}
+  flex-grow: 1; }
 
-.chapter-nav {
-    background-color: #267f95;
-    color: #ffffff;
-    padding-top: 0;
-}
-
-.chapter-nav__link {
-    white-space: normal;
-    line-height: normal;
-    display: flex;
-    width: 100%;
-}
-
-.chapter-heading>h2 {
-    padding: 8px;
-    margin: 0;
-    text-transform: uppercase;
-}
 
 .page-list {
-    padding-top: 0;
-}
+  padding-top: 0; }
 
 .page-list__link {
-    background-color: #4c95a8;
-    color: #ffffff;
-}
+  background-color: #4c95a8;
+  color: #ffffff; }
 
 aera-page {
-    display: flex;
-    flex-flow: column nowrap;
-}
+  display: flex;
+  flex-flow: column nowrap; }
 
 .page-header {
-    color: #006983;
-    text-transform: uppercase;
-}
+  color: #267f95;
+  text-transform: uppercase; }
 
 .page-content {
-    display: flex;
-    flex-flow: row wrap;
-}
+  display: flex;
+  flex-flow: row wrap; }
 
-@media(min-width: 600px) {
-    .page-content {
-        flex-flow: row nowrap;
-    }
-}
+@media (min-width: 600px) {
+  .page-content {
+    flex-flow: row nowrap; } }
 
 .page-footer {
-    display: flex;
-    flex-flow: column;
-}
+  display: flex;
+  flex-flow: column; }
 
-@media(min-width: 600px) {
-    .page-footer {
-        flex-flow: row nowrap;
-    }
-}
+@media (min-width: 600px) {
+  .page-footer {
+    flex-flow: row nowrap; } }
 
 .page-footer__download {
-    flex-shrink: 0;
-    background-color: #a33f1f;
-    color: #ffffff;
-}
+  flex-shrink: 0;
+  background-color: #a33f1f;
+  color: #ffffff; }
 
 .page-footer__date {
-    flex-shrink: 1;
-}
+  flex-shrink: 1; }
+
+.chapter-nav {
+  background-color: #267f95;
+  color: #ffffff;
+  padding-top: 0; }
+
+.chapter-nav__link {
+  white-space: normal;
+  line-height: normal;
+  display: flex;
+  width: 100%; }
+
+.chapter-heading > h2 {
+  padding: 8px;
+  margin: 0;
+  text-transform: uppercase; }

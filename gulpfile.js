@@ -8,6 +8,8 @@ var del = require('del');
 var protractor = require('gulp-angular-protractor');
 var server = require('gulp-express');
 var KarmaServer = require('karma').Server;
+var sass = require('gulp-sass');
+var concat = require('gulp-concat');
 
 var outputPath = 'build/webapp/';
 
@@ -34,11 +36,11 @@ gulp.task('clean', function () {
   return del(['build', 'release']);
 });
 
-gulp.task('_startServer', function () {
+gulp.task('_start-server', function () {
   server.run(['test/server.js']);
 });
 
-gulp.task('_testFunctional', ['_startServer'], function () {
+gulp.task('_test-functional', ['_start-server'], function () {
   return gulp.src(['./app/components/**/*.fn.spec.js'])
       .pipe(protractor({
         configFile: 'protractor.conf.js',
@@ -46,11 +48,11 @@ gulp.task('_testFunctional', ['_startServer'], function () {
       }));
 });
 
-gulp.task('testFunctional', ['_testFunctional'], function () {
+gulp.task('test-functional', ['_test-functional'], function () {
   server.stop();
 });
 
-gulp.task('testUnit', function (done) {
+gulp.task('test-unit', function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true,
@@ -58,6 +60,18 @@ gulp.task('testUnit', function (done) {
   }, done).start();
 });
 
-gulp.task('test', ['testUnit', 'testFunctional']);
+gulp.task('build-css', function () {
+  return gulp.src('app/**/*.scss')
+      .pipe(sass())
+      .pipe(concat('aera.css'))
+      .pipe(gulp.dest('app'));
+});
+
+gulp.task('run', function () {
+  server.run(['test/server.js']);
+  gulp.watch(['app/**/*.scss'], ['build-css']);
+});
+
+gulp.task('test', ['test-unit', 'test-functional']);
 gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);
 gulp.task('default', ['build']);
