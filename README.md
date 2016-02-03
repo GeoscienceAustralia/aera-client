@@ -8,4 +8,4 @@ server
 
 `gulp test` runs unit & functional tests. To just run one or the other use `test-unit` or `test-functional`
 
-`gulp build` concatenates, uglifies, minifies etc and moves everything to the build folder
+`gulp build` concatenates, uglifies, minifies etc and copies everything to the build folder

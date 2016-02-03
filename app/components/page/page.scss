@@ -1,4 +1,4 @@
-@import '../../colours';
+@import '../../common';
 
 aera-page {
   display: flex;
@@ -15,7 +15,7 @@ aera-page {
   flex-flow: row wrap;
 }
 
-@media(min-width: 600px) {
+@media(min-width: $gt-xs) {
   .page-content {
     flex-flow: row nowrap;
   }
@@ -26,7 +26,7 @@ aera-page {
   flex-flow: column;
 }
 
-@media(min-width: 600px) {
+@media(min-width: $gt-xs) {
   .page-footer {
     flex-flow: row nowrap;
   }

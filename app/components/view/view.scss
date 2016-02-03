@@ -1,7 +1,7 @@
-@import '../../colours';
+@import '../../common';
 
 .chapter-nav {
-  background-color: $primary-colour;
+  background-color: $primary-hue-1;
   color: $alt-text-colour;
   padding-top: 0;
 }
