@@ -8,6 +8,7 @@ exports.config = {
   allScriptsTimeout: 30000,
 
   baseUrl: 'http://localhost:3000/',
+  directConnect: true,
 
   // Spec patterns are relative to the current working directory when
   // protractor is called.
@@ -42,10 +43,11 @@ exports.config = {
   // Disable the warning message "You are using an unsupported command-line flag --ignore-certificate-errors. Stability
   // and security will suffer." when functional test run in Chrome
   capabilities: {
-    browserName: 'chrome',
-    'chromeOptions': {
-      args: ['--test-type']
-    }
+    browserName: 'firefox'
+    //browserName: 'chrome',
+    //'chromeOptions': {
+    //  args: ['--test-type']
+    //}
   },
 
   // ----- The test framework -----

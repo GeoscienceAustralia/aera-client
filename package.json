@@ -24,6 +24,7 @@
     "gulp-angular-protractor": "0.0.7",
     "gulp-angular-templates": "0.0.2",
     "gulp-cssnano": "^2.1.0",
+    "gulp-express": "^0.3.5",
     "gulp-if": "^2.0.0",
     "gulp-uglify": "^1.5.1",
     "gulp-useref": "^3.0.4",
