@@ -74,7 +74,7 @@ describe('Main Page', function () {
 
   it('displays chapter titles', function () {
     resolveChapters();
-    expect(directiveElement.find('md-sidenav md-button').html()).toContain('A New Hope');
+    expect(directiveElement.find('md-list.chapter-nav md-list-item').html()).toContain('A New Hope');
   });
 
   it('displays the title of the first chapter in the title bar by default', function () {
