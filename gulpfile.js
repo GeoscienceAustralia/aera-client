@@ -57,5 +57,6 @@ gulp.task('testUnit', function (done) {
   }, done).start();
 });
 
+gulp.task('test', ['testUnit', 'testFunctional']);
 gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);
 gulp.task('default', ['build']);
