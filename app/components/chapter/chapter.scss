@@ -7,9 +7,9 @@
 .page-link {
   background-color: $primary-hue-2;
   color: $alt-text-colour;
-}
 
-.page-link__button {
-  width: 100%;
-  display: flex;
+  &__button {
+    width: 100%;
+    display: flex;
+  }
 }
