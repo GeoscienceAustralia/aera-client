@@ -40,7 +40,7 @@ gulp.task('_start-server', function () {
   server.run(['test/server.js']);
 });
 
-gulp.task('_test-functional', ['_start-server'], function () {
+gulp.task('_test-functional', ['_start-server', 'build-css'], function () {
   return gulp.src(['./app/components/**/*.fn.spec.js'])
       .pipe(protractor({
         configFile: 'protractor.conf.js',
