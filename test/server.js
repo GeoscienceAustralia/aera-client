@@ -18,7 +18,13 @@ app.get('/', function (req, res) {
 });
 
 app.get('/chapter/:chapterId', function (req, res) {
-  var pages = [{id: 0, title: 'Water farmed on Tatooine'}, {id: 1, title: 'Steel used in Death Star Construction'}];
+  var pages = [{id: 0, title: 'Summary'},
+                {id: 1, title: 'Identified/Demonstrated Resources'},
+                {id: 1, title: 'Prospective Resources'},
+                {id: 1, title: 'Australian Market'},
+                {id: 1, title: 'World Resources'},
+                {id: 1, title: 'World Market'},
+                {id: 1, title: 'Outlook'}];
   var chapter = {id: 4, title: 'Coal', pages: pages};
   res.status(200).send(chapter);
 });

@@ -62,7 +62,7 @@ gulp.task('test-unit', function (done) {
 
 gulp.task('build-css', function () {
   return gulp.src('app/**/*.scss')
-      .pipe(sass())
+      .pipe(sass().on('error', sass.logError))
       .pipe(concat('aera.css'))
       .pipe(gulp.dest('app'));
 });

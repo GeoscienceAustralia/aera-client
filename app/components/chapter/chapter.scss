@@ -4,7 +4,12 @@
   padding-top: 0;
 }
 
-.page-list__link {
+.page-link {
   background-color: $primary-hue-2;
   color: $alt-text-colour;
+}
+
+.page-link__button {
+  width: 100%;
+  display: flex;
 }

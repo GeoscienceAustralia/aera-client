@@ -1,6 +1,6 @@
 <md-list class="page-list">
-  <md-list-item ng-repeat="page in chapter.pages" class="page-list__link">
-    <md-button ng-click="chapter.scrollToPage(page.id)">{{page.title}}</md-button>
+  <md-list-item ng-repeat="page in chapter.pages" class="page-link">
+    <md-button class="page-link__button" ng-click="chapter.scrollToPage(page.id)">{{page.title}}</md-button>
   </md-list-item>
 </md-list>
 <md-list>
