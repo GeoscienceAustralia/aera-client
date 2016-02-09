@@ -8,36 +8,36 @@ aera-page {
 .page-header {
   color: $primary-colour;
   text-transform: uppercase;
+  padding-top: 15px;
 }
 
 .page-content {
   display: flex;
   flex-flow: row wrap;
-}
 
-@media(min-width: $gt-xs) {
-  .page-content {
+  @media(min-width: $gt-sm) {
     flex-flow: row nowrap;
+  }
+
+  &__reference {
+    font-size: 0.8em;
+    padding: 10px;
   }
 }
 
 .page-footer {
   display: flex;
   flex-flow: column;
-}
+  padding-bottom: 15px;
 
-@media(min-width: $gt-xs) {
-  .page-footer {
+  @media(min-width: $gt-sm) {
     flex-flow: row nowrap;
+    justify-content: flex-end;
   }
-}
 
-.page-footer__download {
-  flex-shrink: 0;
-  background-color: $accent-colour;
-  color: $alt-text-colour;
-}
-
-.page-footer__date {
-  flex-shrink: 1;
+  &__download {
+    flex-shrink: 0;
+    background-color: $accent-colour;
+    color: $alt-text-colour;
+  }
 }

@@ -4,17 +4,18 @@
   background-color: $primary-hue-1;
   color: $alt-text-colour;
   padding-top: 0;
+
+  &__link {
+    white-space: normal;
+    line-height: normal;
+    display: flex;
+    width: 100%;
+  }
 }
 
-.chapter-nav__link {
-  white-space: normal;
-  line-height: normal;
-  display: flex;
-  width: 100%;
-}
-
-.chapter-heading>h2 {
+.chapter-heading > h2 {
   padding: 8px;
   margin: 0;
   text-transform: uppercase;
+  word-wrap: break-word;
 }
