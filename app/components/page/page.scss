@@ -12,8 +12,6 @@ aera-page {
 }
 
 .page-content {
-  display: flex;
-  flex-flow: row wrap;
 
   @media(min-width: $gt-sm) {
     flex-flow: row nowrap;
@@ -22,6 +20,14 @@ aera-page {
   &__reference {
     font-size: 0.8em;
     padding: 10px;
+  }
+
+  .page-graph {
+    float: left;
+  }
+
+  .page-graph__image {
+    width: 400px;
   }
 }
 

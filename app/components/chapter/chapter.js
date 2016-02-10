@@ -24,7 +24,6 @@
     return {
       restrict: 'E',
       scope: {},
-      bindToController: {id: '=chapterId'},
       templateUrl: 'components/chapter/chapter.html',
       controller: 'ChapterController as chapter'
     };

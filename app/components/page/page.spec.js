@@ -86,34 +86,10 @@ describe('Page Controller', function () {
     expect(directiveElement.find('md-button').html()).toBe('Download data as CSV');
   });
 
-  it('calls the download data service when the button is clicked', function () {
-    resolvePromise(pageQuery, mockPage);
-    spyOn(stubPageService, 'downloadData').and.callThrough();
-    directiveElement.find('md-button').click();
-    expect(stubPageService.downloadData).toHaveBeenCalledWith({pageId: pageId});
-  });
-
   it('creates a notification if the page can\'t be retrieved', function () {
     spyOn(mockNotificationService, 'addError');
     rejectPromise(pageQuery);
     expect(mockNotificationService.addError).toHaveBeenCalledWith('The page could not be retrieved');
-  });
-
-  it('creates a notification that the data is downloading', function () {
-    spyOn(mockNotificationService, 'addInformation');
-    resolvePromise(pageQuery, mockPage);
-    pageController.download();
-    resolvePromise(downloadPromise);
-
-    expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Page successfully downloaded')
-  });
-
-  it('creates a notification if the raw data can\'t be downloaded', function () {
-    spyOn(mockNotificationService, 'addError');
-    resolvePromise(pageQuery, mockPage);
-    pageController.download();
-    rejectPromise(downloadPromise);
-    expect(mockNotificationService.addError).toHaveBeenCalledWith('The page could not be downloaded');
   });
 
 });

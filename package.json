@@ -40,8 +40,8 @@
     "karma-ng-html2js-preprocessor": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.3",
     "phantomjs": "^1.9.19",
-    "protractor": "^1.8.0",
-    "phantomjs-function-bind-polyfill": "1.0.0"
+    "phantomjs-function-bind-polyfill": "1.0.0",
+    "protractor": "^1.8.0"
   },
   "dependencies": {
     "angular": "^1.4.8",

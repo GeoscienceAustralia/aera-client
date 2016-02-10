@@ -12,16 +12,6 @@
       NotificationService.addError('The page could not be retrieved');
     };
     PageService.get({pageId: page.id}).$promise.then(pageRetrieved, pageRetrievalFailed);
-
-    var pageDownloaded = function () {
-      NotificationService.addInformation('Page successfully downloaded');
-    };
-    var pageDownloadFailed = function () {
-      NotificationService.addError('The page could not be downloaded');
-    };
-    page.download = function () {
-      PageService.downloadData({pageId: page.id}).$promise.then(pageDownloaded, pageDownloadFailed);
-    };
   };
 
   var pageDirectiveFunction = function () {
