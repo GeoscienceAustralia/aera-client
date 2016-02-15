@@ -46,7 +46,7 @@
             template: '<aera-edit></aera-edit>'
           };
 
-          $urlRouterProvider.otherwise('/view/chapter/0');
+          $urlRouterProvider.otherwise('/view/chapter/1');
 
           $stateProvider
               .state('view', view)
