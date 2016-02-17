@@ -9,9 +9,11 @@
         var chaptersRetrieved = function (chapters) {
             edit.chapters = chapters;
         };
+
         var chapterRetrievalFailed = function () {
             NotificationService.addError('Could not retrieve list of chapters');
         };
+
         ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
 
         edit.clearForm = function () {
@@ -21,9 +23,11 @@
         var pageFound = function (page) {
             edit.page = page;
         };
+
         var pageNotFound = function () {
             NotificationService.addError('No matching page found');
         };
+
         edit.findPage = function () {
             if (edit.page.pageId)
                 var page = PageService.get(edit.page.pageId).then(function (result) {
@@ -37,23 +41,23 @@
             edit.page.pageId = pageId;
             edit.page.result = pageId;
         };
+
         var pageSaveFailed = function (err) {
             NotificationService.addError('Unable to save page');
         };
+
         edit.savePage = function () {
-            var page = PageService.save(edit.page).then(function (result) {
-                pageSaved(result);
-            }, function error(err) {
-                pageSaveFailed(err);
-            });
+            var page = PageService.save(edit.page).then(pageSaved, pageSaveFailed);
         };
 
         var pageDeleted = function () {
             NotificationService.addInformation('Page deleted');
         };
+
         var pageDeleteFailed = function () {
             NotificationService.addError('Unable to delete page');
         };
+        
         edit.deletePage = function () {
             PageService.delete(edit.page.id).$promise.then(pageDeleted, pageDeleteFailed);
         };
