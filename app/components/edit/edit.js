@@ -2,65 +2,90 @@
 
 (function (angular) {
 
-  var editControllerFunction = function (ChapterService, PageService, NotificationService) {
-    var edit = this;
-    edit.page = {};
+    var editControllerFunction = function (ChapterService, PageService, NotificationService) {
+        var edit = this;
+        edit.page = {};
 
-    var chaptersRetrieved = function (chapters) {
-      edit.chapters = chapters;
-    };
-    var chapterRetrievalFailed = function () {
-      NotificationService.addError('Could not retrieve list of chapters');
-    };
-    ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
+        var chaptersRetrieved = function (chapters) {
+            edit.chapters = chapters;
+        };
+        var chapterRetrievalFailed = function () {
+            NotificationService.addError('Could not retrieve list of chapters');
+        };
+        ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
 
-    edit.clearForm = function () {
-      edit.page = {};
+        edit.clearForm = function () {
+            edit.page = {};
+        };
+
+        var pageFound = function (page) {
+            edit.page = page;
+        };
+        var pageNotFound = function () {
+            NotificationService.addError('No matching page found');
+        };
+        edit.findPage = function () {
+            if (edit.page.pageId)
+                var page = PageService.get(edit.page.pageId).then(function (result) {
+                    pageFound(result);
+                }, function error(err) {
+                    pageNotFound();
+                });
+        };
+
+        var pageSaved = function (pageId) {
+            edit.page.pageId = pageId;
+            edit.page.result = pageId;
+        };
+        var pageSaveFailed = function (err) {
+            NotificationService.addError('Unable to save page');
+        };
+        edit.savePage = function () {
+            var page = PageService.save(edit.page).then(function (result) {
+                pageSaved(result);
+            }, function error(err) {
+                pageSaveFailed(err);
+            });
+        };
+
+        var pageDeleted = function () {
+            NotificationService.addInformation('Page deleted');
+        };
+        var pageDeleteFailed = function () {
+            NotificationService.addError('Unable to delete page');
+        };
+        edit.deletePage = function () {
+            PageService.delete(edit.page.id).$promise.then(pageDeleted, pageDeleteFailed);
+        };
     };
 
-    var pageFound = function (page) {
-      edit.page = page;
-    };
-    var pageNotFound = function () {
-      NotificationService.addError('No matching page found');
-    };
-    edit.findPage = function () {
-      if (edit.page.id)
-        PageService.get(edit.page.id).$promise.then(pageFound, pageNotFound);
+    var editDirectiveFunction = function () {
+        return {
+            restrict: 'E',
+            scope: {},
+            templateUrl: 'components/edit/edit.html',
+            controller: 'EditController as edit'
+        };
     };
 
-    var pageSaved = function (id) {
-      edit.page.id = id;
-    };
-    var pageSaveFailed = function () {
-      NotificationService.addError('Unable to save page');
-    };
-    edit.savePage = function () {
-      PageService.save(edit.page).$promise.then(pageSaved, pageSaveFailed);
+    var fileModelDirective = function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                });
+            }
+        };
     };
 
-    var pageDeleted = function () {
-      NotificationService.addInformation('Page deleted');
-    };
-    var pageDeleteFailed = function () {
-      NotificationService.addError('Unable to delete page');
-    };
-    edit.deletePage = function () {
-      PageService.delete(edit.page.id).$promise.then(pageDeleted, pageDeleteFailed);
-    };
-
-  };
-
-  var editDirectiveFunction = function () {
-    return {
-      restrict: 'E',
-      scope: {},
-      templateUrl: 'components/edit/edit.html',
-      controller: 'EditController as edit'
-    };
-  };
-
-  angular.module('aera-edit', [])
-      .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', editControllerFunction])
-      .directive('aeraEdit', editDirectiveFunction);
+    angular.module('aera-edit', [])
+        .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', editControllerFunction])
+        .directive('aeraEdit', editDirectiveFunction)
+        .directive('fileModel', ['$parse', fileModelDirective])
 })(angular);

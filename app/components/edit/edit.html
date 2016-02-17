@@ -1,36 +1,56 @@
-<div class="aera-edit">
-  <div class="input-group">
-    <label for="pageId">Find page by ID</label>
-    <input type="number" id="pageId" ng-model="edit.page.id"/>
-    <button id="find-page" ng-click="edit.findPage()">Search</button>
-  </div>
-  <div>
-    <label for="chapter">This page will be in chapter</label>
-    <select id="chapter" ng-model="edit.page.chapter">
-      <option ng-repeat="chapter in edit.chapters" value="{{chapter.id}}"
-              selected="{{chapter.id === edit.page.chapter.id}}">{{chapter.title}}
-      </option>
-    </select>
-  </div>
-  <div>
-    <label for="title">Title</label>
-    <input type="text" id="title" ng-model="edit.page.title"/>
-  </div>
-  <div>
-    <label for="text">Text</label>
-    <textarea id="text" ng-model="edit.page.text"></textarea>
-  </div>
-  <div>
-    <label for="dataFile">Please select a CSV file to upload</label>
-    <input type="file" id="dataFile" ng-model="edit.page.dataFile"/>
-  </div>
-  <div>
-    <label for="imageFile">Please select an image file to upload</label>
-    <input type="file" id="imageFile" ng-model="edit.page.imageFile"/>
-  </div>
-  <footer>
-    <button id="save" ng-click="edit.savePage()">Save</button>
-    <button id="delete" ng-click="edit.deletePage()">Delete</button>
-    <button id="new-page" ng-click="edit.clearForm()">Clear</button>
-  </footer>
+<div md-theme="docs-dark" class="aera-edit md-inline-form">
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label for="pageId">Find page by ID</label>
+            <input type="number" id="pageId" ng-model="edit.page.pageId"/>
+            <md-button class="md-raised" id="find-page" ng-click="edit.findPage()">Search</md-button>
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label>This page will be in chapter</label>
+
+            <md-select id="chapter" ng-model="edit.page.chapterId">
+                <md-option ng-repeat="chapter in edit.chapters" value="{{chapter.chapterId}}"
+                           ng-selected="chapter.chapterId == edit.page.chapterId">{{chapter.title}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label for="title">Title</label>
+            <input type="text" id="title" ng-model="edit.page.title"/>
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label for="text">Text</label>
+            <textarea id="text" ng-model="edit.page.summary"></textarea>
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label for="csvFile">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please select a CSV file to upload</label>
+            <input type="file" id="csvFile" file-model="edit.page.csvFile" ng-model="edit.page.csvFile"/>
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label for="imageFile">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please select an image file to upload</label>
+            <input type="file" id="imageFile" file-model="edit.page.imageFile" ng-model="edit.page.imageFile"/>
+        </md-input-container>
+    </div>
+    <div layout-gt-xs="row" ng-show="edit.page.result">
+       <p>Updated {{edit.page.result}}</p>
+    </div>
+    <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+            <md-button class="md-raised" id="save" ng-click="edit.savePage()">Save</md-button>
+            <md-button class="md-raised" id="delete" ng-click="edit.deletePage()">Delete</md-button>
+            <md-button class="md-raised" id="new-page" ng-click="edit.clearForm()">Clear</md-button>
+        </md-input-container>
+    </div>
 </div>
