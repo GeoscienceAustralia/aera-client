@@ -21,7 +21,7 @@
         };
 
         var pageFound = function (page) {
-            edit.page = page;
+            edit.page = page.data;
         };
 
         var pageNotFound = function () {
@@ -33,7 +33,7 @@
         };
 
         var pageCsvFound = function (page) {
-            edit.page.csvUrl = page.csvUrl;
+            edit.page.csvUrl = page.data.csvUrl;
         };
 
         var pageCsvFailed = function (err) {
@@ -41,7 +41,7 @@
         };
 
         var pageImageFound = function (page) {
-            edit.page.imageUrl = page.imageUrl;
+            edit.page.imageUrl = page.data.imageUrl;
         };
 
         var pageImageFailed = function (err) {

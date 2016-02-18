@@ -9,45 +9,20 @@
 
     var pageServiceFunction = function ($resource, $http, $q) {
         this.get = function (pageId) {
-            var deferred = $q.defer();
             var requestUrl = 'http://localhost:8080/api/page/' + pageId;
-
-            $http.get(requestUrl
-            ).success(function (response) {
-                    deferred.resolve(response);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject("Error retrieving page id = " + pageId);
-                });
-
-            return deferred.promise;
+            return $http.get(requestUrl);
         }
 
         this.getCsvUrl = function (pageId) {
             var deferred = $q.defer();
             var requestUrl = 'http://localhost:8080/api/page/csv/' + pageId;
-
-            $http.get(requestUrl
-            ).success(function (response) {
-                    deferred.resolve(response);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject("Error retrieving csv url for page id = " + pageId);
-                });
-
-            return deferred.promise;
+            return $http.get(requestUrl);
         }
 
         this.getImageUrl = function (pageId) {
             var deferred = $q.defer();
             var requestUrl = 'http://localhost:8080/api/page/image/' + pageId;
-
-            $http.get(requestUrl
-            ).success(function (response) {
-                    deferred.resolve(response);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject("Error retrieving image url for page id = " + pageId);
-                });
-
-            return deferred.promise;
+            return $http.get(requestUrl);
         }
 
         this.save = function (page) {
