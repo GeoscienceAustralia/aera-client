@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    var editControllerFunction = function (ChapterService, PageService, NotificationService) {
+    var editControllerFunction = function (ChapterService, PageService, NotificationService, $interval) {
         var edit = this;
         edit.page = {};
 
@@ -29,38 +29,65 @@
         };
 
         edit.findPage = function () {
-            if (edit.page.pageId)
-                var page = PageService.get(edit.page.pageId).then(function (result) {
-                    pageFound(result);
-                }, function error(err) {
-                    pageNotFound();
-                });
+            var page = PageService.get(edit.page.pageId).then(pageFound, pageNotFound());
         };
 
-        var pageSaved = function (pageId) {
-            edit.page.pageId = pageId;
-            edit.page.result = pageId;
+        var pageCsvFound = function (page) {
+            edit.page.csvUrl = page.csvUrl;
+        };
+
+        var pageCsvFailed = function (err) {
+            NotificationService.addError('Unable to retrieve page csv url');
+        };
+
+        var pageImageFound = function (page) {
+            edit.page.imageUrl = page.imageUrl;
+        };
+
+        var pageImageFailed = function (err) {
+            NotificationService.addError('Unable to retrieve page image url');
+        };
+
+        var pageSaved = function (page) {
+            edit.page.pageId = page.pageId;
+            edit.page.result = page.pageId;
+
+            var page = PageService.getCsvUrl(edit.page.pageId).then(pageCsvFound, pageCsvFailed);
+            var page = PageService.getImageUrl(edit.page.pageId).then(pageImageFound, pageImageFailed);
+
+            edit.page.progressBar = false;
         };
 
         var pageSaveFailed = function (err) {
             NotificationService.addError('Unable to save page');
+            edit.page.progressBar = false;
         };
 
         edit.savePage = function () {
+            edit.page.progressBar = true;
+            edit.page.result = false;
             var page = PageService.save(edit.page).then(pageSaved, pageSaveFailed);
         };
 
-        var pageDeleted = function () {
-            NotificationService.addInformation('Page deleted');
-        };
+        // Angular Material linear progress bar
+        var j = 0, counter = 0;
+        edit.mode = 'query';
+        edit.activated = true;
+        edit.modes = [ ];
 
-        var pageDeleteFailed = function () {
-            NotificationService.addError('Unable to delete page');
-        };
-        
-        edit.deletePage = function () {
-            PageService.delete(edit.page.id).$promise.then(pageDeleted, pageDeleteFailed);
-        };
+        $interval(function () {
+            edit.determinateValue += 1;
+            edit.determinateValue2 += 1.5;
+
+            if (edit.determinateValue > 100) edit.determinateValue = 30;
+            if (edit.determinateValue2 > 100) edit.determinateValue2 = 30;
+            if ((j < 2) && !edit.modes[j] && edit.activated) {
+                edit.modes[j] = (j == 0) ? 'buffer' : 'query';
+            }
+            if (counter++ % 4 == 0) j++;
+            if (j == 2) edit.contained = "indeterminate";
+        }, 100, 0, true);
+
     };
 
     var editDirectiveFunction = function () {
@@ -89,7 +116,7 @@
     };
 
     angular.module('aera-edit', [])
-        .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', editControllerFunction])
+        .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', '$interval', editControllerFunction])
         .directive('aeraEdit', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])
 })(angular);
