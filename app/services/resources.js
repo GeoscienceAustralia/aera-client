@@ -2,28 +2,21 @@
 
 (function (angular) {
 
-    var chapterServiceFunction = function ($resource) {
-        var url = 'http://localhost:8080/api/chapter/:chapterId';
+    var chapterServiceFunction = function (aeraConfig, $resource) {
+        var url = aeraConfig.apiEndpoint + '/chapter/:chapterId';
         return $resource(url, {chapterId: '@chapterId'});
     };
 
-    var pageServiceFunction = function ($resource, $http, $q) {
+    var pageServiceFunction = function (aeraConfig, $http) {
+
+        var url = aeraConfig.apiEndpoint + '/page/';
+
         this.get = function (pageId) {
-            var deferred = $q.defer();
-            var requestUrl = 'http://localhost:8080/api/page/' + pageId;
-
-            $http.get(requestUrl
-            ).success(function (response) {
-                    deferred.resolve(response);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject("Error retrieving page id = " + pageId);
-                });
-
-            return deferred.promise;
-        }
+            var requestUrl = url + pageId;
+            return $http.get(requestUrl)
+        };
 
         this.save = function (page) {
-            var deferred = $q.defer();
             var formData = new FormData();
 
             if (page.chapterId) {
@@ -46,19 +39,15 @@
                 formData.append('csvFile', page.csvFile);
             }
 
-            $http.post('http://localhost:8080/api/page/create', formData, {
+            return $http.post(url + 'create', formData, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
-            }).success(function (response) {
-                deferred.resolve(response);
             });
-
-            return deferred.promise;
         }
     };
 
-    angular.module('aera-resources', ['ngResource'])
-        .service('ChapterService', ['$resource', chapterServiceFunction])
-        .service('PageService', ['$resource', '$http', '$q', pageServiceFunction]
+    angular.module('aera-resources', ['ngResource', 'aera-config'])
+        .service('ChapterService', ['aeraConfig', '$resource', chapterServiceFunction])
+        .service('PageService', ['aeraConfig', '$http', pageServiceFunction]
     );
 })(angular);

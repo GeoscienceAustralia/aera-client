@@ -5,12 +5,12 @@
     <figcaption></figcaption>
   </figure>
   <div>
-    <div class="page-content__text">{{::page.text}}</div>
+    <div class="page-content__text">{{::page.summary}}</div>
     <div class="page-content__reference">{{::page.reference}}</div>
   </div>
 </md-content>
 <div class="page-footer">
-  <md-button target="_self" href="{{page.datasetUrl}}" class="page-footer__download">Download data as CSV</md-button>
+  <md-button target="_self" href="{{page.csvUrl}}" class="page-footer__download">Download data as CSV</md-button>
 </div>
 <md-divider ng-if="!$last"></md-divider>
 

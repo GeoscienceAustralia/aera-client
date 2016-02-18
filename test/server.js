@@ -65,7 +65,7 @@ app.get('/api/page/:pageId', function (req, res) {
   var page = {
     id: pageId,
     title: pages[pageId].title,
-    text: fs.readFileSync(dataDir + '/text.txt', 'utf8'),
+    summary: fs.readFileSync(dataDir + '/summary.txt', 'utf8'),
     imageUrl: 'data/page_' + pageId + '/' + imageFile,
     datasetUrl: 'data/page_' + pageId + '/csv.csv',
     reference: fs.readFileSync(dataDir + '/source.txt', 'utf8')

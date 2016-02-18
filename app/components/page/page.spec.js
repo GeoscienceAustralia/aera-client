@@ -3,8 +3,8 @@
 describe('Page Controller', function () {
 
   var $compile, $q, $rootScope,
-      pageController, pageQuery, directiveElement, downloadPromise,
-      mockPage, stubPageService, mockNotificationService;
+      pageController, pageQuery, directiveElement,
+      mockResult, stubPageService, mockNotificationService;
   var pageId = 666;
   beforeEach(function () {
 
@@ -24,11 +24,13 @@ describe('Page Controller', function () {
       addInformation: function () {}
     };
 
-    mockPage = {
-      id: 666,
-      title: 'Test Title',
-      imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
-      text: 'Bender is great'
+    mockResult = {
+        data: {
+            id: 666,
+            title: 'Test Title',
+            imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
+            summary: 'Bender is great'
+        }
     };
 
     module('aera-page');
@@ -47,12 +49,7 @@ describe('Page Controller', function () {
 
     stubPageService.get = function () {
       pageQuery = $q.defer();
-      return {$promise: pageQuery.promise};
-    };
-
-    stubPageService.downloadData = function () {
-      downloadPromise = $q.defer();
-      return {$promise: downloadPromise.promise};
+      return pageQuery.promise;
     };
 
     directiveElement = $compile(angular.element('<aera-page page-id="666"></aera-page>'))($rootScope);
@@ -72,17 +69,17 @@ describe('Page Controller', function () {
   };
 
   it('retrieves the page information from the page service', function () {
-    resolvePromise(pageQuery, mockPage);
-    expect(pageController.title).toBe(mockPage.title);
-    expect(pageController.imageUrl).toBe(mockPage.imageUrl);
-    expect(pageController.text).toBe(mockPage.text);
+    resolvePromise(pageQuery, mockResult);
+    expect(pageController.title).toBe(mockResult.data.title);
+    expect(pageController.imageUrl).toBe(mockResult.data.imageUrl);
+    expect(pageController.summary).toBe(mockResult.data.summary);
   });
 
   it('displays the page information and download button', function () {
-    resolvePromise(pageQuery, mockPage);
-    expect(directiveElement.find('header').html()).toBe(mockPage.title);
-    expect(directiveElement.find('img').attr('src')).toBe(mockPage.imageUrl);
-    expect(directiveElement.find('div.page-content__text').html()).toContain(mockPage.text);
+    resolvePromise(pageQuery, mockResult);
+    expect(directiveElement.find('header').html()).toBe(mockResult.data.title);
+    expect(directiveElement.find('img').attr('src')).toBe(mockResult.data.imageUrl);
+    expect(directiveElement.find('div.page-content__text').html()).toContain(mockResult.data.summary);
     expect(directiveElement.find('md-button').html()).toBe('Download data as CSV');
   });
 

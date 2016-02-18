@@ -43,7 +43,7 @@ describe('A Chapter', function () {
     };
 
     stubPageService.get = function () {
-      return {$promise: $q.defer().promise};
+      return $q.defer().promise;
     };
 
     inject(function ($compile) {

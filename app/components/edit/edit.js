@@ -30,9 +30,9 @@
 
         edit.findPage = function () {
             if (edit.page.pageId)
-                var page = PageService.get(edit.page.pageId).then(function (result) {
+                PageService.get(edit.page.pageId).then(function (result) {
                     pageFound(result);
-                }, function error(err) {
+                }, function error() {
                     pageNotFound();
                 });
         };
@@ -42,12 +42,12 @@
             edit.page.result = pageId;
         };
 
-        var pageSaveFailed = function (err) {
+        var pageSaveFailed = function () {
             NotificationService.addError('Unable to save page');
         };
 
         edit.savePage = function () {
-            var page = PageService.save(edit.page).then(pageSaved, pageSaveFailed);
+            PageService.save(edit.page).then(pageSaved, pageSaveFailed);
         };
 
         var pageDeleted = function () {
@@ -59,7 +59,7 @@
         };
         
         edit.deletePage = function () {
-            PageService.delete(edit.page.id).$promise.then(pageDeleted, pageDeleteFailed);
+            PageService.delete(edit.page.id).then(pageDeleted, pageDeleteFailed);
         };
     };
 
