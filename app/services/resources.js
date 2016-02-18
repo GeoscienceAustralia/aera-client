@@ -9,22 +9,29 @@
 
     var pageServiceFunction = function ($resource, $http, $q) {
         this.get = function (pageId) {
-            var deferred = $q.defer();
             var requestUrl = 'http://localhost:8080/api/page/' + pageId;
+            return $http.get(requestUrl);
+        }
 
-            $http.get(requestUrl
-            ).success(function (response) {
-                    deferred.resolve(response);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject("Error retrieving page id = " + pageId);
-                });
+        this.getCsvUrl = function (pageId) {
+            var deferred = $q.defer();
+            var requestUrl = 'http://localhost:8080/api/page/csv/' + pageId;
+            return $http.get(requestUrl);
+        }
 
-            return deferred.promise;
+        this.getImageUrl = function (pageId) {
+            var deferred = $q.defer();
+            var requestUrl = 'http://localhost:8080/api/page/image/' + pageId;
+            return $http.get(requestUrl);
         }
 
         this.save = function (page) {
             var deferred = $q.defer();
             var formData = new FormData();
+
+            if (page.pageId) {
+                formData.append('pageId', page.pageId);
+            }
 
             if (page.chapterId) {
                 formData.append('chapterId', page.chapterId);
@@ -46,7 +53,7 @@
                 formData.append('csvFile', page.csvFile);
             }
 
-            $http.post('http://localhost:8080/api/page/create', formData, {
+            $http.post('http://localhost:8080/api/page/save', formData, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             }).success(function (response) {
