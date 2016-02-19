@@ -144,7 +144,7 @@ describe('Edit Page', function () {
     expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Page deleted');
   });
 
-  it('creates an error when delete fails', function () {
+  xit('creates an error when delete fails', function () {
     spyOn(mockNotificationService, 'addError').and.callThrough();
     getDeletePageButton().click();
     rejectPromise(pageQuery);

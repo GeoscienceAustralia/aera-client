@@ -10,13 +10,13 @@ app.use('/aera', express.static(__dirname.replace('test', 'app')));
 app.use('/node_modules', express.static(__dirname.replace('test', 'node_modules')));
 app.use('/aera/data', express.static(__dirname + '/data'));
 
-var pages = [{id: 0, title: 'Summary'},
-  {id: 1, title: 'Identified/Demonstrated Resources'},
-  {id: 2, title: 'Prospective Resources'},
-  {id: 3, title: 'Australian Market'},
-  {id: 4, title: 'World Resources'},
-  {id: 5, title: 'World Market'},
-  {id: 6, title: 'Outlook'}];
+var pages = [{pageId: 0, title: 'Summary'},
+  {pageId: 1, title: 'Identified/Demonstrated Resources'},
+  {pageId: 2, title: 'Prospective Resources'},
+  {pageId: 3, title: 'Australian Market'},
+  {pageId: 4, title: 'World Resources'},
+  {pageId: 5, title: 'World Market'},
+  {pageId: 6, title: 'Outlook'}];
 
 app.all('/*', function (req, res, next) {
   res.set('Access-Control-Allow-Origin', req.headers.origin);
@@ -43,7 +43,7 @@ app.get('/api/chapter', function (req, res) {
 
 app.get('/api/page/:pageId', function (req, res) {
 
-  var pageId = req.params.pageId;
+  var pageId = (req.params.pageId) % 3; // we only have 3 samples. just keep looping through.
   var dataDir = __dirname + '/data/page_' + pageId;
 
   try {
@@ -67,7 +67,7 @@ app.get('/api/page/:pageId', function (req, res) {
     title: pages[pageId].title,
     summary: fs.readFileSync(dataDir + '/summary.txt', 'utf8'),
     imageUrl: 'data/page_' + pageId + '/' + imageFile,
-    datasetUrl: 'data/page_' + pageId + '/csv.csv',
+    csvUrl: 'data/page_' + pageId + '/csv.csv',
     reference: fs.readFileSync(dataDir + '/source.txt', 'utf8')
   };
 
