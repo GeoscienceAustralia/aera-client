@@ -6,14 +6,7 @@
     var reference = this;
 
     reference.updateOutputString = function () {
-      var author = reference.author ? reference.author + ' ' : '';
-      var year = reference.publicationYear ? '(' + reference.publicationYear + '). ' : '';
-      var title = reference.title ? reference.title + '. ' : '';
-      var publication = reference.publication ? '<i>' + reference.publication + '</i>. ' : '';
-      var dateAccessed = reference.dateAccessed ? 'Retrieved ' + $filter('date')(reference.dateAccessed, 'MMMM d, yyyy') + ', ' : '';
-      var url = reference.url ? 'from ' + reference.url : '';
-
-      reference.outputString = author + year + title + publication + dateAccessed + url;
+      reference.outputString = $filter('aera-reference')(reference);
     }
   };
 
