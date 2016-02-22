@@ -29,7 +29,7 @@
         };
 
         edit.findPage = function () {
-            PageService.get(edit.page.pageId).then(pageFound, pageNotFound());
+            PageService.get(edit.page.pageId).then(pageFound, pageNotFound);
         };
 
         var pageCsvFound = function (page) {
@@ -48,9 +48,9 @@
             NotificationService.addError('Unable to retrieve page image url');
         };
 
-        var pageSaved = function (page) {
-            edit.page.pageId = page.pageId;
-            edit.result = page.pageId;
+        var pageSaved = function (response) {
+            edit.page.pageId = response.data.pageId;
+            edit.result = response.data.pageId;
 
             PageService.getCsvUrl(edit.page.pageId).then(pageCsvFound, pageCsvFailed);
             PageService.getImageUrl(edit.page.pageId).then(pageImageFound, pageImageFailed);
@@ -58,7 +58,7 @@
             edit.progressBar = false;
         };
 
-        var pageSaveFailed = function () {
+        var pageSaveFailed = function (err) {
             NotificationService.addError('Unable to save page');
             edit.progressBar = false;
         };

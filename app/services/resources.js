@@ -34,7 +34,7 @@
               }
             }
 
-            return $http.post(url + '/save', formData, {
+            return $http.post(url + 'save', formData, {
                 transformRequest: angular.identity, // stop default transformRequest from serialising FormData object
                 headers: {'Content-Type': undefined} // will be set to multipart/form-data by browser
             });

@@ -33,11 +33,11 @@ app.get('/api/chapter/:chapterId', function (req, res) {
 });
 
 app.get('/api/chapter', function (req, res) {
-  var chapters = [{id: 0, title: 'Introduction/Executive Summary'}, {id: 1, title: 'Australia\'s Energy Resources and Market'},
-    {id: 2, title: 'Oil'}, {id: 3, title: 'Gas'}, {id: 4, title: 'Coal'},
-    {id: 5, title: 'Uranium and Thorium'}, {id: 6, title: 'Geothermal'}, {id: 7, title: 'Hydro'},
-    {id: 8, title: 'Wind'}, {id: 9, title: 'Solar'}, {id: 10, title: 'Ocean'},
-    {id: 11, title: 'Bioenergy'}, {id: 12, title: 'Appendices'}];
+  var chapters = [{chapterId: 0, title: 'Introduction/Executive Summary'}, {chapterId: 1, title: 'Australia\'s Energy Resources and Market'},
+    {chapterId: 2, title: 'Oil'}, {chapterId: 3, title: 'Gas'}, {chapterId: 4, title: 'Coal'},
+    {chapterId: 5, title: 'Uranium and Thorium'}, {chapterId: 6, title: 'Geothermal'}, {chapterId: 7, title: 'Hydro'},
+    {chapterId: 8, title: 'Wind'}, {chapterId: 9, title: 'Solar'}, {chapterId: 10, title: 'Ocean'},
+    {chapterId: 11, title: 'Bioenergy'}, {chapterId: 12, title: 'Appendices'}];
   res.status(200).send(chapters);
 });
 
@@ -73,6 +73,18 @@ app.get('/api/page/:pageId', function (req, res) {
 
   res.status(200).send(page);
 });
+
+app.post('/api/page/save', function (req, res) {
+  res.status(200).send({pageId: 4});
+});
+
+app.get('/api/page/csv/:pageId', function (req, res) {
+  res.status(200).send('data/page_0/csv.csv');
+});
+app.get('/api/page/image/:pageId', function (req, res) {
+  res.status(200).send('data/page_0/image.png');
+});
+
 
 app.listen(3000, function () {
   console.log('Express server listening on port 3000');
