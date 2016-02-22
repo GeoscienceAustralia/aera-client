@@ -1,0 +1,6 @@
+{
+  "name": "aera-config",
+  "constants": {
+    "apiEndpoint": "http://localhost:8080/api"
+  }
+}

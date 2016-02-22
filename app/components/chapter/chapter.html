@@ -1,10 +1,10 @@
 <md-list class="page-list">
   <md-list-item ng-repeat="page in chapter.pages" class="page-link">
-    <md-button class="page-link__button" ng-click="chapter.scrollToPage(page.id)">{{page.title}}</md-button>
+    <md-button class="page-link__button" ng-click="chapter.scrollToPage(page.pageId)">{{page.title}}</md-button>
   </md-list-item>
 </md-list>
 <md-list>
   <md-list-item ng-repeat="page in chapter.pages">
-    <aera-page id="page_{{page.id}}" page-id="page.id"></aera-page>
+    <aera-page id="page_{{page.pageId}}" page-id="page.pageId"></aera-page>
   </md-list-item>
 </md-list>

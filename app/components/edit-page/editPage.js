@@ -30,14 +30,14 @@
         };
 
         edit.findPage = function () {
-            var page = PageService.get(edit.page.pageId).then(pageFound, pageNotFound());
+            PageService.get(edit.page.pageId).then(pageFound, pageNotFound);
         };
 
         var pageCsvFound = function (page) {
             edit.page.csvUrl = page.data.csvUrl;
         };
 
-        var pageCsvFailed = function (err) {
+        var pageCsvFailed = function () {
             NotificationService.addError('Unable to retrieve page csv url');
         };
 
@@ -45,29 +45,29 @@
             edit.page.imageUrl = page.data.imageUrl;
         };
 
-        var pageImageFailed = function (err) {
+        var pageImageFailed = function () {
             NotificationService.addError('Unable to retrieve page image url');
         };
 
-        var pageSaved = function (page) {
-            edit.page.pageId = page.pageId;
-            edit.page.result = page.pageId;
+        var pageSaved = function (response) {
+            edit.page.pageId = response.data.pageId;
+            edit.result = response.data.pageId;
 
-            var page = PageService.getCsvUrl(edit.page.pageId).then(pageCsvFound, pageCsvFailed);
-            var page = PageService.getImageUrl(edit.page.pageId).then(pageImageFound, pageImageFailed);
+            PageService.getCsvUrl(edit.page.pageId).then(pageCsvFound, pageCsvFailed);
+            PageService.getImageUrl(edit.page.pageId).then(pageImageFound, pageImageFailed);
 
-            edit.page.progressBar = false;
+            edit.progressBar = false;
         };
 
         var pageSaveFailed = function (err) {
             NotificationService.addError('Unable to save page');
-            edit.page.progressBar = false;
+            edit.progressBar = false;
         };
 
         edit.savePage = function () {
-            edit.page.progressBar = true;
-            edit.page.result = false;
-            var page = PageService.save(edit.page).then(pageSaved, pageSaveFailed);
+            edit.progressBar = true;
+            edit.result = false;
+            PageService.save(edit.page).then(pageSaved, pageSaveFailed);
         };
 
         AeraCommon.setProgressBar(edit);
