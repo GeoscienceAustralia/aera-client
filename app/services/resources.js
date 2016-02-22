@@ -2,9 +2,41 @@
 
 (function (angular) {
 
-    var chapterServiceFunction = function ($resource) {
-        var url = 'http://localhost:8080/api/chapter/:chapterId';
-        return $resource(url, {chapterId: '@chapterId'});
+    var chapterServiceFunction = function ($resource, $http, $q) {
+        this.getAll = function () {
+            var requestUrl = 'http://localhost:8080/api/chapter/';
+            return $http.get(requestUrl);
+        }
+
+        this.get = function (chapterId) {
+            var requestUrl = 'http://localhost:8080/api/chapter/' + chapterId;
+            return $http.get(requestUrl);
+        }
+
+        this.save = function (chapter) {
+            var formData = new FormData();
+
+            if (chapter.chapterId) {
+                formData.append('chapterId', chapter.chapterId);
+            }
+
+            if (chapter.title) {
+                formData.append('title', chapter.title);
+            }
+
+            if (chapter.summary) {
+                formData.append('summary', chapter.summary);
+            }
+
+            if (chapter.resourceId) {
+                formData.append('resourceId', chapter.resourceId);
+            }
+
+            return $http.post('http://localhost:8080/api/chapter/save', formData, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            });
+        }
     };
 
     var pageServiceFunction = function ($resource, $http, $q) {
@@ -65,7 +97,7 @@
     };
 
     angular.module('aera-resources', ['ngResource'])
-        .service('ChapterService', ['$resource', chapterServiceFunction])
+        .service('ChapterService', ['$resource', '$http', '$q', chapterServiceFunction])
         .service('PageService', ['$resource', '$http', '$q', pageServiceFunction]
     );
 })(angular);

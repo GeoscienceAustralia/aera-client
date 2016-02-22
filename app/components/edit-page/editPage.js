@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    var editControllerFunction = function (ChapterService, PageService, NotificationService, $interval) {
+    var editControllerFunction = function (ChapterService, PageService, NotificationService, AeraCommon) {
         var edit = this;
         edit.page = {};
 
@@ -14,7 +14,8 @@
             NotificationService.addError('Could not retrieve list of chapters');
         };
 
-        ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
+        ChapterService.getAll(chaptersRetrieved, chapterRetrievalFailed);
+//        ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
 
         edit.clearForm = function () {
             edit.page = {};
@@ -69,33 +70,15 @@
             var page = PageService.save(edit.page).then(pageSaved, pageSaveFailed);
         };
 
-        // Angular Material linear progress bar
-        var j = 0, counter = 0;
-        edit.mode = 'query';
-        edit.activated = true;
-        edit.modes = [ ];
-
-        $interval(function () {
-            edit.determinateValue += 1;
-            edit.determinateValue2 += 1.5;
-
-            if (edit.determinateValue > 100) edit.determinateValue = 30;
-            if (edit.determinateValue2 > 100) edit.determinateValue2 = 30;
-            if ((j < 2) && !edit.modes[j] && edit.activated) {
-                edit.modes[j] = (j == 0) ? 'buffer' : 'query';
-            }
-            if (counter++ % 4 == 0) j++;
-            if (j == 2) edit.contained = "indeterminate";
-        }, 100, 0, true);
-
+        AeraCommon.setProgressBar(edit);
     };
 
     var editDirectiveFunction = function () {
         return {
             restrict: 'E',
             scope: {},
-            templateUrl: 'components/edit/edit.html',
-            controller: 'EditController as edit'
+            templateUrl: 'components/edit-page/editPage.html',
+            controller: 'EditPageController as edit'
         };
     };
 
@@ -115,8 +98,8 @@
         };
     };
 
-    angular.module('aera-edit', [])
-        .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', '$interval', editControllerFunction])
-        .directive('aeraEdit', editDirectiveFunction)
+    angular.module('aera-edit-page', [])
+        .controller('EditPageController', ['ChapterService', 'PageService', 'NotificationService', 'AeraCommon', editControllerFunction])
+        .directive('aeraEditPage', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])
 })(angular);
