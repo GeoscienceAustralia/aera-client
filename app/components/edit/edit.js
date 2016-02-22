@@ -58,7 +58,7 @@
             edit.progressBar = false;
         };
 
-        var pageSaveFailed = function (err) {
+        var pageSaveFailed = function () {
             NotificationService.addError('Unable to save page');
             edit.progressBar = false;
         };
@@ -115,7 +115,7 @@
         };
     };
 
-    angular.module('aera-edit', [])
+    angular.module('aera-edit', ['ngSanitize'])
         .controller('EditController', ['ChapterService', 'PageService', 'NotificationService', '$interval', editControllerFunction])
         .directive('aeraEdit', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])

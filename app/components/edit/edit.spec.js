@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Edit Page', function () {
 
   var $q, $rootScope,
@@ -14,12 +16,14 @@ describe('Edit Page', function () {
     ];
 
     mockPage = {
-      pageId: 83,
-      title: 'Number of Ewoks on Endor',
-      summary: 'The effect of having the Deathstar destroyed on the native Ewok population of Endor',
-      chapter: 4,
-      dataFile: 'some/file',
-      imageFile: 'a/pretty/picture'
+      data: {
+        pageId: 83,
+        title: 'Number of Ewoks on Endor',
+        summary: 'The effect of having the Deathstar destroyed on the native Ewok population of Endor',
+        chapter: 4,
+        dataFile: 'some/file',
+        imageFile: 'a/pretty/picture'
+      }
     };
 
     stubChapterService = {};
@@ -28,6 +32,7 @@ describe('Edit Page', function () {
 
     module('aera-edit');
     module('components/edit/edit.html');
+    module('components/edit/reference/reference.html');
     module(function ($provide) {
       $provide.factory('ChapterService', function () { return stubChapterService; });
       $provide.factory('PageService', function () { return stubPageService; });
@@ -49,7 +54,6 @@ describe('Edit Page', function () {
       return pageQuery.promise;
     };
     stubPageService.save = stubPageService.get;
-    stubPageService.delete = stubPageService.get;
 
     inject(function ($compile) {
       directiveElement = $compile('<aera-edit></aera-edit>')($rootScope);
@@ -67,6 +71,12 @@ describe('Edit Page', function () {
     $rootScope.$digest();
   };
 
+  var findPage = function () {
+    editController.page.pageId = mockPage.data.pageId;
+    getFindPageButton().click();
+    resolvePromise(pageQuery, mockPage);
+  };
+
   var getPageIdInput = function () {
     return directiveElement.find('input#pageId');
   };
@@ -79,8 +89,8 @@ describe('Edit Page', function () {
   var getSavePageButton = function () {
     return directiveElement.find('md-button#save');
   };
-  var getDeletePageButton = function () {
-    return directiveElement.find('md-button#delete');
+  var getClearButton = function () {
+    return directiveElement.find('md-button#new-page');
   };
 
   it('populates a dropdown box with a list of chapters', function () {
@@ -96,23 +106,21 @@ describe('Edit Page', function () {
     expect(mockNotificationService.addError).toHaveBeenCalledWith('Could not retrieve list of chapters');
   });
 
-  xit('allows the user to search for an existing page by ID', function () {
+  it('allows the user to search for an existing page by ID', function () {
     expect(getPageIdInput().length).toBe(1);
     expect(getFindPageButton().length).toBe(1);
 
     spyOn(stubPageService, 'get').and.callThrough();
-    editController.page.pageId = mockPage.pageId;
-    $rootScope.$apply();
-    getFindPageButton().click();
-    expect(stubPageService.get).toHaveBeenCalledWith(mockPage.pageId);
+    findPage();
+    expect(stubPageService.get).toHaveBeenCalledWith(mockPage.data.pageId);
     resolvePromise(pageQuery, mockPage);
 
-    expect(getPageIdInput().val()).toBe(mockPage.pageId + '');
-    expect(directiveElement.find('input#title').val()).toBe(mockPage.title);
-    expect(directiveElement.find('textarea#summary').val()).toBe(mockPage.summary);
+    expect(getPageIdInput().val()).toBe(mockPage.data.pageId + '');
+    expect(directiveElement.find('input#title').val()).toBe(mockPage.data.title);
+    expect(directiveElement.find('textarea#text').val()).toBe(mockPage.data.summary);
   });
 
-  xit('creates an error message when the user tries to find a page that doesn\'t exist', function () {
+  it('creates an error message when the user tries to find a page that doesn\'t exist', function () {
     spyOn(mockNotificationService, 'addError');
     editController.page.pageId = 44;
     getFindPageButton().click();
@@ -134,20 +142,11 @@ describe('Edit Page', function () {
     expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to save page');
   });
 
-  xit('calls the Page service when a user deletes and notifies user of success', function () {
-    spyOn(stubPageService, 'delete').and.callThrough();
-    spyOn(mockNotificationService, 'addInformation');
-    editController.page = mockPage;
-    getDeletePageButton().click();
-    resolvePromise(pageQuery);
-    expect(stubPageService.delete).toHaveBeenCalledWith(mockPage.pageId);
-    expect(mockNotificationService.addInformation).toHaveBeenCalledWith('Page deleted');
+  it('clears all fields when the clear button is clicked', function () {
+    findPage();
+    getClearButton().click();
+    expect(editController.page).toEqual({});
+    expect(editController.page.pageId).toBeUndefined();
   });
 
-  xit('creates an error when delete fails', function () {
-    spyOn(mockNotificationService, 'addError').and.callThrough();
-    getDeletePageButton().click();
-    rejectPromise(pageQuery);
-    expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to delete page');
-  });
 });
