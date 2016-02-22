@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
@@ -10,6 +12,7 @@ var server = require('gulp-express');
 var KarmaServer = require('karma').Server;
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
+var ngConstant = require('gulp-ng-constant');
 
 var outputPath = 'build/webapp/';
 
@@ -40,7 +43,7 @@ gulp.task('_start-server', function () {
   server.run(['test/server.js']);
 });
 
-gulp.task('_test-functional', ['_start-server', 'build-css'], function () {
+gulp.task('_test-functional', ['_start-server', 'build-css', 'config-express'], function () {
   return gulp.src(['./app/components/**/*.fn.spec.js'])
       .pipe(protractor({
         configFile: 'protractor.conf.js',
@@ -67,10 +70,27 @@ gulp.task('build-css', function () {
       .pipe(gulp.dest('app'));
 });
 
-gulp.task('run', function () {
+var configTask = function (configFile) {
+  gulp.src(configFile)
+      .pipe(ngConstant())
+      .pipe(gulp.dest('app'));
+};
+
+gulp.task('config-express', function () {
+  configTask('config/express/config.json');
+});
+
+gulp.task('config-local-api', function () {
+  configTask('config/api/config.json');
+});
+
+var runTask = function () {
   server.run(['test/server.js']);
   gulp.watch(['app/**/*.scss'], ['build-css']);
-});
+};
+
+gulp.task('run', ['config-express'], runTask);
+gulp.task('run-local-api', ['config-local-api'], runTask);
 
 gulp.task('test', ['test-unit', 'test-functional']);
 gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);
