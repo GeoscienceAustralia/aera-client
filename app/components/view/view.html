@@ -9,8 +9,8 @@
   <md-list class="chapter-nav" hide-xs ng-class="{ 'show-element': view.showChapterList}">
     <md-list-item ng-repeat="chapter in view.chapters">
       <md-button class="md-bg-primary chapter-nav__link"
-                 ng-click="view.updateSelectedChapter(chapter.id)"
-                 ui-sref=".chapter({id: chapter.id})">{{chapter.title}}</md-button>
+                 ng-click="view.updateSelectedChapter(chapter.chapterId)"
+                 ui-sref=".chapter({id: chapter.chapterId})">{{chapter.title}}</md-button>
     </md-list-item>
   </md-list>
   <md-content ui-view></md-content>

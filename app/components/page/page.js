@@ -6,12 +6,12 @@
     var page = this;
 
     var pageRetrieved = function (result) {
-      angular.extend(page, result);
+      angular.extend(page, result.data);
     };
     var pageRetrievalFailed = function () {
       NotificationService.addError('The page could not be retrieved');
     };
-    PageService.get({pageId: page.id}).$promise.then(pageRetrieved, pageRetrievalFailed);
+    PageService.get(page.id).then(pageRetrieved, pageRetrievalFailed);
   };
 
   var pageDirectiveFunction = function () {
