@@ -7,15 +7,14 @@
         edit.page = {};
 
         var chaptersRetrieved = function (chapters) {
-            edit.chapters = chapters;
+            edit.chapters = chapters.data;
         };
 
         var chapterRetrievalFailed = function () {
             NotificationService.addError('Could not retrieve list of chapters');
         };
 
-        ChapterService.getAll(chaptersRetrieved, chapterRetrievalFailed);
-//        ChapterService.query().$promise.then(chaptersRetrieved, chapterRetrievalFailed);
+        ChapterService.getAll().then(chaptersRetrieved, chapterRetrievalFailed);
 
         edit.clearForm = function () {
             edit.page = {};

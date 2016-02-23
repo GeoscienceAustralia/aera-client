@@ -2,14 +2,14 @@
 
 (function (angular) {
 
-    var chapterServiceFunction = function ($resource, $http, $q) {
-        this.getAll = function () {
-            var requestUrl = 'http://localhost:8080/api/chapter/';
+    var chapterServiceFunction = function ($http, apiEndpoint) {
+        this.getAll = function (chapterId) {
+            var requestUrl = apiEndpoint + '/chapter/';
             return $http.get(requestUrl);
         }
 
         this.get = function (chapterId) {
-            var requestUrl = 'http://localhost:8080/api/chapter/' + chapterId;
+            var requestUrl = apiEndpoint + '/chapter/' + chapterId;
             return $http.get(requestUrl);
         }
 
@@ -67,14 +67,14 @@
             }
 
             return $http.post(url + 'save', formData, {
-                transformRequest: angular.identity, // stop default transformRequest from serialising FormData object
-                headers: {'Content-Type': undefined} // will be set to multipart/form-data by browser
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
             });
         }
     };
 
     angular.module('aera-resources', ['ngResource', 'aera-config'])
-        .service('ChapterService', ['$resource', 'apiEndpoint', chapterServiceFunction])
+        .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
         .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction]
     );
 })(angular);
