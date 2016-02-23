@@ -30,8 +30,8 @@ describe('Edit Page', function () {
     stubPageService = {};
     mockNotificationService = { addError: function () {}, addInformation: function () {} };
 
-    module('aera-edit');
-    module('components/edit/edit.html');
+    module('aera-edit-page');
+    module('components/edit-page/editPage.html');
     module('components/edit/reference/reference.html');
     module(function ($provide) {
       $provide.factory('ChapterService', function () { return stubChapterService; });
