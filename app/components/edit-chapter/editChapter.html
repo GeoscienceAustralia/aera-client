@@ -1,0 +1,39 @@
+<div class="aera-edit-chapter md-inline-form">
+    <div layout="row">
+        <md-input-container class="md-block" flex>
+            <label for="chapterId">Find chapter by ID</label>
+            <input type="number" id="chapterId" ng-model="edit.chapter.chapterId"/>
+            <md-button class="md-raised" id="find-chapter" ng-click="edit.findChapter()">Search</md-button>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="md-block" flex>
+            <label for="title">Title</label>
+            <input type="text" id="title" ng-model="edit.chapter.title"/>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="md-block" flex>
+            <label for="text">Text</label>
+            <textarea id="text" ng-model="edit.chapter.summary"></textarea>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="md-block" flex>
+            <label for="resourceId">Resource Id</label>
+            <textarea id="resourceId" ng-model="edit.chapter.resourceId"></textarea>
+        </md-input-container>
+    </div>
+    <div layout="row" ng-show="edit.chapter.result">
+        <p>Updated chapter Id: {{edit.chapter.result}}</p>
+    </div>
+    <div layout="row" ng-show="edit.chapter.progressBar">
+        <md-progress-linear md-mode="{{edit.modes[1]}}"></md-progress-linear>
+    </div>
+    <div layout="row">
+        <md-input-container class="md-block" flex>
+            <md-button class="md-raised" id="save" ng-click="edit.saveChapter()">Save</md-button>
+            <md-button class="md-raised" id="new-chapter" ng-click="edit.clearForm()">Clear</md-button>
+        </md-input-container>
+    </div>
+</div>
