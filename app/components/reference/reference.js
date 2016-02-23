@@ -4,9 +4,15 @@
 
   var referenceControllerFunction = function ($filter) {
     var reference = this;
+    var editPageController;
+
+    reference.setEditPageController = function (controller) {
+      editPageController = controller;
+    };
 
     reference.updateOutputString = function () {
       reference.outputString = $filter('aera-reference')(reference);
+      editPageController.setReference(reference);
     }
   };
 
@@ -14,7 +20,11 @@
     return {
       restrict: 'E',
       templateUrl: 'components/edit/reference/reference.html',
-      controller: 'ReferenceController as reference'
+      controller: 'ReferenceController as reference',
+      require: '^EditPageController, ReferenceController',
+      link: function (element, attrs, scope, controllers) {
+        controllers[1].setEditPageController(controllers[2]);
+      }
     };
   };
 

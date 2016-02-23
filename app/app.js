@@ -3,7 +3,7 @@
 (function (angular) {
 
   angular.module('ga-aera', ['ui.router', 'ngMaterial',
-        'aera-view', 'aera-edit', 'aera-chapter', 'aera-page', 'aera-resources', 'aera-notifications'])
+        'aera-view', 'aera-edit-page', 'aera-edit-chapter', 'aera-chapter', 'aera-page', 'aera-resources', 'aera-notifications', 'aera-common'])
       .config(['$mdThemingProvider', '$urlRouterProvider', '$stateProvider',
         function ($mdThemingProvider, $urlRouterProvider, $stateProvider) {
 
@@ -41,17 +41,23 @@
             template: '<aera-chapter></aera-chapter>'
           };
 
-          var edit = {
-            url: '/edit',
-            template: '<aera-edit></aera-edit>'
+          var editPage = {
+            url: '/editPage',
+            template: '<aera-edit-page></aera-edit-page>'
           };
+
+            var editChapter = {
+                url: '/editChapter',
+                template: '<aera-edit-chapter></aera-edit-chapter>'
+            };
 
           $urlRouterProvider.otherwise('/view/chapter/1');
 
           $stateProvider
               .state('view', view)
               .state('view.chapter', chapter)
-              .state('edit', edit);
+              .state('editPage', editPage)
+              .state('editChapter', editChapter)
         }])
       .filter('aera-reference', function ($filter) {
         return function (reference) {

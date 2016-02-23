@@ -2,9 +2,41 @@
 
 (function (angular) {
 
-    var chapterServiceFunction = function ($resource, apiEndpoint) {
-        var url = apiEndpoint + '/chapter/:chapterId';
-        return $resource(url, {chapterId: '@chapterId'});
+    var chapterServiceFunction = function ($http, apiEndpoint) {
+        this.getAll = function (chapterId) {
+            var requestUrl = apiEndpoint + '/chapter/';
+            return $http.get(requestUrl);
+        }
+
+        this.get = function (chapterId) {
+            var requestUrl = apiEndpoint + '/chapter/' + chapterId;
+            return $http.get(requestUrl);
+        }
+
+        this.save = function (chapter) {
+            var formData = new FormData();
+
+            if (chapter.chapterId) {
+                formData.append('chapterId', chapter.chapterId);
+            }
+
+            if (chapter.title) {
+                formData.append('title', chapter.title);
+            }
+
+            if (chapter.summary) {
+                formData.append('summary', chapter.summary);
+            }
+
+            if (chapter.resourceId) {
+                formData.append('resourceId', chapter.resourceId);
+            }
+
+            return $http.post('http://localhost:8080/api/chapter/save', formData, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            });
+        }
     };
 
     var pageServiceFunction = function ($http, apiEndpoint) {
@@ -35,14 +67,14 @@
             }
 
             return $http.post(url + 'save', formData, {
-                transformRequest: angular.identity, // stop default transformRequest from serialising FormData object
-                headers: {'Content-Type': undefined} // will be set to multipart/form-data by browser
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
             });
         }
     };
 
     angular.module('aera-resources', ['ngResource', 'aera-config'])
-        .service('ChapterService', ['$resource', 'apiEndpoint', chapterServiceFunction])
+        .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
         .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction]
     );
 })(angular);
