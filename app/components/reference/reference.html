@@ -1,26 +1,26 @@
 <md-subheader>Reference</md-subheader>
 <md-input-container>
   <label for="sourceAuthor">Author/s</label>
-  <input type="text" id="sourceAuthor" ng-model="reference.author" ng-change="reference.updateOutputString()" />
+  <input type="text" id="sourceAuthor" ng-model="ctrl.reference.author" ng-change="reference.updateOutputString()" />
 </md-input-container>
 <md-input-container>
   <label for="publicationYear">Publication Year</label>
-  <input type="number" id="publicationYear" ng-model="reference.publicationYear" ng-change="reference.updateOutputString()" />
+  <input type="number" id="publicationYear" ng-model="ctrl.reference.publicationYear" ng-change="reference.updateOutputString()" />
 </md-input-container>
 <md-input-container>
   <label for="sourceTitle">Title</label>
-  <input type="text" id="sourceTitle" ng-model="reference.title" ng-change="reference.updateOutputString()" />
+  <input type="text" id="sourceTitle" ng-model="ctrl.reference.title" ng-change="reference.updateOutputString()" />
 </md-input-container>
 <md-input-container>
   <label for="publicationTitle">Publication</label>
-  <input type="text" id="publicationTitle" ng-model="reference.publication" ng-change="reference.updateOutputString()" />
+  <input type="text" id="publicationTitle" ng-model="ctrl.reference.publication" ng-change="reference.updateOutputString()" />
 </md-input-container>
 <md-input-container>
   <label for="sourceUrl">URL</label>
-  <input type="url" id="sourceUrl" ng-model="reference.url" ng-change="reference.updateOutputString()" />
+  <input type="url" id="sourceUrl" ng-model="ctrl.reference.url" ng-change="reference.updateOutputString()" />
 </md-input-container>
 <md-input-container>
   <label for="dateAccessed">Date Accessed</label>
-  <input type="date" id="dateAccessed" ng-model="reference.dateAccessed" ng-change="reference.updateOutputString()" />
+  <input type="date" id="dateAccessed" ng-model="ctrl.reference.dateAccessed" ng-change="reference.updateOutputString()" />
 </md-input-container>
-<p ng-bind-html="reference.outputString"></p>
+<p ng-bind-html="ctrl.reference.outputString"></p>
