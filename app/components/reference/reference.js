@@ -19,7 +19,7 @@
   var referenceDirectiveFunction = function () {
     return {
       restrict: 'E',
-      templateUrl: 'components/edit/reference/reference.html',
+      templateUrl: 'components/reference/reference.html',
       controller: 'ReferenceController as reference',
       require: '^EditPageController, ReferenceController',
       link: function (element, attrs, scope, controllers) {
@@ -28,7 +28,7 @@
     };
   };
 
-  angular.module('aera-edit')
+  angular.module('aera-edit-page')
       .controller('ReferenceController', ['$filter', referenceControllerFunction])
       .directive('aeraReference', referenceDirectiveFunction);
 })(angular);

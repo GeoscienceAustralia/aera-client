@@ -69,6 +69,10 @@
             PageService.save(edit.page).then(pageSaved, pageSaveFailed);
         };
 
+        edit.setReference = function (reference) {
+            edit.reference = reference;
+        };
+
         AeraCommon.setProgressBar(edit);
     };
 
@@ -97,7 +101,7 @@
         };
     };
 
-    angular.module('aera-edit-page', ['ng-sanitize'])
+    angular.module('aera-edit-page', ['ngSanitize'])
         .controller('EditPageController', ['ChapterService', 'PageService', 'NotificationService', 'AeraCommon', editControllerFunction])
         .directive('aeraEditPage', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])

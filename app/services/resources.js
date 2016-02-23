@@ -3,15 +3,15 @@
 (function (angular) {
 
     var chapterServiceFunction = function ($http, apiEndpoint) {
-        this.getAll = function (chapterId) {
+        this.getAll = function () {
             var requestUrl = apiEndpoint + '/chapter/';
             return $http.get(requestUrl);
-        }
+        };
 
         this.get = function (chapterId) {
             var requestUrl = apiEndpoint + '/chapter/' + chapterId;
             return $http.get(requestUrl);
-        }
+        };
 
         this.save = function (chapter) {
             var formData = new FormData();

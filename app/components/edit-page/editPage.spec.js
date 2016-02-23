@@ -8,12 +8,14 @@ describe('Edit Page', function () {
 
   beforeEach(function () {
 
-    mockChapters = [
-      { id: 4, title: 'A New Hope'},
-      { id: 5, title: 'The Empire Strikes Back'},
-      { id: 6, title: 'Return of the Jedi'},
-      { id: 7, title: 'The Force Awakens'}
-    ];
+    mockChapters = {
+      data:         [
+        { id: 4, title: 'A New Hope'},
+        { id: 5, title: 'The Empire Strikes Back'},
+        { id: 6, title: 'Return of the Jedi'},
+        { id: 7, title: 'The Force Awakens'}
+      ]
+    };
 
     mockPage = {
       data: {
@@ -30,9 +32,11 @@ describe('Edit Page', function () {
     stubPageService = {};
     mockNotificationService = { addError: function () {}, addInformation: function () {} };
 
+    module('ngSanitize');
+    module('aera-common');
     module('aera-edit-page');
     module('components/edit-page/editPage.html');
-    module('components/edit/reference/reference.html');
+    module('components/reference/reference.html');
     module(function ($provide) {
       $provide.factory('ChapterService', function () { return stubChapterService; });
       $provide.factory('PageService', function () { return stubPageService; });
@@ -44,9 +48,9 @@ describe('Edit Page', function () {
       $rootScope = _$rootScope_;
     });
 
-    stubChapterService.query = function () {
+    stubChapterService.getAll = function () {
       chaptersQuery = $q.defer();
-      return {$promise: chaptersQuery.promise};
+      return chaptersQuery.promise;
     };
 
     stubPageService.get = function () {
@@ -56,9 +60,9 @@ describe('Edit Page', function () {
     stubPageService.save = stubPageService.get;
 
     inject(function ($compile) {
-      directiveElement = $compile('<aera-edit></aera-edit>')($rootScope);
+      directiveElement = $compile('<aera-edit-page></aera-edit-page>')($rootScope);
       $rootScope.$digest();
-      editController = directiveElement.controller('aeraEdit');
+      editController = directiveElement.controller('aeraEditPage');
     });
   });
 

@@ -59,17 +59,5 @@
               .state('editPage', editPage)
               .state('editChapter', editChapter)
         }])
-      .filter('aera-reference', function ($filter) {
-        return function (reference) {
-          var author = reference.author ? reference.author + ' ' : '';
-          var year = reference.publicationYear ? '(' + reference.publicationYear + '). ' : '';
-          var title = reference.title ? reference.title + '. ' : '';
-          var publication = reference.publication ? '<i>' + reference.publication + '</i>. ' : '';
-          var dateAccessed = reference.dateAccessed ? 'Retrieved ' + $filter('date')(reference.dateAccessed, 'MMMM d, yyyy') + ', ' : '';
-          var url = reference.url ? 'from ' + reference.url : '';
-          return author + year + title + publication + dateAccessed + url;
-        };
-      });
-
 
 })(angular);

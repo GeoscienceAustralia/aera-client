@@ -38,9 +38,9 @@ describe('Main Page', function () {
       $stateParams = _$stateParams_;
     });
 
-    stubChapterService.query = function () {
+    stubChapterService.getAll = function () {
       chapterQuery = $q.defer();
-      return {$promise: chapterQuery.promise};
+      return chapterQuery.promise;
     };
 
     inject(function ($compile) {
