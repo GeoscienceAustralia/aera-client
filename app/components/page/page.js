@@ -2,33 +2,41 @@
 
 (function (angular) {
 
-  var pageControllerFunction = function (PageService, NotificationService) {
-    var page = this;
+    var pageControllerFunction = function (PageService, ReferenceService, NotificationService) {
+        var page = this;
+        page.sources = [];
 
-    var pageRetrieved = function (result) {
-      angular.extend(page, result.data);
-    };
-    var pageRetrievalFailed = function () {
-      NotificationService.addError('The page could not be retrieved');
-    };
-    PageService.get(page.id).then(pageRetrieved, pageRetrievalFailed);
-  };
+        var failure = function (error) {
+            NotificationService.addError(error);
+        };
 
-  var pageDirectiveFunction = function () {
-    return {
-      restrict: 'E',
-      scope: {},
-      bindToController: {
-        id: '=pageId'
-      },
-      templateUrl: 'components/page/page.html',
-      controller: 'PageController as page'
+        var pageRetrieved = function (result) {
+            angular.extend(page, result.data);
+        };
+        var sourcesRetrieved = function (result) {
+            result.data.forEach(function (source, index) {
+                page.sources[index] = source;
+            });
+        };
+        PageService.get(page.id).then(pageRetrieved, failure);
+        ReferenceService.get(page.id).then(sourcesRetrieved, failure);
     };
-  };
 
-  angular.module('aera-page', [])
-      .controller('PageController', ['PageService', 'NotificationService', pageControllerFunction])
-      .directive('aeraPage', pageDirectiveFunction);
+    var pageDirectiveFunction = function () {
+        return {
+            restrict: 'E',
+            scope: {},
+            bindToController: {
+                id: '=pageId'
+            },
+            templateUrl: 'components/page/page.html',
+            controller: 'PageController as page'
+        };
+    };
+
+    angular.module('aera-page', [])
+            .controller('PageController', ['PageService', 'ReferenceService', 'NotificationService', pageControllerFunction])
+            .directive('aeraPage', pageDirectiveFunction);
 
 
 })(angular);

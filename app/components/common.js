@@ -38,6 +38,6 @@
 
   angular.module('aera-common', [])
         .service('AeraCommon', ['$interval', commonsFunction])
-        .filter('aera-reference', ['$filter', aeraReferenceFilterFunction]);
+        .filter('aeraReference', ['$filter', aeraReferenceFilterFunction]);
 
 })(angular);

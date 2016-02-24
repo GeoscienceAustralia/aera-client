@@ -1,8 +1,10 @@
+'use strict';
+
 describe('A Chapter', function () {
 
     var chapterId = 1;
     var $location, $q, $rootScope, chapterController, chapterQuery, directiveElement,
-            mockChapter, stubChapterService, stubPageService, mockNotificationService;
+            mockChapter, stubChapterService, stubPageService, stubReferenceService, stubNotificationService;
 
     beforeEach(function () {
 
@@ -18,7 +20,8 @@ describe('A Chapter', function () {
 
         stubChapterService = {};
         stubPageService = {};
-        mockNotificationService = { addError: function () {} };
+        stubReferenceService = {};
+        stubNotificationService = { addError: function () {} };
 
         module('aera-chapter');
         module('aera-page');
@@ -29,8 +32,9 @@ describe('A Chapter', function () {
         module(function ($provide) {
             $provide.value('chapterId', chapterId);
             $provide.factory('ChapterService', function () { return stubChapterService; });
-            $provide.factory('NotificationService', function () { return mockNotificationService; });
+            $provide.factory('NotificationService', function () { return stubNotificationService; });
             $provide.factory('PageService', function () { return stubPageService; });
+            $provide.factory('ReferenceService', function () { return stubReferenceService; });
         });
 
         inject(function (_$location_, _$q_, _$rootScope_) {
@@ -45,6 +49,10 @@ describe('A Chapter', function () {
         };
 
         stubPageService.get = function () {
+            return $q.defer().promise;
+        };
+
+        stubReferenceService.get = function () {
             return $q.defer().promise;
         };
 
@@ -72,9 +80,9 @@ describe('A Chapter', function () {
     });
 
     it('creates an error message if the list of pages couldn\'t be displayed', function () {
-        spyOn(mockNotificationService, 'addError');
+        spyOn(stubNotificationService, 'addError');
         rejectPromise(chapterQuery);
-        expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to retrieve chapter');
+        expect(stubNotificationService.addError).toHaveBeenCalledWith('Unable to retrieve chapter');
     });
 
     it('displays links to its pages and the list of pages', function () {

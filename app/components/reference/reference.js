@@ -2,33 +2,28 @@
 
 (function (angular) {
 
-  var referenceControllerFunction = function ($filter) {
-    var ctrl = this;
-    var editPageController;
+    var referenceControllerFunction = function ($filter) {
+        var reference = this;
 
-    ctrl.setEditPageController = function (controller) {
-      editPageController = controller;
+        reference.updateOutputString = function (source) {
+            source.outputString = $filter('aeraReference')(source);
+        };
+
+        reference.addSource = function () {
+            reference.sources.push({});
+        };
+
+        // ensure there is at least one source in the list
+        if (reference.sources.length === 0) {
+            reference.addSource();
+        }
     };
 
-    ctrl.updateOutputString = function () {
-      ctrl.outputString = $filter('aera-reference')(ctrl.reference);
-      editPageController.setReference(ctrl.reference);
-    }
-  };
-
-  var referenceDirectiveFunction = function () {
-    return {
-      restrict: 'E',
-      templateUrl: 'components/reference/reference.html',
-      controller: 'ReferenceController as reference',
-      require: ['^aeraEditPage', 'aeraReference'],
-      link: function (element, attrs, scope, controllers) {
-        controllers[1].setEditPageController(controllers[0]);
-      }
-    };
-  };
-
-  angular.module('aera-edit-page')
-      .controller('ReferenceController', ['$filter', referenceControllerFunction])
-      .directive('aeraReference', referenceDirectiveFunction);
+    angular.module('aera-edit-page')
+            .controller('ReferenceController', ['$filter', referenceControllerFunction])
+            .component('aeraReference', {
+                templateUrl: 'components/reference/reference.html',
+                controller: 'ReferenceController as reference',
+                bindings: { sources: '=references'}
+            });
 })(angular);

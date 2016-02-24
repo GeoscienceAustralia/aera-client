@@ -3,36 +3,29 @@
 (function (angular) {
 
     var chapterServiceFunction = function ($http, apiEndpoint) {
+
+        var chapterUrl = apiEndpoint + '/chapter/';
+
         this.getAll = function () {
-            var requestUrl = apiEndpoint + '/chapter/';
-            return $http.get(requestUrl);
+            return $http.get(chapterUrl);
         };
 
         this.get = function (chapterId) {
-            var requestUrl = apiEndpoint + '/chapter/' + chapterId;
+            var requestUrl = chapterUrl + chapterId;
             return $http.get(requestUrl);
         };
 
         this.save = function (chapter) {
             var formData = new FormData();
 
-            if (chapter.chapterId) {
-                formData.append('chapterId', chapter.chapterId);
+            for (var property in chapter) {
+                if (chapter.hasOwnProperty(property) && chapter[property]) {
+                    formData.append(property, chapter[property]);
+                }
             }
 
-            if (chapter.title) {
-                formData.append('title', chapter.title);
-            }
-
-            if (chapter.summary) {
-                formData.append('summary', chapter.summary);
-            }
-
-            if (chapter.resourceId) {
-                formData.append('resourceId', chapter.resourceId);
-            }
-
-            return $http.post('http://localhost:8080/api/chapter/save', formData, {
+            var requestUrl = chapterUrl + 'save';
+            return $http.post(requestUrl, formData, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });
@@ -61,9 +54,9 @@
             var formData = new FormData();
 
             for (var property in page) {
-              if (page.hasOwnProperty(property) && page[property]) {
-                formData.append(property, page[property]);
-              }
+                if (page.hasOwnProperty(property) && page[property] && typeof page[property] !== 'object') {
+                    formData.append(property, page[property]);
+                }
             }
 
             return $http.post(url + 'save', formData, {
@@ -73,8 +66,23 @@
         }
     };
 
+    var referenceServiceFunction = function ($http, apiEndpoint) {
+        var url = apiEndpoint + '/reference/';
+
+        this.get = function (pageId) {
+            return $http.get(url + pageId);
+        };
+
+        this.save = function (pageId, references) {
+            return $http.post(url + 'save', {
+                pageId: pageId,
+                references: references
+            });
+        }
+    };
+
     angular.module('aera-resources', ['ngResource', 'aera-config'])
-        .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
-        .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction]
-    );
+            .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
+            .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction])
+            .service('ReferenceService', ['$http', 'apiEndpoint', referenceServiceFunction]);
 })(angular);
