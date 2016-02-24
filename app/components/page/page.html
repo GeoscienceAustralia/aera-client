@@ -6,7 +6,7 @@
   </figure>
   <div>
     <div class="page-content__text">{{::page.summary}}</div>
-    <div class="page-content__reference">{{::page.reference}}</div>
+    <div class="page-content__reference" ng-repeat="source in page.sources" ng-bind-html="::source | aeraReference"></div>
   </div>
 </md-content>
 <div class="page-footer">

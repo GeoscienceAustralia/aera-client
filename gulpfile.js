@@ -86,7 +86,7 @@ gulp.task('config-local-api', function () {
 
 var runTask = function () {
   server.run(['test/server.js']);
-  gulp.watch(['app/**/*.scss'], ['build-css']);
+  gulp.watch('app/**/*.scss', ['build-css']);
 };
 
 gulp.task('run', ['config-express'], runTask);

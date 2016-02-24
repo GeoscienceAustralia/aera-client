@@ -15,3 +15,9 @@ $md-max: 1279px;
 $gt-md: 1280px;
 $lg-max: 1919px;
 $gt-lg: 1920px;
+
+h2, h3 {
+  text-transform: uppercase;
+  color: $primary-colour;
+}
+

@@ -1,0 +1,29 @@
+<h3>Sources</h3>
+<div ng-repeat="source in reference.sources">
+  <md-input-container>
+    <label for="sourceAuthor">Author/s</label>
+    <input type="text" id="sourceAuthor" ng-model="source.author" ng-change="reference.updateOutputString(source)" />
+  </md-input-container>
+  <md-input-container>
+    <label for="publicationYear">Publication Year</label>
+    <input type="number" id="publicationYear" ng-model="source.publicationYear" ng-change="reference.updateOutputString(source)" />
+  </md-input-container>
+  <md-input-container>
+    <label for="sourceTitle">Title</label>
+    <input type="text" id="sourceTitle" ng-model="source.title" ng-change="reference.updateOutputString(source)" />
+  </md-input-container>
+  <md-input-container>
+    <label for="publicationTitle">Publication</label>
+    <input type="text" id="publicationTitle" ng-model="source.publication" ng-change="reference.updateOutputString(source)" />
+  </md-input-container>
+  <md-input-container>
+    <label for="sourceUrl">URL</label>
+    <input type="url" id="sourceUrl" ng-model="source.url" ng-change="reference.updateOutputString(source)" />
+  </md-input-container>
+  <md-input-container>
+    <label for="dateAccessed">Date Accessed</label>
+    <input type="date" id="dateAccessed" ng-model="source.dateAccessed" ng-change="reference.updateOutputString(source)" />
+  </md-input-container>
+  <p ng-bind-html="source.outputString"></p>
+</div>
+<md-button class="reference__add md-accent" ng-click="reference.addSource()">+ Add another source</md-button>

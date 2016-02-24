@@ -19,7 +19,7 @@
         };
 
         edit.findChapter = function () {
-            var chapter = ChapterService.get(edit.chapter.chapterId).then(chapterFound, chapterNotFound);
+            ChapterService.get(edit.chapter.chapterId).then(chapterFound, chapterNotFound);
         };
 
         var chapterSaved = function (chapter) {
@@ -29,7 +29,7 @@
             edit.chapter.progressBar = false;
         };
 
-        var chapterSaveFailed = function (err) {
+        var chapterSaveFailed = function () {
             NotificationService.addError('Unable to save chapter');
             edit.chapter.progressBar = false;
         };
@@ -37,11 +37,11 @@
         edit.saveChapter = function () {
             edit.chapter.progressBar = true;
             edit.chapter.result = false;
-            var chapter = ChapterService.save(edit.chapter).then(chapterSaved, chapterSaveFailed);
+            ChapterService.save(edit.chapter).then(chapterSaved, chapterSaveFailed);
         };
 
         AeraCommon.setProgressBar(edit);
-    }
+    };
 
     var editChapterDirectiveFunction = function () {
         return {
