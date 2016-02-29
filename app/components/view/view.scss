@@ -17,4 +17,13 @@
   padding: 8px;
   margin: 0;
   word-wrap: break-word;
+  color: $alt-text-colour;
+}
+
+.chapter-content {
+
+  @media(min-width: $gt-xs) {
+    height: 100vh;
+    overflow-y: auto;
+  }
 }
