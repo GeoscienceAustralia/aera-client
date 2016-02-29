@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    var editChapterControllerFunction = function (ChapterService, NotificationService, AeraCommon) {
+    var editChapterControllerFunction = function (ChapterService, ResourceService, NotificationService, AeraCommon) {
         var edit = this;
         edit.chapter = {};
 
@@ -40,6 +40,16 @@
             ChapterService.save(edit.chapter).then(chapterSaved, chapterSaveFailed);
         };
 
+        var resourcesRetrieveFailed = function (error) {
+            NotificationService.addError(error);
+        };
+
+        var resourcesRetrieved = function (resources) {
+            edit.resources = resources.data;
+        };
+
+        ResourceService.get().then(resourcesRetrieved, resourcesRetrieveFailed);
+
         AeraCommon.setProgressBar(edit);
     };
 
@@ -53,6 +63,6 @@
     };
 
     angular.module('aera-edit-chapter', [])
-        .controller('EditChapterController', ['ChapterService', 'NotificationService', 'AeraCommon', editChapterControllerFunction])
+        .controller('EditChapterController', ['ChapterService', 'ResourceService', 'NotificationService', 'AeraCommon', editChapterControllerFunction])
         .directive('aeraEditChapter', editChapterDirectiveFunction)
 })(angular);
