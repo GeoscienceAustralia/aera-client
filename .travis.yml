@@ -9,14 +9,26 @@ before_deploy:
 - chmod +x ./scripts/build.sh
 - ./scripts/build.sh
 deploy:
-  provider: s3
-  region: ap-southeast-2
-  access_key_id: AKIAJWQDSHMR5J6IN7NA
-  secret_access_key:
-    secure: oVgWSSMDz7QcmuLBlGkCYuWNJtzkPX3EvbqgaCLaDeOY9zCsYY5Kq7c8K/9Uh3NnALP2uUlWy6BqMPKvvSY8b6Iu3/ZG1/LwxONXqVy0tS7lmiWY4aJqeQBFKhI7M3nGCtr51eBWvHC122gB4LsxZ4dxAjett6OKHCdmmgHIFGnm7e5S1GiCG3WgqBFBmeP5JWxA5agKjOcWpgybCOZTnShxCLYw6vhbZyeFDjcivWLRJicT7H9L9tib81t1pzPF95ralwc5EmZGSU/6cDdQcRt/OWVgW6qbMUAbxoiZiA/Bvdz3Gwkf7NhMTvW52GFQTwwtg41BmB9zvEGNw434bshvp7dtTj1TiJWYlA4A6l7FJqFbc21xVaHycJdZe+DuPZepYRxkkgn7oo0by2kbMiz1iF3roJ1F3tqGpaOVRaRKSwL9nggrvw5MVXMFrWQM8og0OF45j+YgXWUGEMA1x/NgEChxZabFfEWv3h1KZpKYqUXALXko18xn03V7MUwtSgKr/haUDLQaeoYa0g3wb0aocOlN/4EfPI2UXBV02Oj2LLtiGOnf7o8zQKcBfnu++N6NV1xaqS0mU/kMcbEBE8arin2JfckL1r5V8WLXA0TiFImGI6hJ18PCHGd7R9zLlwzU1vbST1wjNYH7omWcLEsyrp2h2zzNvFfxDhgNqDM=
-  bucket: smallest-bucket-in-history
-  local_dir: release
-  upload_dir: aera-client
-  skip_cleanup: true
-  on:
-    branch: master
+  - provider: s3
+    region: ap-southeast-2
+    access_key_id: AKIAJWQDSHMR5J6IN7NA
+    secret_access_key:
+      secure: oVgWSSMDz7QcmuLBlGkCYuWNJtzkPX3EvbqgaCLaDeOY9zCsYY5Kq7c8K/9Uh3NnALP2uUlWy6BqMPKvvSY8b6Iu3/ZG1/LwxONXqVy0tS7lmiWY4aJqeQBFKhI7M3nGCtr51eBWvHC122gB4LsxZ4dxAjett6OKHCdmmgHIFGnm7e5S1GiCG3WgqBFBmeP5JWxA5agKjOcWpgybCOZTnShxCLYw6vhbZyeFDjcivWLRJicT7H9L9tib81t1pzPF95ralwc5EmZGSU/6cDdQcRt/OWVgW6qbMUAbxoiZiA/Bvdz3Gwkf7NhMTvW52GFQTwwtg41BmB9zvEGNw434bshvp7dtTj1TiJWYlA4A6l7FJqFbc21xVaHycJdZe+DuPZepYRxkkgn7oo0by2kbMiz1iF3roJ1F3tqGpaOVRaRKSwL9nggrvw5MVXMFrWQM8og0OF45j+YgXWUGEMA1x/NgEChxZabFfEWv3h1KZpKYqUXALXko18xn03V7MUwtSgKr/haUDLQaeoYa0g3wb0aocOlN/4EfPI2UXBV02Oj2LLtiGOnf7o8zQKcBfnu++N6NV1xaqS0mU/kMcbEBE8arin2JfckL1r5V8WLXA0TiFImGI6hJ18PCHGd7R9zLlwzU1vbST1wjNYH7omWcLEsyrp2h2zzNvFfxDhgNqDM=
+    bucket: smallest-bucket-in-history
+    local_dir: release
+    upload_dir: aera-client
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: codedeploy
+    access_key_id: AKIAJWQDSHMR5J6IN7NA
+    secret_access_key:
+      secure: oVgWSSMDz7QcmuLBlGkCYuWNJtzkPX3EvbqgaCLaDeOY9zCsYY5Kq7c8K/9Uh3NnALP2uUlWy6BqMPKvvSY8b6Iu3/ZG1/LwxONXqVy0tS7lmiWY4aJqeQBFKhI7M3nGCtr51eBWvHC122gB4LsxZ4dxAjett6OKHCdmmgHIFGnm7e5S1GiCG3WgqBFBmeP5JWxA5agKjOcWpgybCOZTnShxCLYw6vhbZyeFDjcivWLRJicT7H9L9tib81t1pzPF95ralwc5EmZGSU/6cDdQcRt/OWVgW6qbMUAbxoiZiA/Bvdz3Gwkf7NhMTvW52GFQTwwtg41BmB9zvEGNw434bshvp7dtTj1TiJWYlA4A6l7FJqFbc21xVaHycJdZe+DuPZepYRxkkgn7oo0by2kbMiz1iF3roJ1F3tqGpaOVRaRKSwL9nggrvw5MVXMFrWQM8og0OF45j+YgXWUGEMA1x/NgEChxZabFfEWv3h1KZpKYqUXALXko18xn03V7MUwtSgKr/haUDLQaeoYa0g3wb0aocOlN/4EfPI2UXBV02Oj2LLtiGOnf7o8zQKcBfnu++N6NV1xaqS0mU/kMcbEBE8arin2JfckL1r5V8WLXA0TiFImGI6hJ18PCHGd7R9zLlwzU1vbST1wjNYH7omWcLEsyrp2h2zzNvFfxDhgNqDM=
+    bucket: smallest-bucket-in-history
+    key: aera-client/aera.zip
+    bundle_type: zip
+    application: aera-client
+    deployment_group: aera-client_dev
+    region: ap-southeast-2
+    on:
+      branch: master

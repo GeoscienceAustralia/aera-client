@@ -3,5 +3,5 @@ aws s3 cp s3://smallest-bucket-in-history/aera-client/ /tmp --recursive --exclud
 mkdir /tmp/aera
 cd /tmp
 unzip aera.zip -d aera
-mkdir /var/www/aera
+mkdir /var/www/html/aera
 cp -r aera/* /var/www/html/aera
