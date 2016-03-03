@@ -5,7 +5,6 @@ var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-cssnano');
-var htmlmin = require('gulp-htmlmin');
 var ngTemplates = require('gulp-ng-templates');
 var del = require('del');
 var protractor = require('gulp-angular-protractor');
@@ -36,8 +35,7 @@ gulp.task('copy-scripts', function () {
 });
 
 gulp.task('angular-templates', function () {
-  return gulp.src('app/components/**/*.html')
-          .pipe(htmlmin())
+  return gulp.src(['app/**/*.html', '!app/index.html'])
       .pipe(ngTemplates('ga-aera'))
       .pipe(gulp.dest(outputPath));
 });
