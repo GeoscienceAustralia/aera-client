@@ -20,8 +20,13 @@
     </div>
     <div layout="row">
         <md-input-container class="md-block" flex>
-            <label for="resourceId">Resource Id</label>
-            <textarea id="resourceId" ng-model="edit.chapter.resourceId"></textarea>
+            <label>Resource</label>
+
+            <md-select id="resource" ng-model="edit.chapter.resourceId">
+                <md-option ng-repeat="resource in edit.resources" value="{{resource.resourceId}}"
+                           ng-selected="resource.resourceId == edit.chapter.resourceId">{{resource.resourceType}}
+                </md-option>
+            </md-select>
         </md-input-container>
     </div>
     <div layout="row" ng-show="edit.chapter.result">

@@ -80,9 +80,17 @@
             });
         }
     };
+    var resourceServiceFunction = function ($http, apiEndpoint) {
+        var url = apiEndpoint + '/resource/';
+
+        this.get = function () {
+            return $http.get(url);
+        };
+    };
 
     angular.module('aera-resources', ['ngResource', 'aera-config'])
-            .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
-            .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction])
-            .service('ReferenceService', ['$http', 'apiEndpoint', referenceServiceFunction]);
+        .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
+        .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction])
+        .service('ReferenceService', ['$http', 'apiEndpoint', referenceServiceFunction])
+        .service('ResourceService', ['$http', 'apiEndpoint', resourceServiceFunction]);
 })(angular);
