@@ -6,16 +6,19 @@
             <md-button class="md-raised" id="find-page" ng-click="edit.findPage()">Search</md-button>
         </md-input-container>
     </div>
-    <div layout="row">
-        <md-input-container class="md-block" flex-gt-sm="">
+    <div layout-xs="column" layout="row">
+        <md-input-container>
             <label>This page will be in chapter</label>
-
             <md-select id="chapter" ng-model="edit.page.chapterId">
                 <md-option ng-repeat="chapter in edit.chapters" value="{{chapter.chapterId}}"
                            ng-selected="chapter.chapterId == edit.page.chapterId">{{chapter.title}}
                 </md-option>
-            </md-select>
         </md-input-container>
+        <md-input-container>
+            <label for="pageNumber">It will be page number</label>
+            <input id="pageNumber" type="number" ng-model="edit.page.pageNumber" />
+        </md-input-container>
+        <aera-page-list></aera-page-list>
     </div>
     <div layout="row">
         <md-input-container class="md-block" flex-gt-sm="">

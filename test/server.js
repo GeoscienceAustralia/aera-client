@@ -10,13 +10,13 @@ app.use('/aera', express.static(__dirname.replace('test', 'app')));
 app.use('/node_modules', express.static(__dirname.replace('test', 'node_modules')));
 app.use('/aera/data', express.static(__dirname + '/data'));
 
-var pages = [{pageId: 0, title: 'Summary'},
-    {pageId: 1, title: 'Identified/Demonstrated Resources'},
-    {pageId: 2, title: 'Prospective Resources'},
-    {pageId: 3, title: 'Australian Market'},
-    {pageId: 4, title: 'World Resources'},
-    {pageId: 5, title: 'World Market'},
-    {pageId: 6, title: 'Outlook'}];
+var pages = [{pageId: 0, title: 'Summary', pageNumber: 1},
+    {pageId: 1, title: 'Identified/Demonstrated Resources', pageNumber: 2},
+    {pageId: 2, title: 'Prospective Resources', pageNumber: 3},
+    {pageId: 3, title: 'Australian Market', pageNumber: 4},
+    {pageId: 4, title: 'World Resources', pageNumber: 5},
+    {pageId: 5, title: 'World Market', pageNumber: 6},
+    {pageId: 6, title: 'Outlook', pageNumber: 7}];
 
 app.all('/*', function (req, res, next) {
     res.set('Access-Control-Allow-Origin', req.headers.origin);

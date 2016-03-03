@@ -1,0 +1,11 @@
+<md-button class="md-accent md-button-toggle">
+  Show pages in this chapter
+  <md-icon md-svg-src="md-toggle-arrow" class="toggle-icon"
+           ng-click="list.open = !list.open" ng-class="{'toggled': list.open}">
+  </md-icon>
+</md-button>
+<md-list ng-class="{'hidden': !list.open}">
+  <md-list-item ng-repeat="page in list.pages">
+    {{page.pageNumber}} - {{page.title}}
+  </md-list-item>
+</md-list>

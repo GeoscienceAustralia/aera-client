@@ -67,15 +67,6 @@
         AeraCommon.setProgressBar(edit);
     };
 
-    var editDirectiveFunction = function () {
-        return {
-            restrict: 'E',
-            scope: {},
-            templateUrl: 'components/edit-page/editPage.html',
-            controller: 'EditPageController as edit'
-        };
-    };
-
     var fileModelDirective = function ($parse) {
         return {
             restrict: 'A',
@@ -92,8 +83,37 @@
         };
     };
 
+    var pageListControllerFunction = function (ChapterService, NotificationService, $scope) {
+        var list = this;
+
+        var failure = function (error) {
+            NotificationService.addError(error);
+        };
+
+        var chapterRetrieved = function (result) {
+            list.pages = result.data.pages;
+        };
+        ChapterService.get(list.chapter).then(chapterRetrieved, failure);
+
+        $scope.$watch(function () { return list.editPageController.page.chapterId; }, function () {
+            console.log('value changed');
+        })
+
+    };
+
     angular.module('aera-edit-page', ['ngSanitize'])
-        .controller('EditPageController', ['ChapterService', 'PageService', 'NotificationService', 'AeraCommon', 'ReferenceService', editControllerFunction])
-        .directive('aeraEditPage', editDirectiveFunction)
-        .directive('fileModel', ['$parse', fileModelDirective])
+            .controller('EditPageController', ['ChapterService', 'PageService', 'NotificationService', 'AeraCommon', 'ReferenceService', editControllerFunction])
+            .controller('PageListController', ['ChapterService', 'NotificationService', '$scope', pageListControllerFunction])
+            .directive('fileModel', ['$parse', fileModelDirective])
+            .component('aeraEditPage', {
+                templateUrl: 'components/edit-page/editPage.html',
+                controller: 'EditPageController as edit'
+            })
+            .component('aeraPageList', {
+                templateUrl: 'components/edit-page/pageList.html',
+                controller: 'PageListController as list',
+                require: {
+                    editPageController: '^aeraEditPage'
+                }
+            })
 })(angular);
