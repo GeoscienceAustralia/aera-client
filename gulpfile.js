@@ -29,6 +29,11 @@ gulp.task('copy-images', function () {
       .pipe(gulp.dest(outputPath + 'images'));
 });
 
+gulp.task('copy-scripts', function () {
+    return gulp.src('app/scripts/**/*')
+            .pipe(gulp.dest(outputPath + 'scripts'));
+});
+
 gulp.task('angular-templates', function () {
   return gulp.src('components/**/*.html')
       .pipe(templateCache())
@@ -93,5 +98,5 @@ gulp.task('run', ['config-express'], runTask);
 gulp.task('run-local-api', ['config-local-api'], runTask);
 
 gulp.task('test', ['test-unit', 'test-functional']);
-gulp.task('build', ['bundle', 'copy-images', 'angular-templates']);
+gulp.task('build', ['bundle', 'copy-images', 'angular-templates', 'copy-scripts']);
 gulp.task('default', ['build']);
