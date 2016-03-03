@@ -30,7 +30,7 @@ gulp.task('copy-images', function () {
 });
 
 gulp.task('copy-scripts', function () {
-    return gulp.src('app/scripts/**/*')
+    return gulp.src('scripts/**/*')
             .pipe(gulp.dest(outputPath + 'scripts'));
 });
 
