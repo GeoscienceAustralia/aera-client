@@ -13,6 +13,7 @@ var KarmaServer = require('karma').Server;
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var ngConstant = require('gulp-ng-constant');
+//var liveServer = require('gulp-live-server');
 
 var outputPath = 'build/webapp/';
 
@@ -34,7 +35,7 @@ gulp.task('copy-scripts', function () {
             .pipe(gulp.dest(outputPath + 'scripts'));
 });
 
-gulp.task('angular-templates', function () {
+gulp.task('angular-templates', ['config-aws'], function () {
   return gulp.src(['app/**/*.html', '!app/index.html'])
       .pipe(ngTemplates('ga-aera'))
       .pipe(gulp.dest(outputPath));
@@ -75,24 +76,32 @@ gulp.task('build-css', function () {
       .pipe(gulp.dest('app'));
 });
 
-var configTask = function (configFile) {
-  gulp.src(configFile)
+var configTask = function (env) {
+  gulp.src('config/' + env + '/config.json')
       .pipe(ngConstant())
       .pipe(gulp.dest('app'));
 };
 
 gulp.task('config-express', function () {
-  configTask('config/express/config.json');
+  configTask('express');
 });
 
 gulp.task('config-local-api', function () {
-  configTask('config/api/config.json');
+  configTask('api');
+});
+
+gulp.task('config-aws', function () {
+    configTask('aws');
 });
 
 var runTask = function () {
   server.run(['test/server.js']);
   gulp.watch('app/**/*.scss', ['build-css']);
 };
+
+gulp.task('run-built', function () {
+    //liveServer.static('build/webapp');
+});
 
 gulp.task('run', ['config-express'], runTask);
 gulp.task('run-local-api', ['config-local-api'], runTask);
