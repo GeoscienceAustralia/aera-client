@@ -13,7 +13,7 @@ var KarmaServer = require('karma').Server;
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var ngConstant = require('gulp-ng-constant');
-//var liveServer = require('gulp-live-server');
+var liveServer = require('gulp-live-server');
 
 var outputPath = 'build/webapp/';
 
@@ -37,7 +37,7 @@ gulp.task('copy-scripts', function () {
 
 gulp.task('angular-templates', ['config-aws'], function () {
   return gulp.src(['app/**/*.html', '!app/index.html'])
-      .pipe(ngTemplates('ga-aera'))
+      .pipe(ngTemplates({module: 'ga-aera', standalone: false}))
       .pipe(gulp.dest(outputPath));
 });
 
@@ -100,7 +100,8 @@ var runTask = function () {
 };
 
 gulp.task('run-built', function () {
-    //liveServer.static('build/webapp');
+    var server = liveServer.static('build/webapp');
+    server.start();
 });
 
 gulp.task('run', ['config-express'], runTask);
