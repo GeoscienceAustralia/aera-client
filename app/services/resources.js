@@ -67,19 +67,31 @@
     };
 
     var referenceServiceFunction = function ($http, apiEndpoint) {
-        var url = apiEndpoint + '/reference/';
+        var url = apiEndpoint + '/source/';
 
         this.get = function (pageId) {
-            return $http.get(url + pageId);
+            return $http.get(url + 'page/' + pageId);
         };
 
-        this.save = function (pageId, references) {
-            return $http.post(url + 'save', {
-                pageId: pageId,
-                references: references
+        this.save = function (pageId, reference, referencePos) {
+            var formData = new FormData();
+            formData.append('pageId', pageId);
+            for (var property in reference) {
+                if (reference.hasOwnProperty(property) && reference[property] && typeof reference[property] !== 'object') {
+                    formData.append(property, reference[property]);
+                } else if (reference[property] instanceof Date) {
+                    formData.append(property, moment(reference[property]).format('DD/MM/YYYY'));
+                }
+            }
+
+            return $http.post(url + 'save', formData, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined},
+                referencePos: referencePos
             });
         }
     };
+
     var resourceServiceFunction = function ($http, apiEndpoint) {
         var url = apiEndpoint + '/resource/';
 
