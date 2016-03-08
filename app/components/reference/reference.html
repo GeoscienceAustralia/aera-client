@@ -1,5 +1,5 @@
 <h3>Sources</h3>
-<div ng-repeat="source in reference.sources">
+<div ng-repeat="source in reference.sources" layout="row">
   <md-input-container>
     <label for="sourceAuthor">Author/s</label>
     <input type="text" id="sourceAuthor" ng-model="source.author" ng-change="reference.updateOutputString(source)" />
@@ -20,10 +20,6 @@
     <label for="sourceUrl">URL</label>
     <input type="url" id="sourceUrl" ng-model="source.url" ng-change="reference.updateOutputString(source)" />
   </md-input-container>
-  <md-input-container>
-    <label for="dateAccessed">Date Accessed</label>
-    <input type="date" id="dateAccessed" ng-model="source.dateAccessed" ng-change="reference.updateOutputString(source)" />
-  </md-input-container>
-  <p ng-bind-html="source.outputString"></p>
+  <md-datepicker id="dateAccessed" ng-model="source.dateAccessed" md-placeholder="Date Accessed" ng-change="reference.updateOutputString(source)"></md-datepicker>
 </div>
 <md-button class="reference__add md-accent" ng-click="reference.addSource()">+ Add another source</md-button>

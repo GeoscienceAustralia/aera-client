@@ -53,15 +53,22 @@
             savingPage = false;
             edit.progressBar = savingReferences;
         };
-        var referencesSaved = function () {
-            savingReferences = false;
-            edit.progressBar = savingPage;
-        };
         edit.savePage = function () {
             edit.progressBar = true;
             edit.result = false;
             PageService.save(edit.page).then(pageSaved, failure);
-            ReferenceService.save(edit.page.pageId, edit.references).then(referencesSaved, failure);
+
+            for (var i = 0; i < edit.references.length; i++) {
+                var loc = i;
+                ReferenceService.save(edit.page.pageId, edit.references[i], i).then(function (response) {
+                        if (edit.references[response.config.referencePos].sourceId == null) {
+                            edit.references[response.config.referencePos].sourceId = response.data.sourceId;
+                        }
+                        savingReferences = false;
+                        edit.progressBar = savingPage;
+                    }
+                ,  failure);
+            }
         };
 
         AeraCommon.setProgressBar(edit);
