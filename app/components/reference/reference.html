@@ -20,6 +20,6 @@
     <label for="sourceUrl">URL</label>
     <input type="url" id="sourceUrl" ng-model="source.url" ng-change="reference.updateOutputString(source)" />
   </md-input-container>
-  <md-datepicker ng-model="source.dateAccessed" md-placeholder="Date Accessed" ng-change="reference.updateOutputString(source)"></md-datepicker>
+  <md-datepicker id="dateAccessed" ng-model="source.dateAccessed" md-placeholder="Date Accessed" ng-change="reference.updateOutputString(source)"></md-datepicker>
 </div>
 <md-button class="reference__add md-accent" ng-click="reference.addSource()">+ Add another source</md-button>

@@ -50,7 +50,7 @@ describe('Reference Input', function () {
         expect(directiveElement.find('input#sourceTitle').length).toBe(1);
         expect(directiveElement.find('input#publicationTitle').length).toBe(1);
         expect(directiveElement.find('input#sourceUrl').length).toBe(1);
-        expect(directiveElement.find('input#dateAccessed').length).toBe(1);
+        expect(directiveElement.find('md-datepicker#dateAccessed').length).toBe(1);
     });
 
     it('correctly generates a reference string for a website', function () {
