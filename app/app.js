@@ -3,7 +3,7 @@
 (function (angular) {
 
     angular.module('ga-aera', ['ui.router', 'ngMaterial',
-                'aera-view', 'aera-edit-page', 'aera-edit-chapter', 'aera-chapter', 'aera-page', 'aera-resources', 'aera-notifications', 'aera-common'])
+                'aera-view', 'aera-edit', 'aera-resources', 'aera-notifications', 'aera-common'])
             .config(['$mdThemingProvider', '$urlRouterProvider', '$stateProvider',
                 function ($mdThemingProvider, $urlRouterProvider, $stateProvider) {
 
@@ -35,19 +35,31 @@
                         url: '/view',
                         template: '<aera-view></aera-view>'
                     };
-
                     var chapter = {
                         url: '/chapter/:id',
                         template: '<aera-chapter></aera-chapter>'
                     };
 
+                    var edit = {
+                        url: '/edit',
+                        template: '<aera-edit></aera-edit>'
+                    };
                     var editPage = {
-                        url: '/editPage',
+                        url: '/page',
                         template: '<aera-edit-page></aera-edit-page>'
                     };
-
+                    var editSources = {
+                        url: '/sources',
+                        template: '<aera-edit-sources></aera-edit-sources>',
+                        params: {page: null}
+                    };
+                    var editPageNumber = {
+                        url: '/page-number',
+                        template: '<aera-edit-page-number></aera-edit-page-number>',
+                        params: {page: null}
+                    };
                     var editChapter = {
-                        url: '/editChapter',
+                        url: '/chapter',
                         template: '<aera-edit-chapter></aera-edit-chapter>'
                     };
 
@@ -56,8 +68,11 @@
                     $stateProvider
                             .state('view', view)
                             .state('view.chapter', chapter)
-                            .state('editPage', editPage)
-                            .state('editChapter', editChapter)
-                }])
+                            .state('edit', edit)
+                            .state('edit.page', editPage)
+                            .state('edit.sources', editSources)
+                            .state('edit.pageNumber', editPageNumber)
+                            .state('edit.chapter', editChapter)
+                }]);
 
 })(angular);

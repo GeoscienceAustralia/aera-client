@@ -2,20 +2,10 @@
 
 describe('Edit Page', function () {
 
-    var $q, $rootScope,
-            mockChapters, stubChapterService, stubPageService, stubReferenceService, stubNotificationService, mockPage,
-            chaptersQuery, pageQuery, directiveElement, editController;
+    var $q, $rootScope, stubPageService, stubNotificationService, mockPage,
+            pageQuery, directiveElement, editController;
 
     beforeEach(function () {
-
-        mockChapters = {
-            data:         [
-                { id: 4, title: 'A New Hope'},
-                { id: 5, title: 'The Empire Strikes Back'},
-                { id: 6, title: 'Return of the Jedi'},
-                { id: 7, title: 'The Force Awakens'}
-            ]
-        };
 
         mockPage = {
             data: {
@@ -28,20 +18,13 @@ describe('Edit Page', function () {
             }
         };
 
-        stubChapterService = {};
         stubPageService = {};
-        stubReferenceService = {};
         stubNotificationService = { addError: function () {}, addInformation: function () {} };
 
-        module('ngSanitize');
-        module('aera-common');
         module('aera-edit-page');
         module('components/edit-page/editPage.html');
-        module('components/reference/reference.html');
         module(function ($provide) {
-            $provide.factory('ChapterService', function () { return stubChapterService; });
             $provide.factory('PageService', function () { return stubPageService; });
-            $provide.factory('ReferenceService', function () { return stubReferenceService; });
             $provide.factory('NotificationService', function () { return stubNotificationService; });
         });
 
@@ -50,21 +33,11 @@ describe('Edit Page', function () {
             $rootScope = _$rootScope_;
         });
 
-        stubChapterService.getAll = function () {
-            chaptersQuery = $q.defer();
-            return chaptersQuery.promise;
-        };
-
         stubPageService.get = function () {
             pageQuery = $q.defer();
             return pageQuery.promise;
         };
         stubPageService.save = stubPageService.get;
-
-        stubReferenceService.get = function () {
-            return $q.defer().promise;
-        };
-        stubReferenceService.save = stubPageService.get;
 
         inject(function ($compile) {
             directiveElement = $compile('<aera-edit-page></aera-edit-page>')($rootScope);
@@ -94,29 +67,15 @@ describe('Edit Page', function () {
     var getFindPageButton = function () {
         return directiveElement.find('md-button#find-page');
     };
-    var getChapterSelector = function () {
-        return directiveElement.find('md-select#chapter');
-    };
     var getSavePageButton = function () {
         return directiveElement.find('md-button#save');
     };
     var getClearButton = function () {
         return directiveElement.find('md-button#new-page');
     };
-
-    it('populates a dropdown box with a list of chapters', function () {
-        resolvePromise(chaptersQuery, mockChapters);
-        $rootScope.$apply();
-        expect(getChapterSelector().children().length).toBe(4);
-        expect(getChapterSelector().children(':nth-child(1)').html()).toContain('A New Hope');
-    });
-
-    it('creates an error if the list of chapters can\'t be retrieved', function () {
-        spyOn(stubNotificationService, 'addError');
-        var errorMessage = 'Could not retrieve list of chapters';
-        rejectPromise(chaptersQuery, errorMessage);
-        expect(stubNotificationService.addError).toHaveBeenCalledWith(errorMessage);
-    });
+    var getSourcesButton = function () {
+        return directiveElement.find('md-button#add-sources');
+    };
 
     it('allows the user to search for an existing page by ID', function () {
         expect(getPageIdInput().length).toBe(1);
@@ -161,6 +120,13 @@ describe('Edit Page', function () {
         getClearButton().click();
         expect(editController.page).toEqual({});
         expect(editController.page.pageId).toBeUndefined();
+    });
+
+    it('navigates to the references page', function () {
+        expect(getSourcesButton().length).toBe(1);
+        getSourcesButton().click();
+        $rootScope.$digest();
+        expect($location.hash).toContain('sources');
     });
 
 });

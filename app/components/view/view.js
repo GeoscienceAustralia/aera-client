@@ -35,7 +35,7 @@
         };
     };
 
-    angular.module('aera-view', [])
+    angular.module('aera-view', ['ngSanitize'])
             .controller('ViewController', ['ChapterService', 'NotificationService', '$stateParams', viewControllerFunction])
             .directive('aeraView', viewDirectiveFunction);
 })(angular);

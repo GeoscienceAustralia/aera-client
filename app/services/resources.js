@@ -66,7 +66,7 @@
         }
     };
 
-    var referenceServiceFunction = function ($http, apiEndpoint) {
+    var sourcesServiceFunction = function ($http, apiEndpoint) {
         var url = apiEndpoint + '/reference/';
 
         this.get = function (pageId) {
@@ -91,6 +91,6 @@
     angular.module('aera-resources', ['ngResource', 'aera-config'])
         .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
         .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction])
-        .service('ReferenceService', ['$http', 'apiEndpoint', referenceServiceFunction])
+        .service('SourcesService', ['$http', 'apiEndpoint', sourcesServiceFunction])
         .service('ResourceService', ['$http', 'apiEndpoint', resourceServiceFunction]);
 })(angular);

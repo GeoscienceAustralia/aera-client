@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    var pageControllerFunction = function (PageService, ReferenceService, NotificationService) {
+    var pageControllerFunction = function (SourcesService, ReferenceService, NotificationService) {
         var page = this;
         page.sources = [];
 
@@ -18,7 +18,7 @@
                 page.sources[index] = source;
             });
         };
-        PageService.get(page.id).then(pageRetrieved, failure);
+        SourcesService.get(page.id).then(pageRetrieved, failure);
         ReferenceService.get(page.id).then(sourcesRetrieved, failure);
     };
 
@@ -29,13 +29,13 @@
             bindToController: {
                 id: '=pageId'
             },
-            templateUrl: 'components/page/page.html',
+            templateUrl: 'components/view/page/page.html',
             controller: 'PageController as page'
         };
     };
 
-    angular.module('aera-page', [])
-            .controller('PageController', ['PageService', 'ReferenceService', 'NotificationService', pageControllerFunction])
+    angular.module('aera-view')
+            .controller('PageController', ['PageService', 'SourcesService', 'NotificationService', pageControllerFunction])
             .directive('aeraPage', pageDirectiveFunction);
 
 

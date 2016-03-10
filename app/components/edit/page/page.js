@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    var editControllerFunction = function (ChapterService, PageService, NotificationService, AeraCommon, ReferenceService) {
+    var editControllerFunction = function (PageService, NotificationService, AeraCommon, $state) {
         var edit = this;
 
         edit.clearForm = function () {
@@ -15,25 +15,21 @@
             NotificationService.addError(error);
         };
 
-        var chaptersRetrieved = function (chapters) {
-            edit.chapters = chapters.data;
-        };
-        ChapterService.getAll().then(chaptersRetrieved, failure);
 
         var pageFound = function (page) {
             edit.page = page.data;
         };
-        var referencesFound = function (references) {
-            edit.references = references.data;
-            edit.references.forEach(function (source) {
-                if (source.dateAccessed) {
-                    source.dateAccessed = new Date(source.dateAccessed);
-                }
-            });
-        };
+        //var referencesFound = function (references) {
+        //    edit.references = references.data;
+        //    edit.references.forEach(function (source) {
+        //        if (source.dateAccessed) {
+        //            source.dateAccessed = new Date(source.dateAccessed);
+        //        }
+        //    });
+        //};
         edit.findPage = function () {
             PageService.get(edit.page.pageId).then(pageFound, failure);
-            ReferenceService.get(edit.page.pageId).then(referencesFound, failure);
+            //ReferenceService.get(edit.page.pageId).then(referencesFound, failure);
         };
 
         var savingPage, savingReferences;
@@ -61,7 +57,13 @@
             edit.progressBar = true;
             edit.result = false;
             PageService.save(edit.page).then(pageSaved, failure);
-            ReferenceService.save(edit.page.pageId, edit.references).then(referencesSaved, failure);
+            //ReferenceService.save(edit.page.pageId, edit.references).then(referencesSaved, failure);
+        };
+        edit.saveAndContinue = function () {
+            PageService.save(edit.page).then(function (response) {
+                pageSaved(response);
+                $state.go('^.sources', {page: edit.page});
+            }, failure);
         };
 
         AeraCommon.setProgressBar(edit);
@@ -71,7 +73,7 @@
         return {
             restrict: 'E',
             scope: {},
-            templateUrl: 'components/edit-page/editPage.html',
+            templateUrl: 'components/edit/page/page.html',
             controller: 'EditPageController as edit'
         };
     };
@@ -92,8 +94,8 @@
         };
     };
 
-    angular.module('aera-edit-page', ['ngSanitize'])
-        .controller('EditPageController', ['ChapterService', 'PageService', 'NotificationService', 'AeraCommon', 'ReferenceService', editControllerFunction])
+    angular.module('aera-edit')
+        .controller('EditPageController', ['PageService', 'NotificationService', 'AeraCommon', '$state', editControllerFunction])
         .directive('aeraEditPage', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])
 })(angular);
