@@ -2,11 +2,11 @@
 
 (function (angular) {
 
-    var pageNumberControllerFunction  = function (ChapterService, PageService, NotificationService, $state, $stateParams) {
+    var pageNumberControllerFunction  = function (ChapterService, PageService, NotificationService, $state, $stateParams, $q) {
         var number = this;
 
         var page = $stateParams.page;
-        if (!page || !page.pageId) {
+        if (!page || !(page.pageId >= 0)) {
             $state.go('^.page');
             return;
         }
@@ -24,28 +24,37 @@
             number.pages = response.data.pages;
         };
         number.updatePageList = function () {
-            ChapterService.get(number.page.chapterId).then(pagesRetrieved, failure);
+            ChapterService.get(number.chapterId).then(pagesRetrieved, failure);
         };
 
         number.savePageOrder = function () {
 
-            var pages = [];
+            // Work out which pages have had their page number updated and
+            // retrieve those pages from the server for updating
+            var pagesToBeUpdated = [], savedPages = [];
             number.pages.forEach(function (page, index) {
-                pages[index] = PageService.get(page.pageId);
+                if (page.pageNumber !== index) {
+                    page.pageNumber = index;
+                    pagesToBeUpdated.push(page);
+                    savedPages.push(PageService.get(page.pageId));
+                }
             });
 
-            $q.all(pages).then(function () {
-                pages.forEach(function (page, index) {
-                    page.pageNumber = index;
+            // Build the list of pages to be updated, with the updated page numbers
+            $q.all(savedPages).then(function (responses) {
+                responses.forEach(function (response, index) {
+                    savedPages[index] = response.data;
+                    savedPages[index].pageNumber = pagesToBeUpdated[index].pageNumber;
                 });
-                PageService.saveAll(pages);
+
+                PageService.saveAll(savedPages);
             });
         };
     };
 
     angular.module('aera-edit')
             .controller('PageNumberController',
-                    ['ChapterService', 'PageService', 'NotificationService', '$state', '$stateParams', pageNumberControllerFunction])
+                    ['ChapterService', 'PageService', 'NotificationService', '$state', '$stateParams', '$q', pageNumberControllerFunction])
             .component('aeraEditPageNumber', {
                 templateUrl: 'components/edit/page-number/page-number.html',
                 controller: 'PageNumberController as number'
