@@ -63,7 +63,11 @@
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });
-        }
+        };
+
+        this.saveAll = function (pages) {
+            return $http.post(url + 'save/list', {pageList: pages});
+        };
     };
 
     var sourcesServiceFunction = function ($http, apiEndpoint) {

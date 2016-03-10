@@ -5,14 +5,14 @@
     var pageNumberControllerFunction  = function (ChapterService, PageService, NotificationService, $state, $stateParams, $q) {
         var number = this;
 
-        var page = $stateParams.page;
-        if (!page || !(page.pageId >= 0)) {
+        number.page = $stateParams.page;
+        if (!number.page || !(number.page.pageId >= 0)) {
             $state.go('^.page');
             return;
         }
 
         var failure = function (error) {
-            NotificationService.addError(error);
+            NotificationService.showError(error.data);
         };
 
         var chaptersRetrieved = function (response) {
@@ -27,6 +27,9 @@
             ChapterService.get(number.chapterId).then(pagesRetrieved, failure);
         };
 
+        var pageOrderSaved = function () {
+            NotificationService.showMessage('Page order updated');
+        };
         number.savePageOrder = function () {
 
             // Work out which pages have had their page number updated and
@@ -40,6 +43,11 @@
                 }
             });
 
+            if (!pagesToBeUpdated.length) {
+                NotificationService.showMessage('Page order hasn\'t changed');
+                return;
+            }
+
             // Build the list of pages to be updated, with the updated page numbers
             $q.all(savedPages).then(function (responses) {
                 responses.forEach(function (response, index) {
@@ -47,7 +55,7 @@
                     savedPages[index].pageNumber = pagesToBeUpdated[index].pageNumber;
                 });
 
-                PageService.saveAll(savedPages);
+                PageService.saveAll(savedPages).then(pageOrderSaved, failure);
             });
         };
     };

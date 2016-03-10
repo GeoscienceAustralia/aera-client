@@ -10,7 +10,7 @@ describe('The Page Number Editor', function () {
     beforeEach(function () {
 
         mockPageService = { saveAll: function () {}};
-        var mockChapterService = {}, stubNotificationService;
+        var mockChapterService = {}, stubNotificationService = {};
 
         var mockPage1 = {pageId: 0, title: "1", pageNumber: 0};
         var mockPage2 = {pageId: 1, title: "2", pageNumber: 1};
@@ -97,6 +97,4 @@ describe('The Page Number Editor', function () {
 
         expect($state.go).toHaveBeenCalledWith('^.page');
     });
-
-    // integrate - resources, express
 });

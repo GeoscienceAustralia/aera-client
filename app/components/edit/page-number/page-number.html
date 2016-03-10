@@ -13,5 +13,9 @@
         <md-button class="md-accent" as-sortable-item-handle>{{page.title}}</md-button>
     </md-list-item>
 </md-list>
-<md-button class="md-raised" ui-sref="edit.sources({page: number.page})">Previous</md-button>
-<md-button class="md-primary md-raised" ng-click="number.savePageOrder()">Save Page Order</md-button>
+<md-input-container layout>
+    <md-button class="md-raised" ui-sref="^.sources({page: number.page})">Previous</md-button>
+    <md-button class="md-primary md-raised" ng-click="number.savePageOrder()" ng-disabled="!number.pages.length">
+        Save Page Order
+    </md-button>
+</md-input-container>

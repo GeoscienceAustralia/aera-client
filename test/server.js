@@ -3,20 +3,22 @@
 
 var express = require('express');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 
 var app = express();
 
 app.use('/aera', express.static(__dirname.replace('test', 'app')));
 app.use('/node_modules', express.static(__dirname.replace('test', 'node_modules')));
 app.use('/aera/data', express.static(__dirname + '/data'));
+app.use(bodyParser.json({}));
 
-var pages = [{pageId: 0, title: 'Summary'},
-    {pageId: 1, title: 'Identified/Demonstrated Resources'},
-    {pageId: 2, title: 'Prospective Resources'},
-    {pageId: 3, title: 'Australian Market'},
-    {pageId: 4, title: 'World Resources'},
-    {pageId: 5, title: 'World Market'},
-    {pageId: 6, title: 'Outlook'}];
+var pages = [{pageId: 0, pageNumber: 0, title: 'Summary'},
+    {pageId: 1, pageNumber: 1, title: 'Identified/Demonstrated Resources'},
+    {pageId: 2, pageNumber: 2, title: 'Prospective Resources'},
+    {pageId: 3, pageNumber: 3, title: 'Australian Market'},
+    {pageId: 4, pageNumber: 4, title: 'World Resources'},
+    {pageId: 5, pageNumber: 5, title: 'World Market'},
+    {pageId: 6, pageNumber: 6, title: 'Outlook'}];
 
 app.all('/*', function (req, res, next) {
     res.set('Access-Control-Allow-Origin', req.headers.origin);
@@ -75,6 +77,14 @@ app.get('/api/page/:pageId', function (req, res) {
 
 app.post('/api/page/save', function (req, res) {
     res.status(200).send({pageId: 4});
+});
+app.post('/api/page/save/list', function (req, res) {
+    var pagesToUpdate = req.body.pageList;
+    if (pagesToUpdate.length === 3) {
+        res.status(500).send('Unable to update page order');
+        return;
+    }
+    res.status(200).send();
 });
 
 app.get('/api/page/csv/:pageId', function (req, res) {
