@@ -2,131 +2,76 @@
 
 describe('Edit Page', function () {
 
-    var $q, $rootScope, stubPageService, stubNotificationService, mockPage,
-            pageQuery, directiveElement, editController;
+    var controller, mockPage, mockPageService, getCsvPromise, getImagePromise, savePagePromise, $controller, $q, $rootScope, $state;
 
     beforeEach(function () {
 
-        mockPage = {
-            data: {
-                pageId: 83,
-                title: 'Number of Ewoks on Endor',
-                summary: 'The effect of having the Deathstar destroyed on the native Ewok population of Endor',
-                chapter: 4,
-                dataFile: 'some/file',
-                imageFile: 'a/pretty/picture'
-            }
-        };
+        var mockCommonService = { setProgressBar: function () {}};
+        var mockNotificationService = { showMessage: function () {}};
+        mockPageService = {};
 
-        stubPageService = {};
-        stubNotificationService = { addError: function () {}, addInformation: function () {} };
+        mockPage = {pageId: 4};
 
-        module('aera-edit-page');
-        module('components/edit-page/editPage.html');
+        module('aera-common');
+        module('ui.router');
+        module('aera-edit');
         module(function ($provide) {
-            $provide.factory('PageService', function () { return stubPageService; });
-            $provide.factory('NotificationService', function () { return stubNotificationService; });
+            $provide.factory('AeraCommon', function () { return mockCommonService; });
+            $provide.factory('PageService', function () { return mockPageService; });
+            $provide.factory('NotificationService', function () { return mockNotificationService; });
         });
 
-        inject(function (_$q_, _$rootScope_) {
+        inject(function (_$controller_, _$q_, _$rootScope_, _$state_) {
+            $controller = _$controller_;
             $q = _$q_;
             $rootScope = _$rootScope_;
+            $state = _$state_;
         });
 
-        stubPageService.get = function () {
-            pageQuery = $q.defer();
-            return pageQuery.promise;
+        mockPageService.get = function () {
+            return $q.defer().promise;
         };
-        stubPageService.save = stubPageService.get;
+        mockPageService.save = function () {
+            savePagePromise = $q.defer();
+            return savePagePromise.promise;
+        };
+        mockPageService.getCsvUrl = function () {
+            getCsvPromise = $q.defer();
+            return getCsvPromise.promise;
+        };
+        mockPageService.getImageUrl = function () {
+            getImagePromise = $q.defer();
+            return getImagePromise.promise;
+        };
 
-        inject(function ($compile) {
-            directiveElement = $compile('<aera-edit-page></aera-edit-page>')($rootScope);
-            $rootScope.$digest();
-            editController = directiveElement.controller('aeraEditPage');
-        });
+        controller = $controller('EditPageController');
     });
 
-    var resolvePromise = function (promise, result) {
-        promise.resolve(result);
+    var resolvePromise = function (promise, response) {
+        promise.resolve({data: response});
         $rootScope.$digest();
     };
-    var rejectPromise = function (promise, error) {
-        promise.reject(error);
-        $rootScope.$digest();
-    };
 
-    var findPage = function () {
-        editController.page.pageId = mockPage.data.pageId;
-        getFindPageButton().click();
-        resolvePromise(pageQuery, mockPage);
-    };
+    it('searches for a page by ID', function () {
+        spyOn(mockPageService, 'get').and.callThrough();
+        controller.page.pageId = mockPage.pageId;
 
-    var getPageIdInput = function () {
-        return directiveElement.find('input#pageId');
-    };
-    var getFindPageButton = function () {
-        return directiveElement.find('md-button#find-page');
-    };
-    var getSavePageButton = function () {
-        return directiveElement.find('md-button#save');
-    };
-    var getClearButton = function () {
-        return directiveElement.find('md-button#new-page');
-    };
-    var getSourcesButton = function () {
-        return directiveElement.find('md-button#add-sources');
-    };
-
-    it('allows the user to search for an existing page by ID', function () {
-        expect(getPageIdInput().length).toBe(1);
-        expect(getFindPageButton().length).toBe(1);
-
-        spyOn(stubPageService, 'get').and.callThrough();
-        findPage();
-        expect(stubPageService.get).toHaveBeenCalledWith(mockPage.data.pageId);
-        resolvePromise(pageQuery, mockPage);
-
-        expect(getPageIdInput().val()).toBe(mockPage.data.pageId + '');
-        expect(directiveElement.find('input#title').val()).toBe(mockPage.data.title);
-        expect(directiveElement.find('textarea#text').val()).toBe(mockPage.data.summary);
+        controller.findPage();
+        expect(mockPageService.get).toHaveBeenCalledWith(mockPage.pageId);
     });
 
-    it('creates an error message when the user tries to find a page that doesn\'t exist', function () {
-        var errorMessage = 'No matching page found';
-        spyOn(stubNotificationService, 'addError');
-        editController.page.pageId = 44;
-        getFindPageButton().click();
-        rejectPromise(pageQuery, errorMessage);
-        expect(stubNotificationService.addError).toHaveBeenCalledWith(errorMessage);
-    });
+    it('saves and redirects to the next page', function () {
+        spyOn(mockPageService, 'save').and.callThrough();
+        spyOn($state, 'go');
 
-    it('calls the Page service when a user saves', function () {
-        spyOn(stubPageService, 'save').and.callThrough();
-        editController.page = mockPage;
-        getSavePageButton().click();
-        expect(stubPageService.save).toHaveBeenCalledWith(mockPage);
-    });
+        controller.page = mockPage;
+        controller.saveAndContinue();
 
-    it('creates an error when the save fails', function () {
-        var errorMessage = 'Unable to save page';
-        spyOn(stubNotificationService, 'addError').and.callThrough();
-        getSavePageButton().click();
-        rejectPromise(pageQuery, errorMessage);
-        expect(stubNotificationService.addError).toHaveBeenCalledWith(errorMessage);
-    });
+        resolvePromise(savePagePromise, {pageId: 4});
+        resolvePromise(getCsvPromise, {});
+        resolvePromise(getImagePromise, {});
 
-    it('clears all fields when the clear button is clicked', function () {
-        findPage();
-        getClearButton().click();
-        expect(editController.page).toEqual({});
-        expect(editController.page.pageId).toBeUndefined();
+        expect(mockPageService.save).toHaveBeenCalledWith(mockPage);
+        expect($state.go).toHaveBeenCalledWith('^.sources', {page: mockPage});
     });
-
-    it('navigates to the references page', function () {
-        expect(getSourcesButton().length).toBe(1);
-        getSourcesButton().click();
-        $rootScope.$digest();
-        expect($location.hash).toContain('sources');
-    });
-
 });

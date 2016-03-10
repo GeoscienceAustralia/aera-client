@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    //TODO: fix data error, make display nice, add loading bar, functional testing stuff for error and loading bar
+    //TODO: fix data error, make display nice, add loading bar, functional testing stuff for error and loading bar, integrate with AWS
 
     var sourcesControllerFunction = function (SourcesService, NotificationService, $filter, $stateParams, $state) {
         var sources = this;

@@ -2,68 +2,47 @@
 
 (function (angular) {
 
-    var editControllerFunction = function (PageService, NotificationService, AeraCommon, $state) {
-        var edit = this;
+    //TODO: resources, the progress bar, functional test support, AWS integration, make enter search, make buttons on same row as text, disable save when there's nothing to save
 
-        edit.clearForm = function () {
-            edit.page = {};
-            edit.references = [];
-        };
-        edit.clearForm();
+    var editControllerFunction = function (PageService, NotificationService, AeraCommon, $q, $state) {
+        var edit = this;
+        edit.page = {};
 
         var failure = function (error) {
-            NotificationService.addError(error);
+            NotificationService.addError(error.data);
         };
-
 
         var pageFound = function (page) {
             edit.page = page.data;
         };
-        //var referencesFound = function (references) {
-        //    edit.references = references.data;
-        //    edit.references.forEach(function (source) {
-        //        if (source.dateAccessed) {
-        //            source.dateAccessed = new Date(source.dateAccessed);
-        //        }
-        //    });
-        //};
         edit.findPage = function () {
             PageService.get(edit.page.pageId).then(pageFound, failure);
-            //ReferenceService.get(edit.page.pageId).then(referencesFound, failure);
         };
 
-        var savingPage, savingReferences;
-        var pageCsvFound = function (page) {
-            edit.page.csvUrl = page.data.csvUrl;
+        edit.clearForm = function () {
+            edit.page = {};
         };
-        var pageImageFound = function (page) {
-            edit.page.imageUrl = page.data.imageUrl;
+
+        edit.saveAndContinue = function () {
+            edit.progressBar = true;
+            edit.page.csvUrl = '';
+            edit.page.imageUrl = '';
+            PageService.save(edit.page).then(pageSaved, failure);
         };
         var pageSaved = function (response) {
             edit.page.pageId = response.data.pageId;
-            edit.result = response.data.pageId;
+            NotificationService.showMessage('Page saved');
 
-            PageService.getCsvUrl(edit.page.pageId).then(pageCsvFound, failure);
-            PageService.getImageUrl(edit.page.pageId).then(pageImageFound, failure);
+            var urlPromises = {csvUrl: PageService.getCsvUrl(edit.page.pageId), imageUrl: PageService.getImageUrl(edit.page.pageId)};
+            $q.all(urlPromises).then(urlsRetrieved, failure);
+        };
+        var urlsRetrieved = function (response) {
+            edit.progressBar = false;
 
-            savingPage = false;
-            edit.progressBar = savingReferences;
-        };
-        var referencesSaved = function () {
-            savingReferences = false;
-            edit.progressBar = savingPage;
-        };
-        edit.savePage = function () {
-            edit.progressBar = true;
-            edit.result = false;
-            PageService.save(edit.page).then(pageSaved, failure);
-            //ReferenceService.save(edit.page.pageId, edit.references).then(referencesSaved, failure);
-        };
-        edit.saveAndContinue = function () {
-            PageService.save(edit.page).then(function (response) {
-                pageSaved(response);
-                $state.go('^.sources', {page: edit.page});
-            }, failure);
+            edit.page.csvUrl = response.csvUrl;
+            edit.page.imageUrl = response.imageUrl;
+
+            $state.go('^.sources', {page: edit.page});
         };
 
         AeraCommon.setProgressBar(edit);
@@ -95,7 +74,7 @@
     };
 
     angular.module('aera-edit')
-        .controller('EditPageController', ['PageService', 'NotificationService', 'AeraCommon', '$state', editControllerFunction])
+        .controller('EditPageController', ['PageService', 'NotificationService', 'AeraCommon', '$q', '$state', editControllerFunction])
         .directive('aeraEditPage', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])
 })(angular);

@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-    //TODO: loading bar, functional test for loading bar
+    //TODO: loading bar, functional test for loading bar, integrate with AWS
 
     var pageNumberControllerFunction  = function (ChapterService, PageService, NotificationService, $state, $stateParams, $q) {
         var number = this;
