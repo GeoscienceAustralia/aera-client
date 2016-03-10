@@ -2,39 +2,52 @@
 
 (function (angular) {
 
-    var sourcesControllerFunction = function (SourcesService, $filter, $stateParams, $state) {
+    //TODO: fix data error, make display nice, add loading bar, functional testing stuff for error and loading bar
+
+    var sourcesControllerFunction = function (SourcesService, NotificationService, $filter, $stateParams, $state) {
         var sources = this;
 
-        var page = $stateParams.page;
-        if (!page || !page.pageId) {
+        sources.page = $stateParams.page;
+        if (!sources.page || !(sources.page.pageId >= 0)) {
             $state.go('^.page');
             return;
         }
 
-        sources.pageId = page.pageId;
-        sources.list = page.sources;
-        if (!sources.list || sources.list.length === 0) {
-            sources.list = [{}];
-        }
+        var failure = function (error) {
+            NotificationService.showError(error.data);
+        };
+
+        var updateSourceList = function (response) {
+            sources.list = response.data;
+            sources.list.forEach(function (source) {
+                sources.updateOutputString(source);
+            });
+
+            if (!sources.list.length) {
+                sources.addSource();
+            }
+        };
+        SourcesService.get(sources.page.pageId).then(updateSourceList, failure);
 
         sources.updateOutputString = function (source) {
             source.outputString = $filter('aeraReference')(source);
         };
 
         sources.addSource = function () {
-            sources.sources.push({});
+            sources.list.push({});
         };
 
-
+        var sourcesSaved = function () {
+            NotificationService.showMessage('References successfully updated');
+            $state.go('^.pageNumber', {page: sources.page});
+        };
         sources.saveAndContinue = function () {
-            SourcesService.save({pageId: page.pageId, sources: sources.list}).then(function () {
-                $state.go('^.pageNumber', {page: page});
-            });
-        }
+            SourcesService.save(sources.page.pageId, sources.list).then(sourcesSaved, failure);
+        };
     };
 
     angular.module('aera-edit')
-            .controller('SourcesController', ['SourcesService', '$filter', '$stateParams', '$state', sourcesControllerFunction])
+            .controller('SourcesController', ['SourcesService', 'NotificationService', '$filter', '$stateParams', '$state', sourcesControllerFunction])
             .component('aeraEditSources', {
                 templateUrl: 'components/edit/sources/sources.html',
                 controller: 'SourcesController as sources'

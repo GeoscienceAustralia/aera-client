@@ -94,7 +94,7 @@ app.get('/api/page/image/:pageId', function (req, res) {
     res.status(200).send('data/page_0/image.png');
 });
 
-app.get('/api/reference/:pageId', function (req, res) {
+app.get('/api/source/page/:pageId', function (req, res) {
     var fileName =  __dirname + '/data/page_' + (req.params.pageId % 3) + '/source.json';
     var json = JSON.parse(fs.readFileSync(fileName, 'utf8'));
 
@@ -106,7 +106,7 @@ app.get('/api/reference/:pageId', function (req, res) {
 
     res.status(200).send(json);
 });
-app.post('/api/reference/save', function (req, res) {
+app.post('/api/source/save', function (req, res) {
     res.status(200).send();
 });
 

@@ -2,6 +2,8 @@
 
 (function (angular) {
 
+    //TODO: loading bar, functional test for loading bar
+
     var pageNumberControllerFunction  = function (ChapterService, PageService, NotificationService, $state, $stateParams, $q) {
         var number = this;
 

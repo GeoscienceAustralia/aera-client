@@ -1,6 +1,6 @@
 <h3>Sources</h3>
-<div ng-repeat="source in sources.list">
-  <md-input-container>
+<div ng-repeat="source in sources.list" layout>
+  <md-input-container flex-grow>
     <label for="sourceAuthor">Author/s</label>
     <input type="text" id="sourceAuthor" ng-model="source.author" ng-change="sources.updateOutputString(source)" />
   </md-input-container>
@@ -24,7 +24,11 @@
     <label for="dateAccessed">Date Accessed</label>
     <input type="date" id="dateAccessed" ng-model="source.dateAccessed" ng-change="sources.updateOutputString(source)" />
   </md-input-container>
-  <p ng-bind-html="source.outputString"></p>
+  <p class="md-block" ng-bind-html="source.outputString"></p>
 </div>
 <md-button class="reference__add md-accent" ng-click="sources.addSource()">+ Add another source</md-button>
-<md-button class="md-raised md-primary" ng-click="sources.saveAndContinue()">Save and Choose Page Location</md-button>
+
+<md-input-container layout>
+    <md-button class="md-raised" ui-sref="^.sources({page: number.page})">Previous</md-button>
+    <md-button class="md-raised md-primary" ng-click="sources.saveAndContinue()">Save and Choose Page Location</md-button>
+</md-input-container>

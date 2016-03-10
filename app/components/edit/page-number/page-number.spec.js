@@ -48,6 +48,9 @@ describe('The Page Number Editor', function () {
             pagePromises[pageId] = $q.defer();
             return pagePromises[pageId].promise;
         };
+        mockPageService.saveAll = function () {
+            return $q.defer().promise;
+        };
 
         $stateParams.page = mockPage1;
         controller = $controller('PageNumberController');
@@ -79,7 +82,7 @@ describe('The Page Number Editor', function () {
         // reorder the pages
         controller.pages = [controller.pages[0], controller.pages[2], controller.pages[1]];
 
-        spyOn(mockPageService, 'saveAll');
+        spyOn(mockPageService, 'saveAll').and.callThrough();
         controller.savePageOrder();
 
         pagePromises.forEach(function (promise, index) {

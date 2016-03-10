@@ -71,10 +71,10 @@
     };
 
     var sourcesServiceFunction = function ($http, apiEndpoint) {
-        var url = apiEndpoint + '/reference/';
+        var url = apiEndpoint + '/source/';
 
         this.get = function (pageId) {
-            return $http.get(url + pageId);
+            return $http.get(url + 'page/' + pageId);
         };
 
         this.save = function (pageId, references) {
