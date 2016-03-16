@@ -7,7 +7,7 @@ describe('Edit Page', function () {
     beforeEach(function () {
 
         var mockCommonService = { setProgressBar: function () {}};
-        var mockNotificationService = { showMessage: function () {}};
+        var mockNotificationService = { showNotification: function () {}};
         mockPageService = {};
 
         mockPage = {pageId: 4};
@@ -74,4 +74,5 @@ describe('Edit Page', function () {
         expect(mockPageService.save).toHaveBeenCalledWith(mockPage);
         expect($state.go).toHaveBeenCalledWith('^.sources', {page: mockPage});
     });
+
 });

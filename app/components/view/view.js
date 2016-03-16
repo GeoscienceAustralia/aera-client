@@ -11,7 +11,7 @@
             view.selectedChapter = view.chapters[$stateParams.id] || view.chapters[0];
         };
         var chapterRetrievalFailed = function () {
-            NotificationService.addError('Unable to retrieve data');
+            NotificationService.addNotification('Unable to retrieve data');
         };
         ChapterService.getAll().then(chaptersRetrieved, chapterRetrievalFailed);
 

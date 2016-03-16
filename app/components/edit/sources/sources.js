@@ -2,10 +2,11 @@
 
 (function (angular) {
 
-    //TODO: fix data error, make display nice, add loading bar, functional testing stuff for error and loading bar, integrate with AWS
+    //TODO: integrate with AWS
 
     var sourcesControllerFunction = function (SourcesService, NotificationService, $filter, $stateParams, $state) {
         var sources = this;
+        sources.progressBar = true;
 
         sources.page = $stateParams.page;
         if (!sources.page || !(sources.page.pageId >= 0)) {
@@ -14,7 +15,8 @@
         }
 
         var failure = function (error) {
-            NotificationService.showError(error.data);
+            sources.progressBar = false;
+            NotificationService.showNotification(error.data.error);
         };
 
         var updateSourceList = function (response) {
@@ -26,6 +28,8 @@
             if (!sources.list.length) {
                 sources.addSource();
             }
+
+            sources.progressBar = false;
         };
         SourcesService.get(sources.page.pageId).then(updateSourceList, failure);
 
@@ -38,10 +42,12 @@
         };
 
         var sourcesSaved = function () {
-            NotificationService.showMessage('References successfully updated');
+            sources.progressBar = false;
+            NotificationService.showNotification('Sources saved');
             $state.go('^.pageNumber', {page: sources.page});
         };
         sources.saveAndContinue = function () {
+            sources.progressBar = true;
             SourcesService.save(sources.page.pageId, sources.list).then(sourcesSaved, failure);
         };
     };

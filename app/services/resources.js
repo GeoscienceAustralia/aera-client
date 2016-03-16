@@ -73,16 +73,31 @@
     var sourcesServiceFunction = function ($http, apiEndpoint) {
         var url = apiEndpoint + '/source/';
 
-        this.get = function (pageId) {
-            return $http.get(url + 'page/' + pageId);
+        var transformSource = function (sources) {
+            sources = angular.fromJson(sources);
+            if (!sources.forEach)
+                return sources;
+
+            sources.forEach(function (source) {
+
+                if (source.dateAccessed) {
+                    source.dateAccessed = new Date(source.dateAccessed);
+                }
+            });
+
+            return sources;
         };
 
-        this.save = function (pageId, references) {
+        this.get = function (pageId) {
+            return $http.get(url + 'page/' + pageId, {transformResponse: transformSource});
+        };
+
+        this.save = function (pageId, sources) {
             return $http.post(url + 'save', {
                 pageId: pageId,
-                references: references
+                sources: sources
             });
-        }
+        };
     };
     var resourceServiceFunction = function ($http, apiEndpoint) {
         var url = apiEndpoint + '/resource/';

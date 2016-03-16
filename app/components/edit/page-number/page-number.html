@@ -13,6 +13,9 @@
         <md-button class="md-accent" as-sortable-item-handle>{{page.title}}</md-button>
     </md-list-item>
 </md-list>
+
+<md-progress-linear ng-show="number.progressBar" md-mode="indeterminate"></md-progress-linear>
+
 <md-input-container layout>
     <md-button class="md-raised" ui-sref="^.sources({page: number.page})">Previous</md-button>
     <md-button class="md-primary md-raised" ng-click="number.savePageOrder()" ng-disabled="!number.pages.length">

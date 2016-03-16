@@ -4,13 +4,24 @@
 var express = require('express');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var app = express();
+var multipart = multer();
 
 app.use('/aera', express.static(__dirname.replace('test', 'app')));
 app.use('/node_modules', express.static(__dirname.replace('test', 'node_modules')));
 app.use('/aera/data', express.static(__dirname + '/data'));
 app.use(bodyParser.json({}));
+
+var pageIds = {
+    pageNotFound: '99',
+    slowPage: '98',
+    csvUrlNotFound: '97',
+    imageUrlNotFound: '96',
+    sourcesNotFound: '95',
+    slowSources: '94'
+};
 
 var pages = [{pageId: 0, pageNumber: 0, title: 'Summary'},
     {pageId: 1, pageNumber: 1, title: 'Identified/Demonstrated Resources'},
@@ -30,8 +41,18 @@ app.get('/api', function (req, res) {
 });
 
 app.get('/api/chapter/:chapterId', function (req, res) {
+    if (req.params.chapterId === '5') {
+        res.status(500).send('Unable to retrieve chapter page listing');
+        return;
+    }
+
     var chapter = {id: 4, title: 'Coal', pages: pages};
-    res.status(200).send(chapter);
+
+    var delay = 0;
+    if (req.params.chapterId === '6')
+        delay = 10000;
+
+    setTimeout(function () {res.status(200).send(chapter);}, delay);
 });
 
 app.get('/api/chapter', function (req, res) {
@@ -45,13 +66,23 @@ app.get('/api/chapter', function (req, res) {
 
 app.get('/api/page/:pageId', function (req, res) {
 
+    if (req.params.pageId === pageIds.pageNotFound) {
+        res.status(500).send({error: 'Could not find page'});
+        return;
+    }
+
+    var delay = 0;
+    if (req.params.pageId === pageIds.slowPage) {
+        delay = 10000;
+    }
+
     var pageId = req.params.pageId % 3; // we only have 3 samples. just keep looping through.
     var dataDir = __dirname + '/data/page_' + pageId;
 
     try {
         fs.statSync(dataDir);
     } catch (ex) {
-        res.status(500).send('Page not found');
+        res.status(500).send({error: 'Could not find page'});
         return;
     }
 
@@ -65,49 +96,105 @@ app.get('/api/page/:pageId', function (req, res) {
     });
 
     var page = {
-        id: pageId,
+        pageId: Number.parseInt(req.params.pageId),
+        pageNumber: pageId,
         title: pages[pageId].title,
         summary: fs.readFileSync(dataDir + '/summary.txt', 'utf8'),
         imageUrl: 'data/page_' + pageId + '/' + imageFile,
         csvUrl: 'data/page_' + pageId + '/csv.csv'
     };
 
-    res.status(200).send(page);
+    setTimeout(function () { res.status(200).send(page); }, delay);
+
 });
 
-app.post('/api/page/save', function (req, res) {
-    res.status(200).send({pageId: 4});
-});
-app.post('/api/page/save/list', function (req, res) {
-    var pagesToUpdate = req.body.pageList;
-    if (pagesToUpdate.length === 3) {
-        res.status(500).send('Unable to update page order');
+app.post('/api/page/save', multipart.array(), function (req, res) {
+    if (req.body.title === 'Error') {
+        res.status(500).send({error: 'Could not save page'});
         return;
     }
-    res.status(200).send();
+
+    var pageId = req.body.pageId ? Number.parseInt(req.body.pageId) : 4;
+
+    var delay = 0;
+    if (req.body.title === 'Slow') {
+        delay = 10000;
+    }
+
+    setTimeout(function () {
+        res.status(200).send({pageId: pageId});
+    }, delay);
+
+});
+app.post('/api/page/save/list', function (req, res) {
+    var pagesToUpdate = req.body.pageList, delay = 0;
+
+    if (pagesToUpdate.length === 3) {
+        res.status(500).send({error: 'Could not update page order'});
+        return;
+    } else if (pagesToUpdate.length === 2) {
+        delay = 10000;
+    }
+
+    setTimeout(function () {res.status(200).send(req.body.pageList);}, delay);
 });
 
 app.get('/api/page/csv/:pageId', function (req, res) {
+    if (req.params.pageId === pageIds.csvUrlNotFound) {
+        res.status(500).send({warning: 'Could not retrieve URL for CSV file'});
+        return;
+    }
     res.status(200).send('data/page_0/csv.csv');
 });
 app.get('/api/page/image/:pageId', function (req, res) {
+    if (req.params.pageId === pageIds.imageUrlNotFound) {
+        res.status(500).send({warning: 'Could not retrieve URL for image file'});
+        return;
+    }
     res.status(200).send('data/page_0/image.png');
 });
 
 app.get('/api/source/page/:pageId', function (req, res) {
+    if (req.params.pageId === pageIds.sourcesNotFound) {
+        res.status(500).send({error: 'Could retrieve sources for page'});
+        return;
+    }
+
+    var delay = 0;
+    if (req.params.pageId === pageIds.slowSources) {
+        delay = 10000;
+    }
+
     var fileName =  __dirname + '/data/page_' + (req.params.pageId % 3) + '/source.json';
     var json = JSON.parse(fs.readFileSync(fileName, 'utf8'));
 
     json.forEach(function (source) {
         if (source.dateAccessed) {
-            source.dateAccessed = new Date();
+            source.dateAccessed = '2016-03-15';
         }
     });
 
-    res.status(200).send(json);
+    setTimeout(function () { res.status(200).send(json); }, delay);
+
 });
 app.post('/api/source/save', function (req, res) {
-    res.status(200).send();
+
+    var delay = 0;
+
+    if (req.body.sources.some(function (source) {
+        if (source.title === 'Error') {
+            res.status(500).send({error: 'Could not save sources'});
+            return true;
+        } else if (source.title === 'Slow') {
+            delay = 10000;
+            return false;
+        }
+    }))
+        return;
+
+    setTimeout(function () {
+        res.status(200).send(); },
+            delay);
 });
 
 

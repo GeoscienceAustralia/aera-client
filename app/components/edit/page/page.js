@@ -2,21 +2,28 @@
 
 (function (angular) {
 
-    //TODO: resources, the progress bar, functional test support, AWS integration, make enter search, make buttons on same row as text, disable save when there's nothing to save
+    //TODO: make sure it works with real API
 
     var editControllerFunction = function (PageService, NotificationService, AeraCommon, $q, $state) {
         var edit = this;
         edit.page = {};
 
-        var failure = function (error) {
-            NotificationService.addError(error.data);
+        var failure = function (response) {
+            edit.progressBar = false;
+            NotificationService.showNotification(response.data.error || response.data.warning);
         };
 
+        edit.findPage = function () {
+            edit.progressBar = true;
+            PageService.get(edit.page.pageId).then(pageFound, pageNotFound);
+        };
         var pageFound = function (page) {
+            edit.progressBar = false;
             edit.page = page.data;
         };
-        edit.findPage = function () {
-            PageService.get(edit.page.pageId).then(pageFound, failure);
+        var pageNotFound = function (error) {
+            edit.page = {};
+            failure(error);
         };
 
         edit.clearForm = function () {
@@ -31,7 +38,7 @@
         };
         var pageSaved = function (response) {
             edit.page.pageId = response.data.pageId;
-            NotificationService.showMessage('Page saved');
+            NotificationService.showNotification('Page saved');
 
             var urlPromises = {csvUrl: PageService.getCsvUrl(edit.page.pageId), imageUrl: PageService.getImageUrl(edit.page.pageId)};
             $q.all(urlPromises).then(urlsRetrieved, failure);

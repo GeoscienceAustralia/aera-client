@@ -10,7 +10,7 @@
             angular.extend(chapter, result.data);
         };
         var chapterRetrievalFailed = function () {
-            NotificationService.addError('Unable to retrieve chapter');
+            NotificationService.addNotification('Unable to retrieve chapter');
         };
         ChapterService.get(chapter.id).then(chapterRetrieved, chapterRetrievalFailed);
 

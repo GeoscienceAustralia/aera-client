@@ -2,10 +2,11 @@
 
 (function (angular) {
 
-    //TODO: loading bar, functional test for loading bar, integrate with AWS
+    //TODO: integrate with AWS, set chapter originally
 
     var pageNumberControllerFunction  = function (ChapterService, PageService, NotificationService, $state, $stateParams, $q) {
         var number = this;
+        number.progressBar = true;
 
         number.page = $stateParams.page;
         if (!number.page || !(number.page.pageId >= 0)) {
@@ -14,25 +15,35 @@
         }
 
         var failure = function (error) {
-            NotificationService.showError(error.data);
+            number.progressBar = false;
+            NotificationService.showNotification(error.data.error);
         };
 
         var chaptersRetrieved = function (response) {
             number.chapters = response.data;
+            number.progressBar = false;
         };
         ChapterService.getAll().then(chaptersRetrieved, failure);
 
         var pagesRetrieved = function (response) {
             number.pages = response.data.pages;
+            number.progressBar = false;
+        };
+        var pagesFailed = function (response) {
+            number.list = [];
+            failure(response);
         };
         number.updatePageList = function () {
-            ChapterService.get(number.chapterId).then(pagesRetrieved, failure);
+            number.progressBar = true;
+            ChapterService.get(number.chapterId).then(pagesRetrieved, pagesFailed);
         };
 
         var pageOrderSaved = function () {
-            NotificationService.showMessage('Page order updated');
+            number.progressBar = false;
+            NotificationService.showNotification('Page order updated');
         };
         number.savePageOrder = function () {
+            number.progressBar = true;
 
             // Work out which pages have had their page number updated and
             // retrieve those pages from the server for updating
@@ -46,19 +57,21 @@
             });
 
             if (!pagesToBeUpdated.length) {
-                NotificationService.showMessage('Page order hasn\'t changed');
+                number.progressBar = false;
+                NotificationService.showNotification('Page order hasn\'t changed');
                 return;
             }
 
             // Build the list of pages to be updated, with the updated page numbers
-            $q.all(savedPages).then(function (responses) {
+            var saveAll = function (responses) {
                 responses.forEach(function (response, index) {
                     savedPages[index] = response.data;
                     savedPages[index].pageNumber = pagesToBeUpdated[index].pageNumber;
                 });
 
                 PageService.saveAll(savedPages).then(pageOrderSaved, failure);
-            });
+            };
+            $q.all(savedPages).then(saveAll, failure);
         };
     };
 

@@ -7,7 +7,7 @@
         page.sources = [];
 
         var failure = function (error) {
-            NotificationService.addError(error);
+            NotificationService.addNotification(error);
         };
 
         var pageRetrieved = function (result) {
