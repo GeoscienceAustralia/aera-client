@@ -2,11 +2,13 @@
 
 (function (angular) {
 
-    //TODO: make sure it works with real API
-
-    var editControllerFunction = function (PageService, NotificationService, AeraCommon, $q, $state) {
+    var editControllerFunction = function (PageService, NotificationService, AeraCommon, $q, $state, $stateParams) {
         var edit = this;
-        edit.page = {};
+
+        edit.page = $stateParams.page;
+        if (!edit.page || !(edit.page.pageId >= 0)) {
+            edit.page = {};
+        }
 
         var failure = function (response) {
             edit.progressBar = false;
@@ -32,8 +34,6 @@
 
         edit.saveAndContinue = function () {
             edit.progressBar = true;
-            edit.page.csvUrl = '';
-            edit.page.imageUrl = '';
             PageService.save(edit.page).then(pageSaved, failure);
         };
         var pageSaved = function (response) {
@@ -81,7 +81,7 @@
     };
 
     angular.module('aera-edit')
-        .controller('EditPageController', ['PageService', 'NotificationService', 'AeraCommon', '$q', '$state', editControllerFunction])
+        .controller('EditPageController', ['PageService', 'NotificationService', 'AeraCommon', '$q', '$state', '$stateParams', editControllerFunction])
         .directive('aeraEditPage', editDirectiveFunction)
         .directive('fileModel', ['$parse', fileModelDirective])
 })(angular);

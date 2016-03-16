@@ -33,7 +33,7 @@
     };
 
     var pageServiceFunction = function ($http, apiEndpoint) {
-        var url = apiEndpoint + '/page/';
+        var url = apiEndpoint + '/page';
 
         this.get = function (pageId) {
             var requestUrl = url + pageId;
@@ -41,12 +41,12 @@
         };
 
         this.getCsvUrl = function (pageId) {
-            var requestUrl = url + 'csv/' + pageId;
+            var requestUrl = url + '/csv/' + pageId;
             return $http.get(requestUrl);
         };
 
         this.getImageUrl = function (pageId) {
-            var requestUrl = url + 'image/' + pageId;
+            var requestUrl = url + '/image/' + pageId;
             return $http.get(requestUrl);
         };
 
@@ -54,12 +54,12 @@
             var formData = new FormData();
 
             for (var property in page) {
-                if (page.hasOwnProperty(property) && page[property] && typeof page[property] !== 'object') {
+                if (page.hasOwnProperty(property) && page[property]) {
                     formData.append(property, page[property]);
                 }
             }
 
-            return $http.post(url + 'save', formData, {
+            return $http.post(url, formData, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });

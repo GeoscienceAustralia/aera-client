@@ -57,12 +57,12 @@
         return {
             restrict: 'E',
             scope: {},
-            templateUrl: 'components/edit-chapter/editChapter.html',
+            templateUrl: 'components/edit/chapter/chapter.html',
             controller: 'EditChapterController as edit'
         };
     };
 
-    angular.module('aera-edit-chapter', [])
+    angular.module('aera-edit')
         .controller('EditChapterController', ['ChapterService', 'ResourceService', 'NotificationService', 'AeraCommon', editChapterControllerFunction])
         .directive('aeraEditChapter', editChapterDirectiveFunction)
 })(angular);

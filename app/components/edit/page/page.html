@@ -22,14 +22,14 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please select a CSV file to upload</label>
             <input type="file" accept=".csv" id="csvFile" file-model="edit.page.csvFile" ng-model="edit.page.csvFile"/>
         </md-input-container>
-        <md-button ng-show="edit.page.csvFile" class="md-accent" ng-href="{{edit.page.csvUrl}}" download>Download Csv</md-button>
+        <md-button ng-show="edit.page.csvUrl" class="md-accent" ng-href="{{edit.page.csvUrl}}" download>Download Csv</md-button>
 
         <md-input-container class="md-block">
             <label for="imageFile">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please select an image file to upload</label>
             <input type="file" accept="image/*" id="imageFile" file-model="edit.page.imageFile" ng-model="edit.page.imageFile"/>
         </md-input-container>
-        <md-button ng-show="edit.page.imageFile" class="md-accent" ng-href="{{edit.page.imageUrl}}" download>Download Image</md-button>
+        <md-button ng-show="edit.page.imageUrl" class="md-accent" ng-href="{{edit.page.imageUrl}}" download>Download Image</md-button>
 
         <md-progress-linear ng-show="edit.progressBar" md-mode="{{edit.modes[1]}}"></md-progress-linear>
 
