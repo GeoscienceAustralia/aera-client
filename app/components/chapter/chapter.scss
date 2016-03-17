@@ -13,3 +13,9 @@
     display: flex;
   }
 }
+
+@media (max-width: $gt-xs) {
+  .flex-10 {
+    max-width: 100%;
+  }
+}
