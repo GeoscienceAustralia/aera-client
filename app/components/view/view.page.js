@@ -8,7 +8,7 @@ var get = function (chapter) {
 };
 
 var getSelectedChapterTitle = function () {
-  return $('.chapter-heading > h2').getText().then(function (title) { return title.toUpperCase() });
+  return $('.toolbar > div').getText().then(function (title) { return title.toUpperCase() });
 };
 
 var getMenuIcon = function () {

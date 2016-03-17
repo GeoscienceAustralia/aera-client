@@ -1,4 +1,4 @@
-@import '../../common';
+@import 'common';
 
 .show-element {
   display: block !important;
@@ -28,6 +28,11 @@
 .toolbar {
   height: 50px;
   background-color: #006983;
+
+
+  @media (max-width: $gt-xs) {
+    font-size: small;
+  }
 }
 
 .toolbar > div {
@@ -35,6 +40,8 @@
   line-height: 50px;
   font-weight: bold;
   color: white;
+  overflow: hidden;
+  font-size: small;
 }
 
 .strap {
