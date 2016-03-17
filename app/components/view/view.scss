@@ -3,12 +3,11 @@
 .chapter-nav {
   background-color: $primary-hue-1;
   color: $alt-text-colour;
-  padding-top: 0;
+  padding-top: 10px;
 
   &__link {
     white-space: normal;
     line-height: normal;
-    display: flex;
     width: 100%;
   }
 }
