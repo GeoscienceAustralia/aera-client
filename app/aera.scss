@@ -1,17 +1,58 @@
+@import '../../common';
+
 .show-element {
-    display: block !important;
+  display: block !important;
 }
 
 .main-header {
-    display: flex;
-    flex-flow: row nowrap;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .main-header__logo {
-    width: 140px;
-    height: 97px;
+  padding-left: 50px;
+
+  @media (max-width: $gt-xs) {
+    padding-left: 10px;
+  }
 }
 
 .main-header__title {
-    flex-grow: 1;
+  flex-grow: 1;
+  font-size: medium;
+  font-weight: bold;
+  margin-top: 30px;
+  padding-left: 20px;
+}
+
+.toolbar {
+  height: 50px;
+  background-color: #006983;
+}
+
+.toolbar > div {
+  padding-left: 20px;
+  line-height: 50px;
+  font-weight: bold;
+  color: white;
+}
+
+.strap {
+  height: 8px;
+  margin-bottom: 3px;
+}
+
+.strap-blue {
+  background-color: #72c7e7;
+  width: 88%;
+}
+
+.strap-white {
+  background-color: #fff;
+  width: 3px;
+}
+
+.strap-red {
+  background-color: #a33f1f;
+  width: 12%;
 }
