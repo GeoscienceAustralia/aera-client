@@ -2,18 +2,17 @@
 
 (function (angular) {
 
-  var notificationsFunction = function () {
-    return {
-      addError: function (error) {
-        console.log(error);
-      },
-      addInformation: function (information) {
-        console.log(information);
-      }
-    };
-  };
+    var notificationsFunction = function ($mdToast) {
+        var toastPosition = 'top right';
 
-  angular.module('aera-notifications', [])
-      .service('NotificationService', [notificationsFunction]);
+        return {
+            showNotification: function (notification) {
+                $mdToast.show($mdToast.simple().textContent(notification).hideDelay(120000).action('CLOSE').position(toastPosition));
+            }
+        };
+    };
+
+    angular.module('aera-notifications', ['ngMaterial'])
+            .service('NotificationService', ['$mdToast', notificationsFunction]);
 
 })(angular);

@@ -1,0 +1,24 @@
+<md-input-container class="md-block" flex-gt-sm="">
+    <label>This page will be in chapter</label>
+
+    <md-select id="chapter" ng-model="number.chapterId" ng-change="number.updatePageList()">
+        <md-option ng-repeat="chapter in number.chapters" value="{{chapter.chapterId}}"
+                   ng-selected="chapter.chapterId == number.page.chapterId">{{chapter.title}}
+        </md-option>
+    </md-select>
+</md-input-container>
+<div ng-show="number.pages">Change the order of the pages by dragging them</div>
+<md-list as-sortable ng-model="number.pages">
+    <md-list-item ng-repeat="page in number.pages" as-sortable-item>
+        <md-button class="md-accent" as-sortable-item-handle>{{page.title}}</md-button>
+    </md-list-item>
+</md-list>
+
+<md-progress-linear ng-show="number.progressBar" md-mode="indeterminate"></md-progress-linear>
+
+<md-input-container layout>
+    <md-button class="md-raised" ui-sref="^.sources({page: number.page})">Previous</md-button>
+    <md-button class="md-primary md-raised" ng-click="number.savePageOrder()" ng-disabled="!number.pages.length">
+        Save Page Order
+    </md-button>
+</md-input-container>

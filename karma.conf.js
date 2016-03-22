@@ -15,8 +15,10 @@ module.exports = function(config) {
       'node_modules/angular-ui-router/release/angular-ui-router.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
+      'node_modules/ng-sortable/source/sortable-main.js',
       'node_modules/phantomjs-function-bind-polyfill/index.js',
       'app/components/**/*.html',
+      'app/components/view/view.js',
       'app/components/**/*.js' ],
 
     // list of files to exclude

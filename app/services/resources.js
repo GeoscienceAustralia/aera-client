@@ -33,7 +33,7 @@
     };
 
     var pageServiceFunction = function ($http, apiEndpoint) {
-        var url = apiEndpoint + '/page/';
+        var url = apiEndpoint + '/page';
 
         this.get = function (pageId) {
             var requestUrl = url + pageId;
@@ -41,12 +41,12 @@
         };
 
         this.getCsvUrl = function (pageId) {
-            var requestUrl = url + 'csv/' + pageId;
+            var requestUrl = url + '/csv/' + pageId;
             return $http.get(requestUrl);
         };
 
         this.getImageUrl = function (pageId) {
-            var requestUrl = url + 'image/' + pageId;
+            var requestUrl = url + '/image/' + pageId;
             return $http.get(requestUrl);
         };
 
@@ -54,19 +54,40 @@
             var formData = new FormData();
 
             for (var property in page) {
-                if (page.hasOwnProperty(property) && page[property] && typeof page[property] !== 'object') {
+                if (page.hasOwnProperty(property) && page[property]) {
                     formData.append(property, page[property]);
                 }
             }
 
-            return $http.post(url + 'save', formData, {
+            return $http.post(url, formData, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });
-        }
+        };
+
+        this.saveAll = function (pages) {
+            return $http.post(url + 'save/list', {pageList: pages});
+        };
     };
 
-    var referenceServiceFunction = function ($http, apiEndpoint) {
+    var sourcesServiceFunction = function ($http, apiEndpoint) {
+        var url = apiEndpoint + '/source/';
+
+        var transformSource = function (sources) {
+            sources = angular.fromJson(sources);
+            if (!sources.forEach)
+                return sources;
+
+            sources.forEach(function (source) {
+
+                if (source.dateAccessed) {
+                    source.dateAccessed = new Date(source.dateAccessed);
+                }
+            });
+
+            return sources;
+        };
+    var sourcesServiceFunction = function ($http, apiEndpoint) {
         var url = apiEndpoint + '/source/';
 
         this.get = function (pageId) {
@@ -89,7 +110,7 @@
                 headers: {'Content-Type': undefined},
                 referencePos: referencePos
             });
-        }
+        };
     };
 
     var resourceServiceFunction = function ($http, apiEndpoint) {
@@ -103,6 +124,6 @@
     angular.module('aera-resources', ['ngResource', 'aera-config'])
         .service('ChapterService', ['$http', 'apiEndpoint', chapterServiceFunction])
         .service('PageService', ['$http', 'apiEndpoint', pageServiceFunction])
-        .service('ReferenceService', ['$http', 'apiEndpoint', referenceServiceFunction])
+        .service('SourcesService', ['$http', 'apiEndpoint', sourcesServiceFunction])
         .service('ResourceService', ['$http', 'apiEndpoint', resourceServiceFunction]);
 })(angular);

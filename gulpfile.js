@@ -106,6 +106,7 @@ gulp.task('run-built', function () {
 
 gulp.task('run', ['config-express'], runTask);
 gulp.task('run-local-api', ['config-local-api'], runTask);
+gulp.task('run-aws', ['config-aws'], runTask);
 
 gulp.task('test', ['test-unit', 'test-functional']);
 gulp.task('build', ['bundle', 'copy-images', 'angular-templates', 'copy-scripts']);

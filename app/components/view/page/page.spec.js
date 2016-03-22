@@ -4,7 +4,7 @@ describe('Page Controller', function () {
 
     var $compile, $q, $rootScope,
             pageController, pageQuery, directiveElement,
-            mockResult, stubPageService, stubReferenceService, stubNotificationService;
+            mockResult, stubPageService, stubSourcesService, stubNotificationService;
     beforeEach(function () {
 
         /* Some jiggery pokery with setting up the stubPageService
@@ -17,11 +17,10 @@ describe('Page Controller', function () {
          */
 
         stubPageService = {};
-        stubReferenceService = {};
+        stubSourcesService = {};
 
         stubNotificationService = {
-            addError: function () {},
-            addInformation: function () {}
+            addNotification: function () {}
         };
 
         mockResult = {
@@ -33,12 +32,12 @@ describe('Page Controller', function () {
             }
         };
 
-        module('aera-page');
-        module('components/page/page.html');
+        module('aera-view');
+        module('components/view/page/page.html');
         module(function ($provide) {
             $provide.factory('PageService', function () { return stubPageService; });
             $provide.factory('NotificationService', function () { return stubNotificationService; });
-            $provide.factory('ReferenceService', function () { return stubReferenceService; });
+            $provide.factory('SourcesService', function () { return stubSourcesService; });
         });
 
         inject(function (_$compile_, _$q_, _$rootScope_) {
@@ -51,7 +50,7 @@ describe('Page Controller', function () {
             pageQuery = $q.defer();
             return pageQuery.promise;
         };
-        stubReferenceService.get = function () {
+        stubSourcesService.get = function () {
             return $q.defer().promise;
         };
 
@@ -88,9 +87,9 @@ describe('Page Controller', function () {
 
     it('creates a notification if the page can\'t be retrieved', function () {
         var errorMessage = 'The page could not be retrieved';
-        spyOn(stubNotificationService, 'addError');
+        spyOn(stubNotificationService, 'addNotification');
         rejectPromise(pageQuery, errorMessage);
-        expect(stubNotificationService.addError).toHaveBeenCalledWith(errorMessage);
+        expect(stubNotificationService.addNotification).toHaveBeenCalledWith(errorMessage);
     });
 
 });

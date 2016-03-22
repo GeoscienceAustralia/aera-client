@@ -21,7 +21,7 @@ describe('Main Page', function () {
         stubChapterService = {};
 
         mockNotificationService = {
-            addError: function () { }
+            addNotification: function () { }
         };
 
         module('ui.router');
@@ -68,9 +68,9 @@ describe('Main Page', function () {
     });
 
     it('creates an error if the list of chapters can\'t be retrieved', function () {
-        spyOn(mockNotificationService, 'addError');
+        spyOn(mockNotificationService, 'addNotification');
         rejectChapters();
-        expect(mockNotificationService.addError).toHaveBeenCalledWith('Unable to retrieve data');
+        expect(mockNotificationService.addNotification).toHaveBeenCalledWith('Unable to retrieve data');
     });
 
     it('displays chapter titles', function () {
