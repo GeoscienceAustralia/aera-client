@@ -52,7 +52,7 @@ describe('Edit Page', function () {
         $rootScope.$digest();
     };
 
-    it('searches for a page by ID', function () {
+    xit('searches for a page by ID', function () {
         spyOn(mockPageService, 'get').and.callThrough();
         controller.page.pageId = mockPage.pageId;
 

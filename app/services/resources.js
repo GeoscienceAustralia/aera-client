@@ -36,7 +36,7 @@
         var url = apiEndpoint + '/page';
 
         this.get = function (pageId) {
-            var requestUrl = url + pageId;
+            var requestUrl = url + '/' + pageId;
             return $http.get(requestUrl);
         };
 
@@ -66,27 +66,10 @@
         };
 
         this.saveAll = function (pages) {
-            return $http.post(url + 'save/list', {pageList: pages});
+            return $http.post(url + '/list', {pageList: pages});
         };
     };
 
-    var sourcesServiceFunction = function ($http, apiEndpoint) {
-        var url = apiEndpoint + '/source/';
-
-        var transformSource = function (sources) {
-            sources = angular.fromJson(sources);
-            if (!sources.forEach)
-                return sources;
-
-            sources.forEach(function (source) {
-
-                if (source.dateAccessed) {
-                    source.dateAccessed = new Date(source.dateAccessed);
-                }
-            });
-
-            return sources;
-        };
     var sourcesServiceFunction = function ($http, apiEndpoint) {
         var url = apiEndpoint + '/source/';
 
@@ -94,22 +77,13 @@
             return $http.get(url + 'page/' + pageId);
         };
 
-        this.save = function (pageId, reference, referencePos) {
-            var formData = new FormData();
-            formData.append('pageId', pageId);
-            for (var property in reference) {
-                if (reference.hasOwnProperty(property) && reference[property] && typeof reference[property] !== 'object') {
-                    formData.append(property, reference[property]);
-                } else if (reference[property] instanceof Date) {
-                    formData.append(property, moment(reference[property]).format('DD/MM/YYYY'));
-                }
-            }
+        this.save = function (pageId, sources) {
 
-            return $http.post(url + 'save', formData, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined},
-                referencePos: referencePos
+            sources.forEach(function (source) {
+                source.dateAccessed = moment(source.dateAccessed).format('YYYY-MM-DD');
             });
+
+            return $http.post(url, sources);
         };
     };
 

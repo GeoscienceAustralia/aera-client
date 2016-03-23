@@ -100,8 +100,8 @@ app.get('/api/page/:pageId', function (req, res) {
         pageNumber: pageId,
         title: pages[pageId].title,
         summary: fs.readFileSync(dataDir + '/summary.txt', 'utf8'),
-        imageUrl: 'data/page_' + pageId + '/' + imageFile,
-        csvUrl: 'data/page_' + pageId + '/csv.csv'
+        imageUrlRequest: 'data/page_' + pageId + '/' + imageFile,
+        csvUrlRequest: 'data/page_' + pageId + '/csv.csv'
     };
 
     setTimeout(function () { res.status(200).send(page); }, delay);

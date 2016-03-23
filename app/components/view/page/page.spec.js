@@ -27,7 +27,7 @@ describe('Page Controller', function () {
             data: {
                 id: 666,
                 title: 'Test Title',
-                imageUrl: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
+                imageUrlRequest: 'http://pre12.deviantart.net/c3b4/th/pre/f/2012/214/7/c/futurama__bender_by_suzura-d59kq1p.png',
                 summary: 'Bender is great'
             }
         };
@@ -73,14 +73,14 @@ describe('Page Controller', function () {
     it('retrieves the page information from the page service', function () {
         resolvePromise(pageQuery, mockResult);
         expect(pageController.title).toBe(mockResult.data.title);
-        expect(pageController.imageUrl).toBe(mockResult.data.imageUrl);
+        expect(pageController.imageUrlRequest).toBe(mockResult.data.imageUrlRequest);
         expect(pageController.summary).toBe(mockResult.data.summary);
     });
 
     it('displays the page information and download button', function () {
         resolvePromise(pageQuery, mockResult);
         expect(directiveElement.find('header').html()).toBe(mockResult.data.title);
-        expect(directiveElement.find('img').attr('src')).toBe(mockResult.data.imageUrl);
+        expect(directiveElement.find('img').attr('src')).toBe(mockResult.data.imageUrlRequest);
         expect(directiveElement.find('div.page-content__text').html()).toContain(mockResult.data.summary);
         expect(directiveElement.find('md-button').html()).toBe('Download data as CSV');
     });

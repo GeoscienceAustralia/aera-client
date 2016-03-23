@@ -18,6 +18,7 @@ module.exports = function(config) {
       'node_modules/ng-sortable/source/sortable-main.js',
       'node_modules/phantomjs-function-bind-polyfill/index.js',
       'app/components/**/*.html',
+      'app/components/edit/edit.js',
       'app/components/view/view.js',
       'app/components/**/*.js' ],
 

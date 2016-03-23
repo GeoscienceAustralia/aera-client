@@ -46,12 +46,13 @@
                     };
                     var editPage = {
                         url: '/page',
+                        params: {page: {}},
                         template: '<aera-edit-page></aera-edit-page>'
                     };
                     var editSources = {
                         url: '/sources',
                         template: '<aera-edit-sources></aera-edit-sources>',
-                        params: {page: null}
+                        params: {page: {}}
                     };
                     var editPageNumber = {
                         url: '/page-number',
