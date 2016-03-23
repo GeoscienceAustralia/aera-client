@@ -6,13 +6,10 @@
         var edit = this;
 
         edit.page = $stateParams.page;
-        if (!edit.page || !(edit.page.pageId >= 0)) {
-            edit.page = {};
-        }
 
         var failure = function (response) {
             edit.progressBar = false;
-            NotificationService.showNotification(response.data.error || response.data.warning);
+            NotificationService.showNotification(response.data.Error || response.data.Warning);
         };
 
         edit.findPage = function () {
@@ -40,14 +37,20 @@
             edit.page.pageId = response.data.pageId;
             NotificationService.showNotification('Page saved');
 
-            var urlPromises = {csvUrl: PageService.getCsvUrl(edit.page.pageId), imageUrl: PageService.getImageUrl(edit.page.pageId)};
+            if (edit.page.csvFile)
+                edit.page.csvUrl = '';
+
+            if (edit.page.imageFile)
+                edit.page.imageUrl = '';
+
+            var urlPromises = {csvUrlRequest: PageService.getCsvUrl(edit.page.pageId), imageUrlRequest: PageService.getImageUrl(edit.page.pageId)};
             $q.all(urlPromises).then(urlsRetrieved, failure);
         };
-        var urlsRetrieved = function (response) {
+        var urlsRetrieved = function (responses) {
             edit.progressBar = false;
 
-            edit.page.csvUrl = response.csvUrl;
-            edit.page.imageUrl = response.imageUrl;
+            edit.page.csvUrlRequest = responses.csvUrlRequest.data.csvUrl;
+            edit.page.imageUrlRequest = responses.imageUrlRequest.data.imageUrl;
 
             $state.go('^.sources', {page: edit.page});
         };

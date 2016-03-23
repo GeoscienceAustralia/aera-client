@@ -1,7 +1,7 @@
 <header class="page-header">{{::page.title}}</header>
 <md-content class="page-content">
   <figure class="page-graph">
-    <img class="page-graph__image" ng-src="{{::page.imageUrl}}" alt="{{::page.title}} graph" />
+    <img class="page-graph__image" ng-src="{{::page.imageUrlRequest}}" alt="{{::page.title}} graph" />
     <figcaption></figcaption>
   </figure>
   <div>
@@ -10,7 +10,7 @@
   </div>
 </md-content>
 <div class="page-footer">
-  <md-button target="_self" href="{{page.csvUrl}}" class="page-footer__download">Download data as CSV</md-button>
+  <md-button target="_self" href="{{page.csvUrlRequest}}" class="page-footer__download">Download data as CSV</md-button>
 </div>
 <md-divider ng-if="!$last"></md-divider>
 
