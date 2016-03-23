@@ -13,7 +13,7 @@ before_deploy:
 - echo "building aera"
 - chmod +x ./scripts/build.sh
 - ./scripts/build.sh
-- "/tmp/sonar-runner/bin/sonar-runner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=http://sonar.gadevs.ga/ -Dsonar.projectKey=ga.hellfish:aera-client -Dsonar.projectName=AERA -Dsonar.projectVersion=0.1 -Dsonar.sources=."
+- "/tmp/sonar-runner/sonar-runner-2.4/bin/sonar-runner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=http://sonar.gadevs.ga/ -Dsonar.projectKey=ga.hellfish:aera-client -Dsonar.projectName=AERA -Dsonar.projectVersion=0.1 -Dsonar.sources=."
 
 deploy:
   - provider: s3
