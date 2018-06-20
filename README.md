@@ -1,7 +1,10 @@
+
+
 # README #
 
 'Australian energy resources assessment' website project. 
 
+## Repo moved to: bitbucket.org/geoscienceaustralia/ga-aera ##
 
 ### What is this repository for? ###
 
