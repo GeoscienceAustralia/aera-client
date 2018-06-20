@@ -1,0 +1,917 @@
+              
+        @media only screen and (max-width: 1024px) {
+            .container-fluid {
+                padding: 0 5%;
+                margin: 0 auto;
+            }
+            img {
+                max-width: 100%;
+            }
+            article {
+                margin-right: 10%;
+            }
+            article>section {
+                width: auto;
+                margin: 0 0 3em 10%;
+                padding: 3em 0 0 1em;
+            }
+            article>section.single-section {
+                margin-left: 10%;
+                /* padding-right: 5em; */
+            }
+            .home-banner>div {
+                width: 220px;
+                padding: 2em 1em;
+                margin-bottom: .5em;
+            }
+            .title a {
+                font-size: 30px;
+            }
+            .centered img {
+                max-height: 80px;
+            }
+        }
+        
+        @media only screen and (min-width: 1025px) {
+            .home-banner>div {
+                padding: 1em 3em 3em 3em;
+                width: 330px;
+                margin-bottom: 2em;
+            }
+            img {
+                max-width: 100%;
+            }
+            #adv-search {
+                margin: 0 auto;
+            }
+            .dropdown.dropdown-lg {
+                position: static !important;
+            }
+            article {
+                margin-right: 10%;
+            }
+            article>section {
+                width: auto;
+                margin: 3em 0 0 20%;
+                /* padding: 3em 0 0 1em; */
+            }
+            article>section.single-section {
+                margin-left: 10%;
+                /* padding-right: 5em; */
+            }
+            .centered img {
+                max-height: 100px;
+            }
+            .navbar-collapse {
+                padding-left: 0;
+            }
+        }
+        
+        @font-face {
+            font-family: 'Arial Narrow';
+            src: local('Arial Narrow'), url('assets/fonts/Arial Narrow.eot');
+            src: url('assets/fonts/Arial Narrow.eot?#iefix') format('embedded-opentype'), url('assets/fonts/Arial Narrow.woff2') format('woff2'), url('assets/fonts/Arial Narrow.woff') format('woff'), url('assets/fonts/Arial Narrow.svg#Arial Narrow') format('svg');
+            font-weight: 400;
+            font-style: normal;
+            font-stretch: condensed;
+            unicode-range: U+0020-02DC;
+        }
+        /*
+        * https://gist.github.com/larrybotha/7881691
+        * Let's target IE to respect aspect ratios and sizes for img tags containing SVG files
+        *
+        * [1] IE9
+        * [2] IE10+
+        */
+        /* 1 */
+        /* .ie9 img[src$=".svg"] {
+            width: 100%; 
+        } */
+        /* 2 */
+        
+        @media all and (-ms-high-contrast: active),
+        (-ms-high-contrast: none) {
+            /* IE10+ CSS styles go here */
+            img[src$=".svg"] {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        
+         :visited {
+            color: #800080;
+        }
+        
+        .date {
+            color: #999999;
+            float: right;
+            margin-top: 2em;
+        }
+        
+        #adv-search {
+            margin: 0 auto;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            /* font-size: 1.4em; */
+            margin: auto;
+            font-family: Arial, "Lucida Grande", sans-serif;
+            /* font-weight: 300; */
+            /* font-size: normal; */
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: auto;
+        }
+        
+        h1,
+        h2,
+        h3 {
+            font-family: inherit;
+            margin-bottom: .5em;
+            color: #5E6A71;
+            font-weight: normal
+        }
+        
+        #measurements > section > h1{
+            font-size: 30px;
+        }
+
+        h1>a,
+        h1>a:hover,
+        h1>a:focus {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        
+        .side-bar>h1 {
+            margin: 0 0 1em .25em;
+        }
+        
+        .banner>div {
+            display: none;
+        }
+        
+        .home-banner {
+            text-align: center;
+            height: 100%;
+        }
+        
+        .home-banner>div.centered {
+            margin: 0 auto;
+            margin-bottom: .5em;
+            /* background: linear-gradient( to bottom, #010310, #0e1d39); */
+            background-color: #003145;
+            display: block;
+            /* opacity: .9; */
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+        }
+        
+        .home-banner .logo-ga {
+            display: block;
+            margin-bottom: 3em;
+            position: relative;
+        }
+        
+        .title {
+            color: white;
+            font-weight: 400;
+            z-index: 5;
+            border: none;
+            opacity: 1;
+            margin-bottom: 0;
+        }
+        
+        .title a {
+            color: white;
+            text-decoration: none;
+            line-height: 125%;
+        }
+        
+        footer.footer-global {
+            background-color: #2F2F2F;
+            color: #e7e7e7;
+            font-size: 12px;
+            padding: 15px 10%;
+            margin-top: 10em;
+            text-align: center;
+        }
+        
+        footer.footer-global a,
+        footer.footer-global a:hover,        
+        footer.footer-global a:visited,       
+        footer.footer-global a:active,       
+        footer.footer-global a:focus {
+            color: white;
+            background: none;
+        }
+        
+        footer.footer-global li:first-child>a {
+            padding-left: 0;
+            text-align: center;
+        }
+        footer.footer-global .acknowl{
+            text-align: left;
+        }
+        
+        #menu-bar.affix {
+            top: 0;
+            margin-top: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+        }
+        
+        #menu-bar.affix-top {
+            width: 100%;
+        }       
+        
+        .banner {
+            margin: 0;
+            padding: 0;
+            background-image: lightgrey;
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+            position: relative;
+            height: 140px;
+        }
+        
+        .home-banner {
+            min-height: 93%;
+            background: url('http://res.cloudinary.com/ga-aera/image/upload/s--qv8q5I9F--/c_scale,dpr_auto,f_auto,fl_preserve_transparency.progressive,q_auto:eco,w_1920/v1518660989/AERA/city-lights.png') bottom / 100% no-repeat, linear-gradient( to bottom, #010312, #0e1d39 60%);
+        }
+        
+        .executive-summary-banner {
+            /* background-image: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/exec_banner.png'); */
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,g_center,h_140,q_auto:good/v1518657149/AERA/SUMMARY_large.jpg');
+        }
+        
+        .energy-resources-and-market-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,h_140,q_auto:best/v1518771449/AERA/market.png');
+            /* 'http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/aerm_banner.png'); */
+        }
+        
+        .oil-banner {
+            background: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/oil_rig.png') 10% 100% no-repeat, linear-gradient(to left, #996633, #ff9933);
+        }
+        
+        .gas-banner {
+            background: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,g_auto,h_140,q_auto:best,z_0.9/v1518668218/AERA/gas.png'), black;
+            /* http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/gas-banner.png'); */
+        }
+        
+        .coal-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,g_auto,h_140/v1518657145/AERA/COAL_large.jpg');
+            /* http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/coal_banner.png'); */
+        }
+        
+        .uranium-and-thorium-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,g_xy_center,h_140,q_auto:best,x_1610,y_899/v1518772112/AERA/Uranium.png');
+        }
+        
+        .geothermal-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/v1518666773/AERA/geothermal_banner2.png');
+            /* http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/geothermal_banner.png'); */
+            background-position: bottom;
+        }
+        
+        .hydro-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop/v1518657154/AERA/HYDRO_large.jpg');
+            /* http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/hydro_banner.png'); */
+        }
+        
+        .wind-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,g_xy_center,h_140,x_2299,y_1751/v1518772399/AERA/wind.png');
+        }
+        
+        .solar-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,h_140,q_auto:best/v1518772106/AERA/solar.png');
+        }
+        
+        .ocean-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,g_auto,h_140,q_auto:best/v1518657150/AERA/ocean_large.jpg');
+            /* http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/ocean_banner.png'); */
+        }
+        
+        .bio-banner {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/ar_12:1,c_crop,h_140,q_auto:best/v1518772104/AERA/bioenergy.png');
+        }
+        
+        .appendixes-banner,
+        .glossary-banner,
+        .resource-classification-banner,
+        .measurements-banner,
+        .acronyms-banner {
+            /* background-image: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/appendix_banner.png'); */
+            background: url('http://res.cloudinary.com/ga-aera/image/upload/q_auto,dpr_auto,w_auto,f_auto/v1518660989/AERA/city-lights.png') 50% 25%;
+            height: 140px;
+        }
+        
+        .fig-caption {
+            font-size: smaller;
+            margin-bottom: 2em;
+        }
+        
+        a[data-fancybox] {
+            max-width: 220px;
+            margin: 0 0 0 3em;
+            /* padding: .5em; */
+            display: inline-block;
+            /* float: left; */
+            vertical-align: top;
+            cursor: pointer;
+        }
+        
+        a[data-fancybox] img {
+            height: 200px;
+            max-width: 100%;
+            background-color: white;
+            width: 200px;
+        }
+        button> svg{
+            width: 44px;
+            height: 44px;
+        }
+        .fancybox-image {
+            background-color: white;           
+            height: auto;
+            width: auto;
+            max-height: 95%;
+            max-width: 85%;
+            position: relative;
+        }
+        .fancybox-image-wrap{
+            text-align: center;
+        }
+
+        .fancybox-caption{
+            border: none;
+            text-align: center;
+            font-size: 1.4em
+        }
+        /*  todo: size logo  */
+        .asset-excel{
+            font-size: 22px !important;
+
+        }
+        .asset-excel:before {
+            display: inline-block;
+            content: ' ';
+            background-image: url('/assets/icons/Microsoft_Excel_2013_logo.svg');
+            background-size: contain;
+            width: 40px;
+            height: 40px;
+            margin-right: .5em;
+            vertical-align: middle;
+        }
+        
+        .summary-img {
+            float: right;
+        }
+        
+        figcaption {
+            text-align: left;
+            /* font-weight: 600; */
+            color: #666;
+            font-size: smaller;
+        }
+        /* main {
+            padding: 0 10% 0 0;
+        } */
+        
+        .loading {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/ajax-loader.gif');
+            background-position: bottom right;
+            width: 50%;
+            min-height: 50%;
+            background-repeat: no-repeat;
+        }
+        
+        .gallery {
+            display: flexbox;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+        }
+        
+        .gallery .image {
+            width: 240px;
+            height: 240px;
+            padding: 20px;
+            margin: 0 auto 2em;
+        }
+        
+        .gallery .image img {
+            width: 200px;
+            height: auto;
+        }
+        
+        .carousel-control.right {
+            right: -100px;
+        }
+        
+        .carousel-control.left {
+            left: -100px;
+        }
+        .caret-right {
+            border-left: 4px solid;
+            border-bottom: 4px solid transparent;
+            border-top: 4px solid transparent;
+        }
+        
+        .summary-image .image {
+            margin: 0;
+        }
+        
+        .summary-image {
+            margin: 0 0 2em 4em;
+        }
+        
+        table {
+            display: table;
+            /* table-layout:fixed; */
+            empty-cells: hide;
+            width: 90%;
+            margin: 5%;
+            border-collapse: collapse;
+        }
+        .table-caption {
+            font-weight: normal;
+            font-style: normal;
+            font-size: small;
+        }
+        /* first row of table data (header) */
+        
+        tbody>tr:nth-child(2),
+        #gas-table-1 > tbody:nth-child(1) > tr:nth-child(3) {
+            background-color: #006983;
+            color: white;
+            font-weight: 600;
+        }
+        
+        
+        tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+        
+        tr:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:last-child {
+            /* border-top: 3px solid #006983; */
+            background: #fff;
+            font-size: small;
+        }
+        
+        tr:nth-child(2),tr:nth-child(3),tr:last-child {
+            border-top: solid 2px #006983 !important;
+        }
+        td {
+            padding: 2px 12px;
+        }
+        
+        tr:nth-child(2)>td{
+            padding: 4px 12px;
+        }
+        td p {
+            font-size: 85%;
+        }
+        
+        td,
+        th,
+        .td,
+        .th {
+            display: table-cell;
+            padding: .3em;
+            line-height: 1.42857143;
+        }
+        
+        .th,
+        th {
+            background-color: #006983;
+            color: white;
+        }
+        
+        td>p {
+            margin: 0;
+            padding: 0;
+            font-size: 85%;
+        }
+        
+        .th span.number {
+            padding-top: 1em;
+            border-top: none;
+        }
+        
+        .row-heading {
+            background: #006983;
+            color: white;
+            padding-left: 1em;
+            border-top: 1px solid white;
+        }
+        
+        .row-heading+div.td {
+            text-align: center;
+        }
+        
+        .th>hr {
+            margin: .5em 0 0 0;
+        }
+        
+        .number {
+            width: 75px;
+            text-align: right;
+        }
+        
+        div.td>span.td,
+        div.th>span.th {
+            border: none;
+        }
+                /* fix table inconsistencies */
+        
+                #oil-table-3>tbody>tr:nth-child(4)>td,
+                #gas-table-2>tbody>tr:nth-child(3)>td {
+                    background-color: #006983;
+                    color: #fff;
+                }
+                #uranium-and-thorium-table-1>tbody>tr:nth-child(10)>td:nth-child(1),
+                #uranium-and-thorium-table-1>tbody>tr:nth-child(6)>td:nth-child(1),
+                #coal-table-1>tbody>tr:nth-child(10)>td:nth-child(1),
+                #coal-table-1>tbody>tr:nth-child(6)>td:nth-child(1),
+                #coal-table-1>tbody>tr:nth-child(14),
+                #oil-table-4 > tbody > tr:nth-child(even):not(:nth-child(2)) > td:nth-child(1)
+                {
+                    background-color: #fff;
+                }
+                #oil-table-4 > tbody > tr:nth-child(4) > td:nth-child(1),
+                #oil-table-4 > tbody > tr:nth-child(12) > td:nth-child(1){
+                    background-color: #f8f8f8 !important;
+                }
+                #energy-resources-and-market-table-1 > tbody > tr:nth-child(2) > td:nth-child(3),
+                #energy-resources-and-market-table-1 > tbody > tr:nth-child(2) > td:nth-child(4),
+                #energy-resources-and-market-table-4 > tbody > tr:nth-child(2) > td:not(:nth-child(1)),
+                #energy-resources-and-market-table-4> tbody > tr > td:nth-child(2)>p,
+                #energy-resources-and-market-table-4> tbody > tr > td:nth-child(3)>p,
+                #energy-resources-and-market-table-5> tbody > tr > td:nth-child(2)>p,
+                #energy-resources-and-market-table-5> tbody > tr > td:nth-child(3)>p,
+                #energy-resources-and-market-table-6> tbody > tr > td:nth-child(2)>p,
+                #energy-resources-and-market-table-6> tbody > tr > td:nth-child(3)>p,
+                [id^=oil-table-] > tbody > tr > td:not(:first-child) >p,
+                #gas-table-1 > tbody > tr:not(:first-child):not(:nth-child(2)):not(:nth-child(3)) > td:not(:first-child)>p,
+                #coal-table-1 > tbody > tr:nth-child(2) > td:not(:nth-child(2)) > p,
+                #geothermal-table-2 > tbody > tr:nth-child(2) > td:not(:nth-child(2)) > p,
+                #uranium-and-thorium-table-1 > tbody > tr:nth-child(2) > td:not(:nth-child(2)),
+                #geothermal-table-4 > tbody > tr:nth-child(2) > td:nth-child(3),
+                #geothermal-table-4 > tbody > tr:nth-child(2) > td:nth-child(4),
+                #hydro-table-1 > tbody > tr:nth-child(2) > td:not(:nth-child(2)),
+                #wind-table-1 > tbody > tr:nth-child(2) > td:not(:nth-child(2)),
+                #solar-table-2 > tbody > tr:nth-child(2) > td:not(:nth-child(2)),
+                #ocean-table-1 > tbody > tr:nth-child(2) > td:not(:nth-child(2)),
+                #bio-table-4 > tbody > tr > td,
+                #gas-table-3 > tbody > tr:nth-child(2) > td:not(:nth-child(2))>p
+                {
+                    text-align: right !important;
+
+                }
+                #bio-table-4>tbody>tr:not(:nth-child(2))>td:not(:nth-child(2)),
+                #bio-table-4>tbody>tr:not(:nth-child(2))>td:not(:nth-child(2)){
+                    width: 150px;
+                }  
+                
+                #energy-resources-and-market-table-3 > tbody > tr:nth-child(2) > td:nth-child(1) {
+                    width: 120px;
+                }              
+                #bio-table-3>tbody>tr>td:nth-child(5) {
+                    width: 90px;
+                }                
+                #energy-resources-and-market-table-1>tbody>tr:nth-child(16),
+                #energy-resources-and-market-table-2>tbody>tr:nth-child(9) {
+                    font-weight: bold;
+                }        
+                #energy-resources-and-market-table-2{
+                    width: 50%;        
+                }
+                #energy-resources-and-market-table-2 > tbody > tr > td:nth-child(1),
+                #energy-resources-and-market-table-2 > tbody > tr > td:nth-child(2)>p,
+                #oil-table-4 > tbody > tr > td:nth-child(2) > p,
+                #geothermal-table-1 > tbody > tr > td:nth-child(2)>p,
+                #geothermal-table-3 > tbody > tr > td:nth-child(2) > p,
+                #geothermal-table-5 > tbody > tr > td > p,
+                #bio-table-2 > tbody > tr > td:nth-child(2) > p,
+                #bio-table-4 > tbody > tr > td:nth-child(2) > p,
+                #bio-table-4 > tbody > tr > td:nth-child(1)>p,
+                #bio-table-4 > tbody > tr:nth-child(1) > td:nth-child(1)
+                {
+                    text-align: left !important;
+                }
+                /* #oil-table-3 > tbody > tr > td:nth-child(3) > p, */
+                #oil-table-3 > tbody > tr > td:nth-child(6) > p,
+                #oil-table-3 > tbody > tr:nth-child(2) > td:nth-child(2) > p,
+                #oil-table-3 > tbody > tr:nth-child(4)>td>p,
+                #oil-table-5 > tbody > tr > td:not(:first-child) > p,
+                #oil-table-6 > tbody > tr > td:not(:first-child) > p,
+                #gas-table-1 > tbody > tr:nth-child(2)>td:not(:first-child)>p,
+                #gas-table-1 > tbody > tr:nth-child(3) > td > p,
+                #gas-table-2 > tbody > tr > td:nth-child(6)>p,
+                #energy-resources-and-market-table-4> tbody > tr > td:nth-child(4)>p,
+                #energy-resources-and-market-table-5> tbody > tr > td:nth-child(4)>p,
+                #energy-resources-and-market-table-6> tbody > tr > td:nth-child(4)>p {
+                    text-align: center !important;
+                }
+                #oil-table-4 > tbody > tr:nth-child(4) > td:nth-child(2) > p,
+                #oil-table-4 > tbody > tr:nth-child(7) > td:nth-child(2) > p,
+                #oil-table-4 > tbody > tr:nth-child(12) > td:nth-child(2) > p{
+                    text-align: right !important;
+                }
+                
+                #executive-summary-table-1 > tbody:nth-child(1) > tr:nth-child(16),
+                #executive-summary-table-2 > tbody:nth-child(1) > tr:nth-child(9){
+                    font-weight: 600;
+                }
+                #coal-table-1 > tbody > tr:nth-child(6),
+                #coal-table-1 > tbody > tr:nth-child(10),
+                #coal-table-1 > tbody > tr:nth-child(14),
+                #coal-table-1 > tbody > tr:nth-child(17),
+                #uranium-and-thorium-table-1 > tbody > tr:nth-child(6),
+                #uranium-and-thorium-table-1 > tbody > tr:nth-child(11),
+                #uranium-and-thorium-table-1 > tbody > tr:nth-child(10),
+                #hydro-table-1 > tbody > tr:nth-child(6),
+                #wind-table-1 > tbody > tr:nth-child(6),
+                #ocean-table-1 > tbody > tr:nth-child(6),
+                #bio-table-4 > tbody > tr:nth-child(6),
+                #bio-table-4 > tbody > tr:nth-child(10),
+                #measurements-table-6 > tbody > tr:nth-child(6),
+                #measurements-table-6 > tbody > tr:nth-child(11),
+                #measurements-table-6 > tbody > tr:nth-child(13),
+                #measurements-table-8 > tbody > tr:nth-child(18),
+                #measurements-table-8 > tbody > tr:nth-child(22),
+                #measurements-table-8 > tbody > tr:nth-child(25),
+                #geothermal-table-2 > tbody > tr:nth-child(6),
+                #oil-table-4 > tbody > tr:nth-child(6),
+                #oil-table-4 > tbody > tr:nth-child(9),
+                #oil-table-4 > tbody > tr:nth-child(11),
+                #oil-table-3 > tbody > tr:nth-child(7),
+                #oil-table-3 > tbody > tr:nth-child(9),
+                #oil-table-3 > tbody > tr:nth-child(13),
+                #oil-table-3 > tbody > tr:nth-child(15),
+                #gas-table-2 > tbody > tr:nth-child(8),
+                #gas-table-2 > tbody > tr:nth-child(10),
+                #gas-table-2 > tbody > tr:nth-child(14),
+                #gas-table-2 > tbody > tr:nth-child(18),
+                #gas-table-3 > tbody > tr:nth-child(7),
+                #gas-table-3 > tbody > tr:nth-child(11),
+                #gas-table-3 > tbody > tr:nth-child(14),
+                #gas-table-3 > tbody > tr:nth-child(16),
+                #solar-table-2 > tbody > tr:nth-child(6),
+                #energy-resources-and-market-table-4 > tbody > tr:nth-child(10),
+                #energy-resources-and-market-table-5 > tbody > tr:nth-child(7),
+                #energy-resources-and-market-table-6 > tbody > tr:nth-child(8),
+                #measurements-table-5 > tbody > tr:nth-child(10),
+                #measurements-table-5 > tbody > tr:nth-child(11)
+
+                {
+                    border-top: 2px solid gray;
+                     /* #337ab7; */
+                }
+        
+        .image img:hover,
+        .summary-image:hover {
+            cursor: pointer;
+        }
+        
+        .excel:before {
+            width: 2em;
+            height: 2em;
+            background-size: 2em 2em;
+            display: inline-block;
+            content: "";
+            margin: 0 1em;
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjExMC4wMzc1OCIKICAgaGVpZ2h0PSIxMDcuNSIKICAgdmlld0JveD0iMCAwIDg4LjAzMDA2NiA4NiIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnMiIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC40OC4zLjEgcjk4ODYiCiAgIHNvZGlwb2RpOmRvY25hbWU9IndvcmQuc3ZnIj4KICA8bWV0YWRhdGEKICAgICBpZD0ibWV0YWRhdGExMjYiPgogICAgPHJkZjpSREY+CiAgICAgIDxjYzpXb3JrCiAgICAgICAgIHJkZjphYm91dD0iIj4KICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4KICAgICAgICA8ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+CiAgICAgICAgPGRjOnRpdGxlPjwvZGM6dGl0bGU+CiAgICAgIDwvY2M6V29yaz4KICAgIDwvcmRmOlJERj4KICA8L21ldGFkYXRhPgogIDxkZWZzCiAgICAgaWQ9ImRlZnMxMjQiIC8+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxIgogICAgIG9iamVjdHRvbGVyYW5jZT0iMTAiCiAgICAgZ3JpZHRvbGVyYW5jZT0iMTAiCiAgICAgZ3VpZGV0b2xlcmFuY2U9IjEwIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwIgogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxMjgwIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijk2MCIKICAgICBpZD0ibmFtZWR2aWV3MTIyIgogICAgIHNob3dncmlkPSJmYWxzZSIKICAgICBpbmtzY2FwZTp6b29tPSIxLjA5MDU5ODMiCiAgICAgaW5rc2NhcGU6Y3g9IjM0NC44OTQ0MiIKICAgICBpbmtzY2FwZTpjeT0iNTMuNzUiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjAiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9IjAiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJzdmcyIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIiAvPgogIDxwYXRoCiAgICAgZD0ibSA0Ni4wNCwwIDUuOTQsMCBjIDAsMi42NyAwLDUuMzMgMCw4IDEwLjAxLDAgMjAuMDIsMC4wMiAzMC4wMywtMC4wMyAxLjY5LDAuMDcgMy41NSwtMC4wNSA1LjAyLDAuOTYgMS4wMywxLjQ4IDAuOTEsMy4zNiAwLjk4LDUuMDYgLTAuMDUsMTcuMzYgLTAuMDMsMzQuNzEgLTAuMDIsNTIuMDYgLTAuMDUsMi45MSAwLjI3LDUuODggLTAuMzQsOC43NSAtMC40LDIuMDggLTIuOSwyLjEzIC00LjU3LDIuMiAtMTAuMzYsMC4wMyAtMjAuNzMsLTAuMDIgLTMxLjEsMCAwLDMgMCw2IDAsOSBsIC02LjIxLDAgQyAzMC41Myw4My4yMyAxNS4yNiw4MC42NyAwLDc4IDAsNTQuNjcgMCwzMS4zNCAwLDguMDEgMTUuMzUsNS4zNCAzMC43LDIuNzEgNDYuMDQsMCB6IgogICAgIGlkPSJwYXRoMTAiCiAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICBzdHlsZT0iZmlsbDojMjA3MjQ1IiAvPgogIDxwYXRoCiAgICAgZD0ibSA1MS45OCwxMSBjIDExLDAgMjIsMCAzMywwIDAsMjEgMCw0MiAwLDYzIC0xMSwwIC0yMiwwIC0zMywwIDAsLTIgMCwtNCAwLC02IDIuNjcsMCA1LjMzLDAgOCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IC0yLjY3LDAgLTUuMzMsMCAtOCwwIDAsLTEuMzMgMCwtMi42NyAwLC00IDIuNjcsMCA1LjMzLDAgOCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IC0yLjY3LDAgLTUuMzMsMCAtOCwwIDAsLTEuMzMgMCwtMi42NyAwLC00IDIuNjcsMCA1LjMzLDAgOCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IC0yLjY3LDAgLTUuMzMsMCAtOCwwIDAsLTEuMzMgMCwtMi42NyAwLC00IDIuNjcsMCA1LjMzLDAgOCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IC0yLjY3LDAgLTUuMzMsMCAtOCwwIDAsLTEuMzMgMCwtMi42NyAwLC00IDIuNjcsMCA1LjMzLDAgOCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IC0yLjY3LDAgLTUuMzMsMCAtOCwwIDAsLTIgMCwtNCAwLC02IHoiCiAgICAgaWQ9InBhdGg0OCIKICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIgogICAgIHN0eWxlPSJmaWxsOiNmZmZmZmYiIC8+CiAgPHBhdGgKICAgICBkPSJtIDYzLjk4LDE3IGMgNC42NywwIDkuMzMsMCAxNCwwIDAsMi4zMyAwLDQuNjcgMCw3IC00LjY3LDAgLTkuMzMsMCAtMTQsMCAwLC0yLjMzIDAsLTQuNjcgMCwtNyB6IgogICAgIGlkPSJwYXRoNTgiCiAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICBzdHlsZT0iZmlsbDojMjA3MjQ1IiAvPgogIDxwYXRoCiAgICAgZD0ibSAyOS42MiwyNi4zNyBjIDIuMjYsLTAuMTYgNC41MywtMC4zIDYuOCwtMC40MSAtMi42Nyw1LjQ3IC01LjM1LDEwLjk0IC04LjA3LDE2LjM5IDIuNzUsNS42IDUuNTYsMTEuMTYgOC4zMiwxNi43NiAtMi40MSwtMC4xNCAtNC44MSwtMC4yOSAtNy4yMiwtMC40NiAtMS43LC00LjE3IC0zLjc3LC04LjIgLTQuOTksLTEyLjU2IC0xLjM2LDQuMDYgLTMuMyw3Ljg5IC00Ljg2LDExLjg3IC0yLjE5LC0wLjAzIC00LjM4LC0wLjEyIC02LjU3LC0wLjIxIDIuNTcsLTUuMDMgNS4wNSwtMTAuMSA3LjcsLTE1LjEgLTIuMjUsLTUuMTUgLTQuNzIsLTEwLjIgLTcuMDQsLTE1LjMyIDIuMiwtMC4xMyA0LjQsLTAuMjYgNi42LC0wLjM4IDEuNDksMy45MSAzLjEyLDcuNzcgNC4zNSwxMS43OCAxLjMyLC00LjI1IDMuMjksLTguMjUgNC45OCwtMTIuMzYgeiIKICAgICBpZD0icGF0aDcyIgogICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiCiAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZiIgLz4KICA8cGF0aAogICAgIGQ9Im0gNjMuOTgsMjggYyA0LjY3LDAgOS4zMywwIDE0LDAgMCwyLjMzIDAsNC42NyAwLDcgLTQuNjcsMCAtOS4zMywwIC0xNCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IHoiCiAgICAgaWQ9InBhdGg5MCIKICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIgogICAgIHN0eWxlPSJmaWxsOiMyMDcyNDUiIC8+CiAgPHBhdGgKICAgICBkPSJtIDYzLjk4LDM5IGMgNC42NywwIDkuMzMsMCAxNCwwIDAsMi4zMyAwLDQuNjcgMCw3IC00LjY3LDAgLTkuMzMsMCAtMTQsMCAwLC0yLjMzIDAsLTQuNjcgMCwtNyB6IgogICAgIGlkPSJwYXRoMTA4IgogICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiCiAgICAgc3R5bGU9ImZpbGw6IzIwNzI0NSIgLz4KICA8cGF0aAogICAgIGQ9Im0gNjMuOTgsNTAgYyA0LjY3LDAgOS4zMywwIDE0LDAgMCwyLjMzIDAsNC42NyAwLDcgLTQuNjcsMCAtOS4zMywwIC0xNCwwIDAsLTIuMzMgMCwtNC42NyAwLC03IHoiCiAgICAgaWQ9InBhdGgxMTQiCiAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICBzdHlsZT0iZmlsbDojMjA3MjQ1IiAvPgogIDxwYXRoCiAgICAgZD0ibSA2My45OCw2MSBjIDQuNjcsMCA5LjMzLDAgMTQsMCAwLDIuMzMgMCw0LjY3IDAsNyAtNC42NywwIC05LjMzLDAgLTE0LDAgMCwtMi4zMyAwLC00LjY3IDAsLTcgeiIKICAgICBpZD0icGF0aDEyMCIKICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIgogICAgIHN0eWxlPSJmaWxsOiMyMDcyNDUiIC8+Cjwvc3ZnPgo=');
+            vertical-align: middle;
+        }
+        
+        .basin-name {
+            width: 20%;
+        }
+        
+        .td.resource-type {
+            width: 20%;
+        }
+        
+        .references li {
+            margin-left: -2em;
+        }
+        
+        section>ul>li {
+            margin: .5em 0;
+        }
+        
+        .references a:after,
+        .external:after {
+            content: "";
+            background: transparent url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/fontawesome-link-ext-black.svg') bottom 25% right / .7em no-repeat;
+            padding-right: 12px;
+        }
+        
+        .block-img img {
+            width: 100%;
+            height: auto;
+            margin-top: 2em;
+        }
+        
+        .block-img+pre {
+            margin-bottom: 2em;
+        }
+        
+        section[data-field="Resource type"] {
+            width: 10%;
+        }
+        
+        .row section.tcf {
+            width: 50%;
+        }
+        
+        .caption {
+            font-style: italic;
+        }
+        
+        .caption p,
+        .summary-caption p {
+            margin-top: 1em;
+            font-weight: 400;
+            font-style: italic;
+            font-size: smaller;
+            line-height: 1em;
+            display: -webkit-flex;
+            /* Safari */
+            -webkit-justify-content: space-around;
+            /* Safari 6.1+ */
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .footnote {
+            font-size: small;
+        }
+        
+        div.footnote>sup {
+            margin-left: 2em;
+        }
+        
+        #key-messages table {
+            text-align: left;
+            background: #fff;
+        }
+        
+        .exec-summary-table div.td:first-child {
+            padding-left: 4em;
+            text-align: left;
+            background: none;
+            color: #000;
+        }
+        
+        .exec-summary-table div.th {
+            padding-left: 3em;
+            text-align: left;
+        }
+        
+        .feedback {
+            display: inline-block;
+            background: #999;
+            color: white;
+            padding: .5em;
+            position: fixed;
+            right: -4em;
+            ;
+            top: 50%;
+            margin: 0;
+            transform: rotate(90deg);
+            border: 1px solid #fff;
+            border-top: 0;
+            border-radius: 0 1em;
+            letter-spacing: 0.1em;
+        }
+        
+        .feedback:hover {
+            color: white;
+            text-decoration: none;
+            background-color: red;
+        }
+        
+        .sq-form-submit {
+            padding: 15px 80px 15px 80px;
+            background: #006983;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            margin-top: 1.5em;
+            transition: all 0.3s ease 0s;
+        }
+        
+        .sq-form-submit:hover {
+            padding: 15px 80px 15px 80px;
+            background: #003145;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            margin-top: 1.5em;
+        }
+        
+        .form-question-title {
+            display: block;
+            width: 100%;
+            padding: 1em 0 0 0;
+            margin: 20px 0;
+            font-size: 21px;
+            line-height: inherit;
+            color: #333;
+            border: 0;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        #feedback label {
+            font-weight: normal;
+            display: inline-block;
+            width: 90%;
+            vertical-align: top;
+        }
+        /* .nav-stacked { */
+        /*.page-nav {
+    position: fixed;
+    left: 0;
+    margin: 0 1em;
+    padding: 0;
+    width: 15%;
+} */
+        
+        pre {
+            width: 100%;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+        div.ministers{
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        div.minister{
+            display: inline-block;
+            margin: 2em;
+            max-width: 200px;
+        }
+        
+        body.modal-open .modal.in {
+            display: flexbox;
+            display: flex !important;
+            align-items: center;
+        }
+        
+        .modal-body:after {
+            content: " ";
+            background: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/entypo-cancel-squared-black.svg') no-repeat;
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+        }
+        
+        .modal-body:after:hover {
+            cursor: pointer;
+        }
+        
+        .icon-cancel-squared-black {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/entypo-cancel-squared-black.svg')
+        }
+        
+        .icon-link-ext-black {
+            background-image: url('http://res.cloudinary.com/ga-aera/image/upload/v1513562234/AERA/fontawesome-link-ext-black.svg')
+        }
+        
+        .missing-img {
+            width: 200px;
+            height: 180px;
+        }
+        
+        .missing-img:before {
+            content: "Image unavailable";
+            display: inline-block;
+        }
+        
+        .contact-us {
+            width: 9em;
+        }

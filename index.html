@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Australian Energy Resources Assessment (AERA)</title>
+    <meta name="DC.Coverage" content="Commonwealth of Australia">
+    <meta name="DC.Creator" content="c\=AU\;o\=Australia Government\;ou\=Geoscience Australia">
+    <meta name="DC.Description" content="Australian Energy Resources Assessment (AERA)">
+    <meta name="DC.Identifier" content="AERA">
+    <meta name="DC.Publisher" content="c\=AU\;o\=Australian Government\;ou\=Geoscience Australia">
+    <meta name="DC.Rights" content="http://creativecommons.org/licenses/by/2.5/au/">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta http-equiv="Accept-CH" content="DPR">
+
+    <link rel="shortcut icon" href="http://www.ga.gov.au/__data/assets/file/0008/16496/favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css">
+    <link href="ga-aera-styles.css" rel="stylesheet">
+    <link href="aera-nav.css" rel="stylesheet">
+    <link href="aera-print.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
+
+    <!-- <script src='js/bootstrap.min.js'></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="js/navigo.min.js"></script>
+    <!-- <script src="//unpkg.com/navigo@6"></script> -->
+    <!-- <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-80916771-1', 'auto');
+        ga('send', 'pageview');    
+    </script> -->
+    <!-- <script src="js/cloudinary-jquery.min.js"></script> -->
+    <script src="js/app.js"></script>
+
+</head>
+
+<body id="aera-top">
+    <header class="banner home-banner">
+        <div class="centered">
+            <a href="//www.ga.gov.au" target="_blank">
+                <img src="http://res.cloudinary.com/ga-aera/image/upload/fl_sanitize/AERA/GA_stacked_white.svg" alt="Logo for Geoscience Australia"
+                    class="cld-responsive" height="100px">
+            </a>
+            <h1 class="title">
+                <a href="#!/">Australian Energy Resources Assessment</a>
+            </h1>
+        </div>
+    </header>
+
+    <nav id="menu-bar" class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="nav navbar-nav">
+                        <li role="presentation" class="active">
+                            <a href="#home">Foreword</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#executive-summary">Executive summary</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#energy-resources-and-market">Energy resources and market</a>
+                        </li>
+                        <!-- todo: fix dropdown links -->
+                        <li class="dropdown">
+                            <a href="#resources" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="menu-heading">Resources </span>
+                                <span class="caret"></span>
+                                <span class="menu-item"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a href="#oil">Oil</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#gas">Gas</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#coal">Coal</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#uranium-and-thorium">Uranium &amp; Thorium</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#geothermal">Geothermal</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#hydro">Hydro</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#wind">Wind</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#solar">Solar</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#ocean">Ocean</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#bio">Bio</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li class="dropdown">
+                            <a href="#appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="menu-heading">Appendices </span>
+                                <span class="caret"></span>
+                                <span class="menu-item"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a href="#glossary">Glossary</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#resource-classification">Resource classification</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#measurements">Measurement &amp; conversion</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#acronyms">Acronyms</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a id="printButton" href="#print"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="content" class="tab-content">
+        <!-- <article class="tab-pane" id="feedback"></article> -->
+        <article class="tab-pane active" id="home">
+            <section class="single-section">
+                <h1>Ministerial foreword</h1>
+                <p>Energy fuels our everyday lives. We harness it to light our homes, transport us across the country and around
+                    the world, power our industries and produce our food.</p>
+                <p>In Australia, we are fortunate to possess plentiful and diverse energy resources, providing security for
+                    our own domestic consumption and creating investment and job opportunities to support a growing export
+                    market. Coal, oil, gas and uranium make up more than 20 per cent of the value of Australia’s total exports,
+                    and are projected to earn around $90 billion a year over the next five years.</p>
+                <p>The 2018 edition of the
+                    <i>Australian Energy Resources Assessment</i> (AERA) is the latest update in a series of national assessments
+                    of Australia&#39;s energy resources, first released in 2010. AERA has been developed by
+                    <a href="http://www.ga.gov.au/"
+                        target="_blank">Geoscience Australia</a>
+                    in collaboration with the
+                    <a href="http://www.energy.gov.au/" target="_blank">Department of the Environment and Energy</a>
+                    and support of the
+                    <a href="http://www.arena.gov.au/" target="_blank">Australian Renewable Energy Agency</a>
+                    , and provides a snapshot of Australia’s energy resources and the demand for them in both domestic and international energy
+                    markets.
+                </p>
+                <p>AERA shows that Australia has substantial energy resources, and that we are a world leader in exporting these
+                    commodities. Australia is largely under-explored for oil and gas, and there is great potential for more
+                    to be found. The Australian Government remains committed to continuing oil and gas resource exploration
+                    and development to ensure plentiful, reliable energy supply for generations to come. This is achieved
+                    through measures including the
+                    <a href="http://www.ga.gov.au/eftf" target="_blank">Exploring for the Future Program</a>
+                    and the
+                    <a href="https://industry.gov.au/resource/Programs/Pages/Gas-Acceleration-Program.aspx" target="_blank">Gas Acceleration Program</a>
+                    .</p>
+                <p>Australia also has abundant and widely-distributed renewable energy resources. Reflecting Australian Government
+                    policies such as the Renewable Energy Target, the use of renewable energy rose to around 16 per cent
+                    of Australia’s electricity generation in 2016. The use of hydro energy is well established, and wind
+                    and solar energy are becoming increasingly important to our energy mix. Other renewable energy resources
+                    such as geothermal, ocean and bio resources show great potential but remain largely undeveloped.</p>
+                <p>AERA provides the data that industry and policy makers need to compare energy commodities and understand
+                    their value on the domestic and world markets. This evidence base is essential for making informed decisions
+                    on resource and energy policies that affect the Australian people, economy and environment, and for ensuring
+                    the Australian Government is responsive to energy market changes. The Australian Government is powering
+                    forward with the National Energy Guarantee, a plan for a better energy future for Australia that will
+                    deliver an affordable and reliable energy system that will also help meet our international commitments..</p>
+                <p>The 2018 update of AERA has been developed as a website, making it easier to navigate and enabling digital
+                    delivery of the underpinning datasets. This gives users the unprecedented ability to compare and integrate
+                    the data with other sources in innovative ways.</p>
+                <p>AERA provides valuable information to ensure that Australia remains at the forefront of reliable energy resource
+                    use, exploration, production and export into the future.</p>
+                <div class="ministers">
+                    <div class="minister">
+                        <img class="minister-image" src="http://res.cloudinary.com/ga-aera/image/upload/s--9cf72kyk--/c_scale,w_200,cs_srgb,f_auto/v1/Minister_Canavan.png">
+                        <img class="minister-image" src="http://res.cloudinary.com/ga-aera/image/upload/s--9cf72kyk--/cs_srgb,f_auto,c_scale,w_200/v1/Canavan_signature.png">
+                    </div>
+                    <div class="minister">
+                        <img class="minister-image" src="http://res.cloudinary.com/ga-aera/image/upload/s--9cf72kyk--/c_scale,w_200,cs_srgb,f_auto/v1/Minister_Frydenberg.png">
+                        <img class="minister-image" src="http://res.cloudinary.com/ga-aera/image/upload/s--q8TA73Oo--/c_scale,f_auto,w_200/v1524554543/JF_Signature.jpg">
+                    </div>
+                </div>
+            </section>
+        </article>
+        <article class="tab-pane active" id="executive-summary"></article>
+        <article class="tab-pane active" id="energy-resources-and-market"></article>
+        <article class="tab-pane active" id="oil"></article>
+        <article class="tab-pane active" id="gas"></article>
+        <article class="tab-pane active" id="coal"></article>
+        <article class="tab-pane active" id="uranium-and-thorium"></article>
+        <article class="tab-pane active" id="geothermal"></article>
+        <article class="tab-pane active" id="hydro"></article>
+        <article class="tab-pane active" id="wind"></article>
+        <article class="tab-pane active" id="solar"></article>
+        <article class="tab-pane active" id="ocean"></article>
+        <article class="tab-pane active" id="bio"></article>
+        <article class="tab-pane active" id="glossary"></article>
+        <article class="tab-pane active" id="resource-classification"></article>
+        <article class="tab-pane active" id="measurements"></article>
+        <article class="tab-pane active" id="acronyms"></article>
+    </main>
+
+    <footer id="footer-main" class="footer-global">
+        <div>
+            <div class="block-group">
+
+                <!-- <div class="contact-us">
+                    <a href="http://www.ga.gov.au/contact-us" target="_blank" class="btn btn-default ">Contact us</a>
+                </div> -->
+
+                <nav id="footer-bottom-nav" class="block col-width-auto">
+                    <ul class="nav nav-pills">
+                        <li>
+                            <a href="http://www.ga.gov.au/home" target="_blank">www.ga.gov.au</a>
+                        </li>
+                        <li>
+                            <a href="http://www.ga.gov.au/copyright" target="_blank">Copyright</a>
+                        </li>
+                        <li>
+                            <a href="http://www.ga.gov.au/privacy" target="_blank">Privacy</a>
+                        </li>
+                        <li>
+                            <a href="http://www.ga.gov.au/accessibility" target="_blank">Accessibility</a>
+                        </li>
+                        <li>
+                            <a href="http://www.ga.gov.au/ips" target="_blank">Information Publication Scheme</a>
+                        </li>
+                        <li>
+                            <a href="http://www.ga.gov.au/ips/foi" target="_blank">Freedom of Information</a>
+                        </li>
+                        <li class="contact-us">
+                            <a href="http://www.ga.gov.au/contact-us" target="_blank" class="btn btn-default ">Contact us</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="block col-lg-1-12 acknowl" style="padding-top:15px;">Geoscience Australia acknowledges the traditional owners of the country throughout Australia and their continuing
+                    connection to land, sea and community. We pay our respect to them and their cultures and to the elders
+                    past and present.</div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

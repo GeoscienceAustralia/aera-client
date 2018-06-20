@@ -1,11 +1,20 @@
-# aera-client [![Build Status](https://travis-ci.org/GeoscienceAustralia/aera-client.svg?branch=master)](https://travis-ci.org/GeoscienceAustralia/aera-client)
+# README #
 
-Web client for AERA project
+'Australian energy resources assessment' website project. 
 
-`gulp run` starts the server running and watches scss files, converts them to css and concatenates them into a
-single aera.css file (which is linked in index.html). This file is not minified and there is no live-reload on the
-server
 
-`gulp test` runs unit & functional tests. To just run one or the other use `test-unit` or `test-functional`
+### What is this repository for? ###
 
-`gulp build` concatenates, uglifies, minifies etc and copies everything to the build folder
+* This repo. builds a template and deploys it to the S3 production website - aera.ga.gov.au, as well as development and staging websites.
+
+### How do I get set up? ###
+
+* Configure pipelines.yml to push branches to specific endpoints
+
+### Contribution guidelines ###
+
+* Contributions managed by MDT-2 'Resource Raptors' at Geoscience Australia.
+
+### Who do I talk to? ###
+
+* Repo owner: Damian Clark, damian.clark@ga.gov.au, +61 2 6249 9005

@@ -1,0 +1,3 @@
+for (var i = 0; i < document.getElementsByTagName('article').length; i++){ document.getElementsByTagName('article')[i].classList.add('active')}
+for (var i = 0; i < document.getElementsByClassName('nav nav-pills nav-stacked').length; i++){ document.getElementsByClassName('nav nav-pills nav-stacked')[i].style.display = 'none';}
+for (var i = 0; i < document.getElementsById('side-bar').length; i++){ document.getElementsById('side-bar')[i].removeAttribute('class');

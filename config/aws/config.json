@@ -1,6 +1,0 @@
-{
-  "name": "aera-config",
-  "constants": {
-    "apiEndpoint": "http://dev-aera-elasticl-1v5ajx0ww3162-626516375.ap-southeast-2.elb.amazonaws.com/aera-api/api"
-  }
-}

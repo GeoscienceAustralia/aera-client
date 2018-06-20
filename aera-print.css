@@ -1,0 +1,45 @@
+ @media only print{
+           
+            header, .side-bar ul, #menu-bar,footer, .asset-excel, .date {
+                display: none !important;
+            }
+            nav.side-bar, 
+            nav.side-bar.page-nav,
+            nav.side-bar.page-nav h1{
+                position: relative !important;
+                width: 100%;
+                float: none;
+                padding: 0;
+                margin: inherit;
+            }
+
+            .page-nav, .page-nav.affix{
+                top: inherit !important;
+            }
+            article {
+                page-break-before: always;
+                display: block !important;
+                position: relative;
+            }
+            section:first-of-type{
+                clear: both !important;
+            }
+            a{
+                color: blue;
+            }
+            main{
+                width: auto;
+                margin: 5em;
+            }
+            a[data-fancybox] {
+                max-width: 800px !important;
+                display: block;
+                clear: both;
+            }
+
+           a[data-fancybox] *, 
+           {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }

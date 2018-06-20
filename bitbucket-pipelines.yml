@@ -1,0 +1,50 @@
+image: node:7.5.0
+
+pipelines:
+  default:
+    - step:
+        name: Build and push to S3
+        script:
+          - apt-get update
+          - apt-get install -y python-dev
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip install awscli
+          - aws s3 sync --delete . s3://$DEV_S3_BUCKET/try/$BITBUCKET_BRANCH  --exclude ".*"
+  branches:
+    AERA-*:
+      - step:
+          script:
+          - apt-get update
+          - apt-get install -y python-dev
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip install awscli
+          - aws s3 sync --delete . s3://$DEV_S3_BUCKET/$BITBUCKET_BRANCH  --exclude ".*" 
+    develop:
+      - step:
+          script:
+          - apt-get update
+          - apt-get install -y python-dev
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip install awscli
+          - aws s3 sync --delete . s3://$DEV_S3_BUCKET  --exclude ".*"  
+    staging:
+      - step:
+          script:
+          - apt-get update
+          - apt-get install -y python-dev
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip install awscli
+          - aws s3 sync --delete . s3://$STAGING_S3_BUCKET  --exclude ".*"       
+    release:
+      - step:
+          script:
+          - apt-get update
+          - apt-get install -y python-dev
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip install awscli
+          - aws s3 sync --delete . s3://$PROD_S3_BUCKET  --exclude ".*"
